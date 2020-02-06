@@ -473,8 +473,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/pin_manager.c: 75:     ANSELB = 0x30;
 [e = _ANSELB -> -> 48 `i `uc ]
 "76
-[; ;mcc_generated_files/pin_manager.c: 76:     ANSELA = 0x17;
-[e = _ANSELA -> -> 23 `i `uc ]
+[; ;mcc_generated_files/pin_manager.c: 76:     ANSELA = 0x13;
+[e = _ANSELA -> -> 19 `i `uc ]
 "81
 [; ;mcc_generated_files/pin_manager.c: 81:     WPUB = 0x00;
 [e = _WPUB -> -> 0 `i `uc ]

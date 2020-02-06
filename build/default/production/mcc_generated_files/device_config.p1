@@ -23,4 +23,4 @@ Version 4.0 HI-TECH Software Intermediate Code
 [p x LPBOR = OFF ]
 "63
 [; ;mcc_generated_files/device_config.c: 63: 
-[p x LVP = ON ]
+[p x LVP = OFF ]

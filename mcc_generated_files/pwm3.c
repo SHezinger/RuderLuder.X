@@ -61,8 +61,8 @@
     // PWM3POL active_hi; PWM3OE enabled; PWM3EN enabled; 
     PWM3CON = 0xC0;   
 
-    // PWM3DCH 127; 
-    PWM3DCH = 0x7F;   
+    // PWM3DCH 249; 
+    PWM3DCH = 0xF9;   
 
     // PWM3DCL 3; 
     PWM3DCL = 0xC0;   

@@ -4046,13 +4046,6 @@ typedef uint32_t uint_fast32_t;
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
 # 53 "./mcc_generated_files/mcc.h" 2
 
-# 1 "./mcc_generated_files/pwm3.h" 1
-# 102 "./mcc_generated_files/pwm3.h"
- void PWM3_Initialize(void);
-# 129 "./mcc_generated_files/pwm3.h"
- void PWM3_LoadDutyValue(uint16_t dutyValue);
-# 54 "./mcc_generated_files/mcc.h" 2
-
 # 1 "./mcc_generated_files/tmr2.h" 1
 # 103 "./mcc_generated_files/tmr2.h"
 void TMR2_Initialize(void);
@@ -4068,6 +4061,13 @@ void TMR2_WriteTimer(uint8_t timerVal);
 void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 325 "./mcc_generated_files/tmr2.h"
 _Bool TMR2_HasOverflowOccured(void);
+# 54 "./mcc_generated_files/mcc.h" 2
+
+# 1 "./mcc_generated_files/pwm3.h" 1
+# 102 "./mcc_generated_files/pwm3.h"
+ void PWM3_Initialize(void);
+# 129 "./mcc_generated_files/pwm3.h"
+ void PWM3_LoadDutyValue(uint16_t dutyValue);
 # 55 "./mcc_generated_files/mcc.h" 2
 
 # 1 "./mcc_generated_files/adc.h" 1
@@ -4124,51 +4124,332 @@ typedef enum states
 
 
 
+
+
+static uint32_t i = 0;
+
+
 void main(void)
 {
 
     SYSTEM_Initialize();
-# 76 "main.c"
+# 81 "main.c"
     static state_t mainState = STATE_NORMAL;
 
-    while (1)
+    TMR2_StartTimer();
+
+    PWM3_Initialize();
+
+
+
+    while(1)
     {
         static adc_channel_t channel = channelBrightness;
 
 
-
-        if(channel == channelBrightness)
-        {
-            channel = channelRudder;
-        }
-        else
-        {
-            channel = channelBrightness;
-        }
+        channel = (channel == channelRudder) ? channelBrightness : channelRudder;
 
 
+        uint16_t adcValue = ADC_GetConversion(channel);
 
-        ADC_SelectChannel(channel);
-        ADC_StartConversion();
-        while(!ADC_IsConversionDone());
-        uint16_t adcValue = ADC_GetConversionResult();
+
 
         switch(mainState)
         {
-            STATE_NORMAL:
+            case STATE_NORMAL:
 
-                if(channel == channelBrightness)
+
+                if(channel == channelRudder)
                 {
-                    PWM3_LoadDutyValue(adcValue);
+
                 }
                 else
                 {
 
-                    channel = channelBrightness;
+
+
+                    i++;
+
+
+
+
+                    PWM3_LoadDutyValue(adcValue);
+
+                    adcValue = 1023;
+
+                    if(adcValue < 54)
+                    {
+                        do { LATCbits.LATC0 = 1; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 108)
+                    {
+                        do { LATCbits.LATC0 = 1; } while(0);
+                        do { LATCbits.LATC1 = 1; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+
+                    }
+                    else if(adcValue < 162)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 1; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 215)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 1; } while(0);
+                        do { LATCbits.LATC2 = 1; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 269)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 1; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 323)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 1; } while(0);
+                        do { LATCbits.LATC3 = 1; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 377)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 1; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 431)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 1; } while(0);
+                        do { LATCbits.LATC4 = 1; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 485)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 1; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 538)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 592)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 1; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 646)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 1; } while(0);
+                        do { LATCbits.LATC7 = 1; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 700)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 1; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 754)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 1; } while(0);
+                        do { LATBbits.LATB5 = 1; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 808)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 1; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 861)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 1; } while(0);
+                        do { LATBbits.LATB6 = 1; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 915)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 1; } while(0);
+                        do { LATBbits.LATB7 = 0; } while(0);
+                    }
+                    else if(adcValue < 969)
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 1; } while(0);
+                        do { LATBbits.LATB7 = 1; } while(0);
+                    }
+                    else
+                    {
+                        do { LATCbits.LATC0 = 0; } while(0);
+                        do { LATCbits.LATC1 = 0; } while(0);
+                        do { LATCbits.LATC2 = 0; } while(0);
+                        do { LATCbits.LATC3 = 0; } while(0);
+                        do { LATCbits.LATC4 = 0; } while(0);
+                        do { LATCbits.LATC5 = 1; } while(0);
+                        do { LATCbits.LATC6 = 0; } while(0);
+                        do { LATCbits.LATC7 = 0; } while(0);
+                        do { LATBbits.LATB5 = 0; } while(0);
+                        do { LATBbits.LATB6 = 0; } while(0);
+                        do { LATBbits.LATB7 = 1; } while(0);
+                    }
+
+
                 }
                 break;
 
-            STATE_TEACH_LEFT:
+            case STATE_TEACH_LEFT:
 
                 do { LATCbits.LATC0 = 1; } while(0);
                 do { LATCbits.LATC1 = 1; } while(0);
@@ -4185,7 +4466,7 @@ void main(void)
                 do { LATBbits.LATB7 = 0; } while(0);
                 break;
 
-            STATE_TEACH_RIGHT:
+            case STATE_TEACH_RIGHT:
 
                 do { LATCbits.LATC0 = 0; } while(0);
                 do { LATCbits.LATC1 = 0; } while(0);
@@ -4203,9 +4484,5 @@ void main(void)
                 break;
         }
 
-
-
-
-
-    }
+    };
 }

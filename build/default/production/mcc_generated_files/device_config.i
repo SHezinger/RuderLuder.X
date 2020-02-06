@@ -21,6 +21,6 @@
 #pragma config STVREN = ON
 #pragma config BORV = LO
 #pragma config LPBOR = OFF
-#pragma config LVP = ON
+#pragma config LVP = OFF
 # 63 "mcc_generated_files/device_config.c"
 

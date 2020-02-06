@@ -60,8 +60,8 @@ void SYSTEM_Initialize(void)
 
 void OSCILLATOR_Initialize(void)
 {
-    // SCS FOSC; IRCF 500KHz_MF; 
-    OSCCON = 0x38;
+    // SCS INTOSC; IRCF 2MHz_HF; 
+    OSCCON = 0x62;
     // SBOREN disabled; BORFS disabled; 
     BORCON = 0x00;
 }

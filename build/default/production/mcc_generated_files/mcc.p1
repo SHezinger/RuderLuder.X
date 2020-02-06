@@ -455,8 +455,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U _OSCILLATOR_Initialize ]
 [f ]
 "64
-[; ;mcc_generated_files/mcc.c: 64:     OSCCON = 0x38;
-[e = _OSCCON -> -> 56 `i `uc ]
+[; ;mcc_generated_files/mcc.c: 64:     OSCCON = 0x62;
+[e = _OSCCON -> -> 98 `i `uc ]
 "66
 [; ;mcc_generated_files/mcc.c: 66:     BORCON = 0x00;
 [e = _BORCON -> -> 0 `i `uc ]

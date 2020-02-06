@@ -53,6 +53,11 @@ typedef enum states
 /*
                          Main application
  */
+
+
+static uint32_t i = 0;
+
+
 void main(void)
 {
     // initialize the device
@@ -62,10 +67,10 @@ void main(void)
     // Use the following macros to:
 
     // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+   // INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
+ //   INTERRUPT_PeripheralInterruptEnable();
 
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
@@ -74,45 +79,321 @@ void main(void)
     //INTERRUPT_PeripheralInterruptDisable();
     
     static state_t mainState = STATE_NORMAL;
+    
+    TMR2_StartTimer();
+    
+  
 
-    while (1)
+    
+
+    while(1)
     {
         static adc_channel_t channel = channelBrightness;
-        
                 
         //Select next adc channel
-        if(channel == channelBrightness)
-        {
-            channel = channelRudder;
-        }
-        else
-        {
-            channel = channelBrightness;
-        }
-        
+        channel = (channel == channelRudder) ? channelBrightness : channelRudder;
         
         //Get next adc value
-        ADC_SelectChannel(channel);
-        ADC_StartConversion();
-        while(!ADC_IsConversionDone());
-        uint16_t adcValue = ADC_GetConversionResult();
+        uint16_t adcValue = ADC_GetConversion(channel);
+        
+   
         
         switch(mainState)
         {
-            STATE_NORMAL:
+            case STATE_NORMAL:
+
                 //Brightness control
-                if(channel == channelBrightness)
+                if(channel == channelRudder)
                 {
-                    PWM3_LoadDutyValue(adcValue);
+                    
                 }
                 else //Rudder position
                 {
-                    //Select next ADC
-                    channel = channelBrightness;
+                    
+                    
+                    
+                    i++;
+
+                  //  adcValue = i >> 16;
+                    
+                    
+                    PWM3_LoadDutyValue(adcValue);
+                    
+                    adcValue = 1023;
+                    
+                    if(adcValue < 54)
+                    {  
+                        outputLed1_SetHigh();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 108)
+                    {
+                        outputLed1_SetHigh();
+                        outputLed2_SetHigh();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+
+                    }
+                    else if(adcValue < 162)
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetHigh();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 215)
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetHigh();
+                        outputLed3_SetHigh();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 269)
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetHigh();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 323)
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetHigh();                       
+                        outputLed4_SetHigh();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 377)
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetHigh();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 431)
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetHigh();
+                        outputLed5_SetHigh(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 485)
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetHigh(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 538)         //Center
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 592)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetHigh();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 646)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetHigh();
+                        outputLed8_SetHigh();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 700)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetHigh();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 754)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetHigh();
+                        outputLed9_SetHigh();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 808)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetHigh();
+                        outputLed10_SetLow();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 861)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetHigh();
+                        outputLed10_SetHigh();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 915)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetHigh();
+                        outputLed11_SetLow();
+                    }
+                    else if(adcValue < 969)         
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetHigh();
+                        outputLed11_SetHigh();
+                    }
+                    else   
+                    {
+                        outputLed1_SetLow();
+                        outputLed2_SetLow();
+                        outputLed3_SetLow();                       
+                        outputLed4_SetLow();
+                        outputLed5_SetLow(); 
+                        outputLed6_SetHigh();
+                        outputLed7_SetLow();
+                        outputLed8_SetLow();
+                        outputLed9_SetLow();
+                        outputLed10_SetLow();
+                        outputLed11_SetHigh();
+                    }
+                    
+
                 }
                 break;
             
-            STATE_TEACH_LEFT:
+            case STATE_TEACH_LEFT:
                 //On
                 outputLed1_SetHigh();
                 outputLed2_SetHigh();
@@ -129,7 +410,7 @@ void main(void)
                 outputLed11_SetLow();
                 break;
             
-            STATE_TEACH_RIGHT:
+            case STATE_TEACH_RIGHT:
                 //Off
                 outputLed1_SetLow();
                 outputLed2_SetLow();
@@ -147,11 +428,7 @@ void main(void)
                 break;    
         }
         
-
-        
-        
-
-    }
+    };
 }
 /**
  End of File
