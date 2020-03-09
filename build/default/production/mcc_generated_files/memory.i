@@ -1,4 +1,4 @@
-# 1 "mcc_generated_files/adc.c"
+# 1 "mcc_generated_files/memory.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "mcc_generated_files/adc.c" 2
-# 51 "mcc_generated_files/adc.c"
+# 1 "mcc_generated_files/memory.c" 2
+# 51 "mcc_generated_files/memory.c"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -3944,10 +3944,13 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 51 "mcc_generated_files/adc.c" 2
+# 51 "mcc_generated_files/memory.c" 2
 
-# 1 "mcc_generated_files/adc.h" 1
-# 55 "mcc_generated_files/adc.h"
+# 1 "mcc_generated_files/memory.h" 1
+# 54 "mcc_generated_files/memory.h"
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
+# 54 "mcc_generated_files/memory.h" 2
+
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 1 3
 # 22 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 3
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\bits/alltypes.h" 1 3
@@ -4031,133 +4034,135 @@ typedef int32_t int_fast32_t;
 typedef uint32_t uint_fast16_t;
 typedef uint32_t uint_fast32_t;
 # 139 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 2 3
-# 55 "mcc_generated_files/adc.h" 2
+# 55 "mcc_generated_files/memory.h" 2
+# 99 "mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
+# 128 "mcc_generated_files/memory.h"
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+# 164 "mcc_generated_files/memory.h"
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+# 189 "mcc_generated_files/memory.h"
+void FLASH_EraseBlock(uint16_t startAddr);
+# 52 "mcc_generated_files/memory.c" 2
 
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
-# 56 "mcc_generated_files/adc.h" 2
-# 72 "mcc_generated_files/adc.h"
-typedef uint16_t adc_result_t;
 
 
 
 
-typedef struct
+
+uint16_t FLASH_ReadWord(uint16_t flashAddr)
 {
-    adc_result_t adcResult1;
-    adc_result_t adcResult2;
-} adc_sync_double_result_t;
-# 95 "mcc_generated_files/adc.h"
-typedef enum
-{
-    channelRudder = 0x3,
-    channelBrightness = 0xA,
-    channel_Temp = 0x1D,
-    channel_FVR = 0x1F
-} adc_channel_t;
-# 136 "mcc_generated_files/adc.h"
-void ADC_Initialize(void);
-# 166 "mcc_generated_files/adc.h"
-void ADC_SelectChannel(adc_channel_t channel);
-# 193 "mcc_generated_files/adc.h"
-void ADC_StartConversion();
-# 225 "mcc_generated_files/adc.h"
-_Bool ADC_IsConversionDone();
-# 258 "mcc_generated_files/adc.h"
-adc_result_t ADC_GetConversionResult(void);
-# 288 "mcc_generated_files/adc.h"
-adc_result_t ADC_GetConversion(adc_channel_t channel);
-# 316 "mcc_generated_files/adc.h"
-void ADC_TemperatureAcquisitionDelay(void);
-# 52 "mcc_generated_files/adc.c" 2
+    uint8_t GIEBitValue = INTCONbits.GIE;
 
-# 1 "mcc_generated_files/device_config.h" 1
-# 53 "mcc_generated_files/adc.c" 2
+    INTCONbits.GIE = 0;
+    PMADRL = (flashAddr & 0x00FF);
+    PMADRH = ((flashAddr & 0xFF00) >> 8);
 
+    PMCON1bits.CFGS = 0;
+    PMCON1bits.RD = 1;
+    __nop();
+    __nop();
+    INTCONbits.GIE = GIEBitValue;
 
-
-
-
-
-
-
-void (*ADC_InterruptHandler)(void);
-
-
-
-
-
-void ADC_Initialize(void)
-{
-
-
-
-    ADCON0 = 0x01;
-
-
-    ADCON1 = 0xC0;
-
-
-    ADCON2 = 0x00;
-
-
-    ADRESL = 0x00;
-
-
-    ADRESH = 0x00;
-
+    return ((uint16_t)((PMDATH << 8) | PMDATL));
 }
 
-void ADC_SelectChannel(adc_channel_t channel)
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word)
 {
-
-    ADCON0bits.CHS = channel;
-
-    ADCON0bits.ADON = 1;
-}
-
-void ADC_StartConversion()
-{
-
-    ADCON0bits.GO_nDONE = 1;
-}
+    uint16_t blockStartAddr = (uint16_t)(flashAddr & ((0x800 -1) ^ (16 -1)));
+    uint8_t offset = (uint8_t)(flashAddr & (16 -1));
+    uint8_t i;
 
 
-_Bool ADC_IsConversionDone()
-{
-
-   return ((_Bool)(!ADCON0bits.GO_nDONE));
-}
-
-adc_result_t ADC_GetConversionResult(void)
-{
-
-    return ((adc_result_t)((ADRESH << 8) + ADRESL));
-}
-
-adc_result_t ADC_GetConversion(adc_channel_t channel)
-{
-
-    ADCON0bits.CHS = channel;
-
-
-    ADCON0bits.ADON = 1;
-
-
-    _delay((unsigned long)((5)*(4000000/4000000.0)));
-
-
-    ADCON0bits.GO_nDONE = 1;
-
-
-    while (ADCON0bits.GO_nDONE)
+    for (i=0; i<16; i++)
     {
+        ramBuf[i] = FLASH_ReadWord((blockStartAddr+i));
     }
 
 
-    return ((adc_result_t)((ADRESH << 8) + ADRESL));
+    ramBuf[offset] = word;
+
+
+    FLASH_WriteBlock(blockStartAddr, ramBuf);
 }
 
-void ADC_TemperatureAcquisitionDelay(void)
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray)
 {
-    _delay((unsigned long)((200)*(4000000/4000000.0)));
+    uint16_t blockStartAddr = (uint16_t )(writeAddr & ((0x800 -1) ^ (16 -1)));
+    uint8_t GIEBitValue = INTCONbits.GIE;
+    uint8_t i;
+
+
+    if( writeAddr != blockStartAddr )
+    {
+        return -1;
+    }
+
+    INTCONbits.GIE = 0;
+
+
+    FLASH_EraseBlock(writeAddr);
+
+
+    PMCON1bits.CFGS = 0;
+    PMCON1bits.WREN = 1;
+    PMCON1bits.LWLO = 1;
+
+    for (i=0; i<16; i++)
+    {
+
+        PMADRL = (writeAddr & 0xFF);
+
+        PMADRH = ((writeAddr & 0xFF00) >> 8);
+
+
+        PMDATL = flashWordArray[i];
+        PMDATH = ((flashWordArray[i] & 0xFF00) >> 8);
+
+        if(i == (16 -1))
+        {
+
+            PMCON1bits.LWLO = 0;
+        }
+
+        PMCON2 = 0x55;
+        PMCON2 = 0xAA;
+        PMCON1bits.WR = 1;
+        __nop();
+        __nop();
+
+ writeAddr++;
+    }
+
+    PMCON1bits.WREN = 0;
+    INTCONbits.GIE = GIEBitValue;
+
+    return 0;
+}
+
+void FLASH_EraseBlock(uint16_t startAddr)
+{
+    uint8_t GIEBitValue = INTCONbits.GIE;
+
+
+    INTCONbits.GIE = 0;
+
+    PMADRL = (startAddr & 0xFF);
+
+    PMADRH = ((startAddr & 0xFF00) >> 8);
+
+
+    PMCON1bits.CFGS = 0;
+    PMCON1bits.FREE = 1;
+    PMCON1bits.WREN = 1;
+
+
+    PMCON2 = 0x55;
+    PMCON2 = 0xAA;
+    PMCON1bits.WR = 1;
+    __nop();
+    __nop();
+
+    PMCON1bits.WREN = 0;
+    INTCONbits.GIE = GIEBitValue;
 }

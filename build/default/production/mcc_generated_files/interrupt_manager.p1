@@ -1,34 +1,24 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"289 mcc_generated_files/pin_manager.h
-[; ;mcc_generated_files/pin_manager.h: 289: void PIN_MANAGER_Initialize (void);
-[v _PIN_MANAGER_Initialize `(v ~T0 @X0 0 ef ]
-"88 mcc_generated_files/mcc.h
-[; ;mcc_generated_files/mcc.h: 88: void OSCILLATOR_Initialize(void);
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 0 ef ]
-"100
-[; ;mcc_generated_files/mcc.h: 100: void WDT_Initialize(void);
-[v _WDT_Initialize `(v ~T0 @X0 0 ef ]
-"136 mcc_generated_files/adc.h
-[; ;mcc_generated_files/adc.h: 136: void ADC_Initialize(void);
-[v _ADC_Initialize `(v ~T0 @X0 0 ef ]
-"102 mcc_generated_files/pwm3.h
-[; ;mcc_generated_files/pwm3.h: 102:  void PWM3_Initialize(void);
-[v _PWM3_Initialize `(v ~T0 @X0 0 ef ]
-"103 mcc_generated_files/tmr2.h
-[; ;mcc_generated_files/tmr2.h: 103: void TMR2_Initialize(void);
-[v _TMR2_Initialize `(v ~T0 @X0 0 ef ]
-"104 mcc_generated_files/tmr0.h
-[; ;mcc_generated_files/tmr0.h: 104: void TMR0_Initialize(void);
-[v _TMR0_Initialize `(v ~T0 @X0 0 ef ]
-"1422 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 1422: extern volatile unsigned char OSCCON __attribute__((address(0x099)));
-[v _OSCCON `Vuc ~T0 @X0 0 e@153 ]
-"1921
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 1921: extern volatile unsigned char BORCON __attribute__((address(0x116)));
-[v _BORCON `Vuc ~T0 @X0 0 e@278 ]
-"1363
-[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 1363: extern volatile unsigned char WDTCON __attribute__((address(0x097)));
-[v _WDTCON `Vuc ~T0 @X0 0 e@151 ]
+[t ~ __interrupt . k ]
+[t T1 __interrupt ]
+"357 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 357:     struct {
+[s S31 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S31 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
+"367
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 367:     struct {
+[s S32 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S32 . . T0IF . T0IE ]
+"356
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 356: typedef union {
+[u S30 `S31 1 `S32 1 ]
+[n S30 . . . ]
+"374
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 374: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
+[v _INTCONbits `VS30 ~T0 @X0 0 e@11 ]
+"225 mcc_generated_files/tmr0.h
+[; ;mcc_generated_files/tmr0.h: 225: void TMR0_ISR(void);
+[v _TMR0_ISR `(v ~T0 @X0 0 ef ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 54: __asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
@@ -419,69 +409,39 @@ Version 4.0 HI-TECH Software Intermediate Code
 "6215
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 6215: __asm("TOSH equ 0FEFh");
 [; <" TOSH equ 0FEFh ;# ">
-"50 mcc_generated_files/mcc.c
-[; ;mcc_generated_files/mcc.c: 50: void SYSTEM_Initialize(void)
-[v _SYSTEM_Initialize `(v ~T0 @X0 1 ef ]
-"51
-[; ;mcc_generated_files/mcc.c: 51: {
-{
-[e :U _SYSTEM_Initialize ]
-[f ]
+[v $root$_INTERRUPT_InterruptManager `(v ~T0 @X0 0 e ]
+"52 mcc_generated_files/interrupt_manager.c
+[; ;mcc_generated_files/interrupt_manager.c: 52: void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager (void)
+[v _INTERRUPT_InterruptManager `(v ~T1 @X0 1 ef ]
 "53
-[; ;mcc_generated_files/mcc.c: 53:     PIN_MANAGER_Initialize();
-[e ( _PIN_MANAGER_Initialize ..  ]
-"54
-[; ;mcc_generated_files/mcc.c: 54:     OSCILLATOR_Initialize();
-[e ( _OSCILLATOR_Initialize ..  ]
+[; ;mcc_generated_files/interrupt_manager.c: 53: {
+{
+[e :U _INTERRUPT_InterruptManager ]
+[f ]
 "55
-[; ;mcc_generated_files/mcc.c: 55:     WDT_Initialize();
-[e ( _WDT_Initialize ..  ]
+[; ;mcc_generated_files/interrupt_manager.c: 55:     if(INTCONbits.TMR0IE == 1 && INTCONbits.TMR0IF == 1)
+[e $ ! && == -> . . _INTCONbits 0 5 `i -> 1 `i == -> . . _INTCONbits 0 2 `i -> 1 `i 315  ]
 "56
-[; ;mcc_generated_files/mcc.c: 56:     ADC_Initialize();
-[e ( _ADC_Initialize ..  ]
+[; ;mcc_generated_files/interrupt_manager.c: 56:     {
+{
 "57
-[; ;mcc_generated_files/mcc.c: 57:     PWM3_Initialize();
-[e ( _PWM3_Initialize ..  ]
+[; ;mcc_generated_files/interrupt_manager.c: 57:         TMR0_ISR();
+[e ( _TMR0_ISR ..  ]
 "58
-[; ;mcc_generated_files/mcc.c: 58:     TMR2_Initialize();
-[e ( _TMR2_Initialize ..  ]
+[; ;mcc_generated_files/interrupt_manager.c: 58:     }
+}
+[e $U 316  ]
 "59
-[; ;mcc_generated_files/mcc.c: 59:     TMR0_Initialize();
-[e ( _TMR0_Initialize ..  ]
+[; ;mcc_generated_files/interrupt_manager.c: 59:     else
+[e :U 315 ]
 "60
-[; ;mcc_generated_files/mcc.c: 60: }
-[e :UE 314 ]
-}
+[; ;mcc_generated_files/interrupt_manager.c: 60:     {
+{
 "62
-[; ;mcc_generated_files/mcc.c: 62: void OSCILLATOR_Initialize(void)
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
-"63
-[; ;mcc_generated_files/mcc.c: 63: {
-{
-[e :U _OSCILLATOR_Initialize ]
-[f ]
-"65
-[; ;mcc_generated_files/mcc.c: 65:     OSCCON = 0x6A;
-[e = _OSCCON -> -> 106 `i `uc ]
-"67
-[; ;mcc_generated_files/mcc.c: 67:     BORCON = 0x00;
-[e = _BORCON -> -> 0 `i `uc ]
-"68
-[; ;mcc_generated_files/mcc.c: 68: }
-[e :UE 315 ]
+[; ;mcc_generated_files/interrupt_manager.c: 62:     }
 }
-"70
-[; ;mcc_generated_files/mcc.c: 70: void WDT_Initialize(void)
-[v _WDT_Initialize `(v ~T0 @X0 1 ef ]
-"71
-[; ;mcc_generated_files/mcc.c: 71: {
-{
-[e :U _WDT_Initialize ]
-[f ]
-"73
-[; ;mcc_generated_files/mcc.c: 73:     WDTCON = 0x16;
-[e = _WDTCON -> -> 22 `i `uc ]
-"74
-[; ;mcc_generated_files/mcc.c: 74: }
-[e :UE 316 ]
+[e :U 316 ]
+"63
+[; ;mcc_generated_files/interrupt_manager.c: 63: }
+[e :UE 314 ]
 }

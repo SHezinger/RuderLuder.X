@@ -1,4 +1,4 @@
-# 1 "mcc_generated_files/adc.c"
+# 1 "mcc_generated_files/tmr0.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "mcc_generated_files/adc.c" 2
-# 51 "mcc_generated_files/adc.c"
+# 1 "mcc_generated_files/tmr0.c" 2
+# 51 "mcc_generated_files/tmr0.c"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -3944,10 +3944,10 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 51 "mcc_generated_files/adc.c" 2
+# 51 "mcc_generated_files/tmr0.c" 2
 
-# 1 "mcc_generated_files/adc.h" 1
-# 55 "mcc_generated_files/adc.h"
+# 1 "mcc_generated_files/tmr0.h" 1
+# 54 "mcc_generated_files/tmr0.h"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 1 3
 # 22 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 3
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\bits/alltypes.h" 1 3
@@ -4031,133 +4031,115 @@ typedef int32_t int_fast32_t;
 typedef uint32_t uint_fast16_t;
 typedef uint32_t uint_fast32_t;
 # 139 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 2 3
-# 55 "mcc_generated_files/adc.h" 2
+# 54 "mcc_generated_files/tmr0.h" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
-# 56 "mcc_generated_files/adc.h" 2
-# 72 "mcc_generated_files/adc.h"
-typedef uint16_t adc_result_t;
-
-
-
-
-typedef struct
-{
-    adc_result_t adcResult1;
-    adc_result_t adcResult2;
-} adc_sync_double_result_t;
-# 95 "mcc_generated_files/adc.h"
-typedef enum
-{
-    channelRudder = 0x3,
-    channelBrightness = 0xA,
-    channel_Temp = 0x1D,
-    channel_FVR = 0x1F
-} adc_channel_t;
-# 136 "mcc_generated_files/adc.h"
-void ADC_Initialize(void);
-# 166 "mcc_generated_files/adc.h"
-void ADC_SelectChannel(adc_channel_t channel);
-# 193 "mcc_generated_files/adc.h"
-void ADC_StartConversion();
-# 225 "mcc_generated_files/adc.h"
-_Bool ADC_IsConversionDone();
-# 258 "mcc_generated_files/adc.h"
-adc_result_t ADC_GetConversionResult(void);
-# 288 "mcc_generated_files/adc.h"
-adc_result_t ADC_GetConversion(adc_channel_t channel);
-# 316 "mcc_generated_files/adc.h"
-void ADC_TemperatureAcquisitionDelay(void);
-# 52 "mcc_generated_files/adc.c" 2
-
-# 1 "mcc_generated_files/device_config.h" 1
-# 53 "mcc_generated_files/adc.c" 2
+# 55 "mcc_generated_files/tmr0.h" 2
+# 104 "mcc_generated_files/tmr0.h"
+void TMR0_Initialize(void);
+# 135 "mcc_generated_files/tmr0.h"
+uint8_t TMR0_ReadTimer(void);
+# 174 "mcc_generated_files/tmr0.h"
+void TMR0_WriteTimer(uint8_t timerVal);
+# 210 "mcc_generated_files/tmr0.h"
+void TMR0_Reload(void);
+# 225 "mcc_generated_files/tmr0.h"
+void TMR0_ISR(void);
+# 243 "mcc_generated_files/tmr0.h"
+void TMR0_CallBack(void);
+# 261 "mcc_generated_files/tmr0.h"
+ void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
+# 279 "mcc_generated_files/tmr0.h"
+extern void (*TMR0_InterruptHandler)(void);
+# 297 "mcc_generated_files/tmr0.h"
+void TMR0_DefaultInterruptHandler(void);
+# 52 "mcc_generated_files/tmr0.c" 2
 
 
 
 
 
 
-
-
-void (*ADC_InterruptHandler)(void);
-
+volatile uint8_t timer0ReloadVal;
+void (*TMR0_InterruptHandler)(void);
 
 
 
 
-void ADC_Initialize(void)
+void TMR0_Initialize(void)
 {
 
 
 
-    ADCON0 = 0x01;
+    OPTION_REG = (uint8_t)((OPTION_REG & 0xC0) | (0xD2 & 0x3F));
 
 
-    ADCON1 = 0xC0;
+    TMR0 = 0x45;
 
 
-    ADCON2 = 0x00;
+    timer0ReloadVal= 69;
 
 
-    ADRESL = 0x00;
+    INTCONbits.TMR0IF = 0;
 
 
-    ADRESH = 0x00;
+    INTCONbits.TMR0IE = 1;
+
+
+    TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
+}
+
+uint8_t TMR0_ReadTimer(void)
+{
+    uint8_t readVal;
+
+    readVal = TMR0;
+
+    return readVal;
+}
+
+void TMR0_WriteTimer(uint8_t timerVal)
+{
+
+    TMR0 = timerVal;
+}
+
+void TMR0_Reload(void)
+{
+
+    TMR0 = timer0ReloadVal;
+}
+
+void TMR0_ISR(void)
+{
+
+
+    INTCONbits.TMR0IF = 0;
+
+    TMR0 = timer0ReloadVal;
+
+
+
+    TMR0_CallBack();
+
 
 }
 
-void ADC_SelectChannel(adc_channel_t channel)
+void TMR0_CallBack(void)
 {
 
-    ADCON0bits.CHS = channel;
 
-    ADCON0bits.ADON = 1;
-}
-
-void ADC_StartConversion()
-{
-
-    ADCON0bits.GO_nDONE = 1;
-}
-
-
-_Bool ADC_IsConversionDone()
-{
-
-   return ((_Bool)(!ADCON0bits.GO_nDONE));
-}
-
-adc_result_t ADC_GetConversionResult(void)
-{
-
-    return ((adc_result_t)((ADRESH << 8) + ADRESL));
-}
-
-adc_result_t ADC_GetConversion(adc_channel_t channel)
-{
-
-    ADCON0bits.CHS = channel;
-
-
-    ADCON0bits.ADON = 1;
-
-
-    _delay((unsigned long)((5)*(4000000/4000000.0)));
-
-
-    ADCON0bits.GO_nDONE = 1;
-
-
-    while (ADCON0bits.GO_nDONE)
+    if(TMR0_InterruptHandler)
     {
+        TMR0_InterruptHandler();
     }
-
-
-    return ((adc_result_t)((ADRESH << 8) + ADRESL));
 }
 
-void ADC_TemperatureAcquisitionDelay(void)
-{
-    _delay((unsigned long)((200)*(4000000/4000000.0)));
+void TMR0_SetInterruptHandler(void (* InterruptHandler)(void)){
+    TMR0_InterruptHandler = InterruptHandler;
+}
+
+void TMR0_DefaultInterruptHandler(void){
+
+
 }

@@ -13,12 +13,12 @@
    @Description
      This source file provides implementations for driver APIs for PWM3.
      Generation Information :
-         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.77
+         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.78.1
          Device            :  PIC16F1507
          Driver Version    :  2.01
      The generated drivers are tested against the following:
-         Compiler          :  XC8 2.05 and above or later
-         MPLAB             :  MPLAB X 5.20
+         Compiler          :  XC8 2.10 and above or later
+         MPLAB             :  MPLAB X 5.30
  */ 
 
  /*
@@ -61,8 +61,8 @@
     // PWM3POL active_hi; PWM3OE enabled; PWM3EN enabled; 
     PWM3CON = 0xC0;   
 
-    // PWM3DCH 249; 
-    PWM3DCH = 0xF9;   
+    // PWM3DCH 255; 
+    PWM3DCH = 0xFF;   
 
     // PWM3DCL 3; 
     PWM3DCL = 0xC0;   

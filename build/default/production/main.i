@@ -4046,6 +4046,60 @@ typedef uint32_t uint_fast32_t;
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
 # 53 "./mcc_generated_files/mcc.h" 2
 
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\conio.h" 1 3
+
+
+
+
+
+
+
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\errno.h" 1 3
+# 10 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\errno.h" 3
+extern int errno;
+# 8 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\conio.h" 2 3
+
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\__null.h" 1 3
+# 9 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\conio.h" 2 3
+
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+
+
+extern char * cgets(char *);
+extern void cputs(const char *);
+# 54 "./mcc_generated_files/mcc.h" 2
+
+# 1 "./mcc_generated_files/interrupt_manager.h" 1
+# 55 "./mcc_generated_files/mcc.h" 2
+
+# 1 "./mcc_generated_files/pwm3.h" 1
+# 102 "./mcc_generated_files/pwm3.h"
+ void PWM3_Initialize(void);
+# 129 "./mcc_generated_files/pwm3.h"
+ void PWM3_LoadDutyValue(uint16_t dutyValue);
+# 56 "./mcc_generated_files/mcc.h" 2
+
+# 1 "./mcc_generated_files/memory.h" 1
+# 99 "./mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
+# 128 "./mcc_generated_files/memory.h"
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+# 164 "./mcc_generated_files/memory.h"
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+# 189 "./mcc_generated_files/memory.h"
+void FLASH_EraseBlock(uint16_t startAddr);
+# 57 "./mcc_generated_files/mcc.h" 2
+
 # 1 "./mcc_generated_files/tmr2.h" 1
 # 103 "./mcc_generated_files/tmr2.h"
 void TMR2_Initialize(void);
@@ -4061,14 +4115,7 @@ void TMR2_WriteTimer(uint8_t timerVal);
 void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 325 "./mcc_generated_files/tmr2.h"
 _Bool TMR2_HasOverflowOccured(void);
-# 54 "./mcc_generated_files/mcc.h" 2
-
-# 1 "./mcc_generated_files/pwm3.h" 1
-# 102 "./mcc_generated_files/pwm3.h"
- void PWM3_Initialize(void);
-# 129 "./mcc_generated_files/pwm3.h"
- void PWM3_LoadDutyValue(uint16_t dutyValue);
-# 55 "./mcc_generated_files/mcc.h" 2
+# 58 "./mcc_generated_files/mcc.h" 2
 
 # 1 "./mcc_generated_files/adc.h" 1
 # 72 "./mcc_generated_files/adc.h"
@@ -4104,12 +4151,33 @@ adc_result_t ADC_GetConversionResult(void);
 adc_result_t ADC_GetConversion(adc_channel_t channel);
 # 316 "./mcc_generated_files/adc.h"
 void ADC_TemperatureAcquisitionDelay(void);
-# 56 "./mcc_generated_files/mcc.h" 2
-# 71 "./mcc_generated_files/mcc.h"
+# 59 "./mcc_generated_files/mcc.h" 2
+
+# 1 "./mcc_generated_files/tmr0.h" 1
+# 104 "./mcc_generated_files/tmr0.h"
+void TMR0_Initialize(void);
+# 135 "./mcc_generated_files/tmr0.h"
+uint8_t TMR0_ReadTimer(void);
+# 174 "./mcc_generated_files/tmr0.h"
+void TMR0_WriteTimer(uint8_t timerVal);
+# 210 "./mcc_generated_files/tmr0.h"
+void TMR0_Reload(void);
+# 225 "./mcc_generated_files/tmr0.h"
+void TMR0_ISR(void);
+# 243 "./mcc_generated_files/tmr0.h"
+void TMR0_CallBack(void);
+# 261 "./mcc_generated_files/tmr0.h"
+ void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
+# 279 "./mcc_generated_files/tmr0.h"
+extern void (*TMR0_InterruptHandler)(void);
+# 297 "./mcc_generated_files/tmr0.h"
+void TMR0_DefaultInterruptHandler(void);
+# 60 "./mcc_generated_files/mcc.h" 2
+# 75 "./mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
-# 84 "./mcc_generated_files/mcc.h"
+# 88 "./mcc_generated_files/mcc.h"
 void OSCILLATOR_Initialize(void);
-# 96 "./mcc_generated_files/mcc.h"
+# 100 "./mcc_generated_files/mcc.h"
 void WDT_Initialize(void);
 # 44 "main.c" 2
 
@@ -4118,7 +4186,8 @@ typedef enum states
 {
     STATE_NORMAL,
     STATE_TEACH_LEFT,
-    STATE_TEACH_RIGHT
+    STATE_TEACH_RIGHT,
+    STATE_BLINK
 }state_t;
 
 
@@ -4128,20 +4197,152 @@ typedef enum states
 
 static uint32_t i = 0;
 
+static volatile _Bool doButtonAction = 0;
+static volatile uint32_t msTick = 0;
+static volatile _Bool doToggle;
+
+static volatile uint16_t ledBitMap = 0b11111111111;
+static volatile uint8_t ledBitIndex = 0;
+
+static state_t currentState = STATE_NORMAL;
+
+void timer0CallBack()
+{
+
+    msTick++;
+
+    if(msTick > 1023)
+    {
+        doToggle = 1;
+        msTick = 0;
+    }
+
+    do { LATCbits.LATC0 = 0; } while(0);
+    do { LATCbits.LATC1 = 0; } while(0);
+    do { LATCbits.LATC2 = 0; } while(0);
+    do { LATCbits.LATC3 = 0; } while(0);
+    do { LATCbits.LATC4 = 0; } while(0);
+    do { LATCbits.LATC5 = 0; } while(0);
+    do { LATCbits.LATC6 = 0; } while(0);
+    do { LATCbits.LATC7 = 0; } while(0);
+    do { LATBbits.LATB5 = 0; } while(0);
+    do { LATBbits.LATB6 = 0; } while(0);
+    do { LATBbits.LATB7 = 0; } while(0);
+
+
+    switch(ledBitIndex)
+    {
+        case 0:
+            if(ledBitMap & 0b00000000001)
+                do { LATCbits.LATC0 = 1; } while(0);
+            break;
+
+        case 1:
+            if(ledBitMap & 0b00000000010)
+                do { LATCbits.LATC1 = 1; } while(0);
+            break;
+
+        case 2:
+            if(ledBitMap & 0b00000000100)
+                do { LATCbits.LATC2 = 1; } while(0);
+            break;
+
+        case 3:
+            if(ledBitMap & 0b00000001000)
+                do { LATCbits.LATC3 = 1; } while(0);
+            break;
+    }
+
+    ledBitIndex++;
+
+    if(ledBitIndex > 10)
+    {
+        ledBitIndex = 0;
+    }
+
+}
+
+void setState(state_t newState)
+{
+    if(newState == currentState)
+    {
+        return;
+    }
+
+
+
+    switch(newState)
+    {
+        case STATE_NORMAL:
+            do { LATCbits.LATC0 = 0; } while(0);
+            do { LATCbits.LATC1 = 0; } while(0);
+            do { LATCbits.LATC2 = 0; } while(0);
+            do { LATCbits.LATC3 = 0; } while(0);
+            do { LATCbits.LATC4 = 0; } while(0);
+            do { LATCbits.LATC5 = 1; } while(0);
+            do { LATCbits.LATC6 = 0; } while(0);
+            do { LATCbits.LATC7 = 0; } while(0);
+            do { LATBbits.LATB5 = 0; } while(0);
+            do { LATBbits.LATB6 = 0; } while(0);
+            do { LATBbits.LATB7 = 0; } while(0);
+            break;
+
+        case STATE_TEACH_LEFT:
+            do { LATCbits.LATC0 = 1; } while(0);
+            do { LATCbits.LATC1 = 0; } while(0);
+            do { LATCbits.LATC2 = 0; } while(0);
+            do { LATCbits.LATC3 = 0; } while(0);
+            do { LATCbits.LATC4 = 0; } while(0);
+            do { LATCbits.LATC5 = 0; } while(0);
+            do { LATCbits.LATC6 = 0; } while(0);
+            do { LATCbits.LATC7 = 0; } while(0);
+            do { LATBbits.LATB5 = 0; } while(0);
+            do { LATBbits.LATB6 = 0; } while(0);
+            do { LATBbits.LATB7 = 0; } while(0);
+            break;
+
+        case STATE_TEACH_RIGHT:
+            do { LATCbits.LATC0 = 0; } while(0);
+            do { LATCbits.LATC1 = 0; } while(0);
+            do { LATCbits.LATC2 = 0; } while(0);
+            do { LATCbits.LATC3 = 0; } while(0);
+            do { LATCbits.LATC4 = 0; } while(0);
+            do { LATCbits.LATC5 = 1; } while(0);
+            do { LATCbits.LATC6 = 1; } while(0);
+            do { LATCbits.LATC7 = 1; } while(0);
+            do { LATBbits.LATB5 = 1; } while(0);
+            do { LATBbits.LATB6 = 1; } while(0);
+            do { LATBbits.LATB7 = 1; } while(0);
+            break;
+
+
+    }
+
+    msTick = 0;
+
+    currentState = newState;
+}
+
 
 void main(void)
 {
 
     SYSTEM_Initialize();
-# 81 "main.c"
-    static state_t mainState = STATE_NORMAL;
+
+
+
+
+
+    (INTCONbits.GIE = 1);
+# 208 "main.c"
+    setState(STATE_NORMAL);
+
+
+
+    TMR0_SetInterruptHandler(timer0CallBack);
 
     TMR2_StartTimer();
-
-    PWM3_Initialize();
-
-
-
+# 223 "main.c"
     while(1)
     {
         static adc_channel_t channel = channelBrightness;
@@ -4154,71 +4355,94 @@ void main(void)
 
 
 
-        switch(mainState)
+
+        if(!PORTAbits.RA5 )
         {
+            setState(STATE_BLINK);
+# 247 "main.c"
+        }
+        else
+        {
+
+            do { LATCbits.LATC5 = 0; } while(0);
+        }
+
+
+
+        if(doButtonAction)
+        {
+
+            while(!PORTAbits.RA5)
+            {
+
+            }
+
+            switch(currentState)
+            {
+                case STATE_NORMAL:
+                    setState(STATE_TEACH_LEFT);
+                    break;
+
+                case STATE_TEACH_LEFT:
+                    setState(STATE_TEACH_RIGHT);
+                    break;
+
+                case STATE_TEACH_RIGHT:
+                    setState(STATE_NORMAL);
+                    break;
+            }
+
+
+
+            doButtonAction = 0;
+        }
+
+
+
+        switch(currentState)
+        {
+            case STATE_BLINK:
+                if(doToggle)
+                {
+                    do { LATCbits.LATC0 = 1; } while(0);
+                    do { LATCbits.LATC1 = 0; } while(0);
+                    do { LATCbits.LATC2 = 0; } while(0);
+                    do { LATCbits.LATC3 = 0; } while(0);
+                    do { LATCbits.LATC4 = 0; } while(0);
+                    do { LATCbits.LATC5 = 1; } while(0);
+                    do { LATCbits.LATC6 = 0; } while(0);
+                    do { LATCbits.LATC7 = 0; } while(0);
+                    do { LATBbits.LATB5 = 0; } while(0);
+                    do { LATBbits.LATB6 = 0; } while(0);
+                    do { LATBbits.LATB7 = 0; } while(0);
+                }
+
+                break;
+
             case STATE_NORMAL:
 
 
-                if(channel == channelRudder)
+                if(channel == channelBrightness)
                 {
-
+                    PWM3_LoadDutyValue(msTick);
                 }
                 else
                 {
 
 
-
                     i++;
-
-
-
-
-                    PWM3_LoadDutyValue(adcValue);
-
-                    adcValue = 1023;
-
+# 326 "main.c"
                     if(adcValue < 54)
                     {
-                        do { LATCbits.LATC0 = 1; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
+                        ledBitMap = 0b00000100001;
                     }
                     else if(adcValue < 108)
                     {
-                        do { LATCbits.LATC0 = 1; } while(0);
-                        do { LATCbits.LATC1 = 1; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
-
+                        ledBitMap = 0b00000100011;
                     }
                     else if(adcValue < 162)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 1; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
+                        ledBitMap = 0b00000100011;
                     }
                     else if(adcValue < 215)
                     {
@@ -4450,37 +4674,27 @@ void main(void)
                 break;
 
             case STATE_TEACH_LEFT:
-
-                do { LATCbits.LATC0 = 1; } while(0);
-                do { LATCbits.LATC1 = 1; } while(0);
-                do { LATCbits.LATC2 = 1; } while(0);
-                do { LATCbits.LATC3 = 1; } while(0);
-                do { LATCbits.LATC4 = 1; } while(0);
-
-
-                do { LATCbits.LATC5 = 0; } while(0);
-                do { LATCbits.LATC6 = 0; } while(0);
-                do { LATCbits.LATC7 = 0; } while(0);
-                do { LATBbits.LATB5 = 0; } while(0);
-                do { LATBbits.LATB6 = 0; } while(0);
-                do { LATBbits.LATB7 = 0; } while(0);
+                if(doToggle)
+                {
+                    do { LATCbits.LATC0 = ~LATCbits.LATC0; } while(0);
+                    do { LATCbits.LATC1 = ~LATCbits.LATC1; } while(0);
+                    do { LATCbits.LATC2 = ~LATCbits.LATC2; } while(0);
+                    do { LATCbits.LATC3 = ~LATCbits.LATC3; } while(0);
+                    do { LATCbits.LATC4 = ~LATCbits.LATC4; } while(0);
+                    doToggle = 0;
+                }
                 break;
 
             case STATE_TEACH_RIGHT:
-
-                do { LATCbits.LATC0 = 0; } while(0);
-                do { LATCbits.LATC1 = 0; } while(0);
-                do { LATCbits.LATC2 = 0; } while(0);
-                do { LATCbits.LATC3 = 0; } while(0);
-                do { LATCbits.LATC4 = 0; } while(0);
-                do { LATCbits.LATC5 = 0; } while(0);
-
-
-                do { LATCbits.LATC6 = 1; } while(0);
-                do { LATCbits.LATC7 = 1; } while(0);
-                do { LATBbits.LATB5 = 1; } while(0);
-                do { LATBbits.LATB6 = 1; } while(0);
-                do { LATBbits.LATB7 = 1; } while(0);
+                if(doToggle)
+                {
+                    do { LATCbits.LATC6 = 1; } while(0);
+                    do { LATCbits.LATC7 = 1; } while(0);
+                    do { LATBbits.LATB5 = 1; } while(0);
+                    do { LATBbits.LATB6 = 1; } while(0);
+                    do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0);
+                    doToggle = 0;
+                }
                 break;
         }
 

@@ -13,7 +13,7 @@
   Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.77
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.78.1
         Device            :  PIC16F1507
         Driver Version    :  2.00
 */
@@ -47,7 +47,8 @@ typedef enum states
 {
     STATE_NORMAL,
     STATE_TEACH_LEFT,
-    STATE_TEACH_RIGHT
+    STATE_TEACH_RIGHT,
+    STATE_BLINK
 }state_t;
 
 /*
@@ -56,6 +57,132 @@ typedef enum states
 
 
 static uint32_t i = 0;
+
+static volatile bool doButtonAction = false;
+static volatile uint32_t msTick = 0;
+static volatile bool doToggle;
+
+static volatile uint16_t ledBitMap = 0b11111111111;
+static volatile uint8_t ledBitIndex = 0;
+
+static state_t currentState = STATE_NORMAL;
+
+void timer0CallBack()
+{
+    
+    msTick++;
+    
+    if(msTick > 1023)
+    {
+        doToggle = true;
+        msTick = 0;
+    }
+    
+    outputLed1_SetLow();
+    outputLed2_SetLow();
+    outputLed3_SetLow();
+    outputLed4_SetLow();
+    outputLed5_SetLow();
+    outputLed6_SetLow();
+    outputLed7_SetLow();
+    outputLed8_SetLow();
+    outputLed9_SetLow();
+    outputLed10_SetLow();
+    outputLed11_SetLow();
+    
+    
+    switch(ledBitIndex)
+    {
+        case 0:
+            if(ledBitMap & 0b00000000001) 
+                outputLed1_SetHigh(); 
+            break;
+            
+        case 1:
+            if(ledBitMap & 0b00000000010) 
+                outputLed2_SetHigh(); 
+            break;
+            
+        case 2:
+            if(ledBitMap & 0b00000000100) 
+                outputLed3_SetHigh(); 
+            break;
+            
+        case 3:
+            if(ledBitMap & 0b00000001000) 
+                outputLed4_SetHigh(); 
+            break;
+    }
+    
+    ledBitIndex++;
+    
+    if(ledBitIndex > 10)
+    {
+        ledBitIndex = 0;
+    }
+
+}
+
+void setState(state_t newState)
+{
+    if(newState == currentState)
+    {
+        return;
+    }
+    
+
+    
+    switch(newState)
+    {
+        case STATE_NORMAL:
+            outputLed1_SetLow();
+            outputLed2_SetLow();
+            outputLed3_SetLow();                       
+            outputLed4_SetLow();
+            outputLed5_SetLow(); 
+            outputLed6_SetHigh();
+            outputLed7_SetLow();
+            outputLed8_SetLow();
+            outputLed9_SetLow();
+            outputLed10_SetLow();
+            outputLed11_SetLow();
+            break;
+            
+        case STATE_TEACH_LEFT:
+            outputLed1_SetHigh();
+            outputLed2_SetLow();
+            outputLed3_SetLow();                       
+            outputLed4_SetLow();
+            outputLed5_SetLow(); 
+            outputLed6_SetLow();
+            outputLed7_SetLow();
+            outputLed8_SetLow();
+            outputLed9_SetLow();
+            outputLed10_SetLow();
+            outputLed11_SetLow();
+            break;
+            
+        case STATE_TEACH_RIGHT:
+            outputLed1_SetLow();
+            outputLed2_SetLow();
+            outputLed3_SetLow();                       
+            outputLed4_SetLow();
+            outputLed5_SetLow(); 
+            outputLed6_SetHigh();
+            outputLed7_SetHigh();
+            outputLed8_SetHigh();
+            outputLed9_SetHigh();
+            outputLed10_SetHigh();
+            outputLed11_SetHigh();
+            break;
+        
+        
+    }
+    
+    msTick = 0;
+            
+    currentState = newState;
+}
 
 
 void main(void)
@@ -67,7 +194,7 @@ void main(void)
     // Use the following macros to:
 
     // Enable the Global Interrupts
-   // INTERRUPT_GlobalInterruptEnable();
+    INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
  //   INTERRUPT_PeripheralInterruptEnable();
@@ -78,9 +205,16 @@ void main(void)
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
     
-    static state_t mainState = STATE_NORMAL;
+    setState(STATE_NORMAL);
     
+    
+    
+    TMR0_SetInterruptHandler(timer0CallBack);
+     
     TMR2_StartTimer();
+    
+    
+    
     
   
 
@@ -96,20 +230,88 @@ void main(void)
         //Get next adc value
         uint16_t adcValue = ADC_GetConversion(channel);
         
+        
+            
+
+        if(!inputTeachIn_GetValue() )//&& !doButtonAction)
+        {
+            setState(STATE_BLINK);
+            
+//            msPressed++;
+//
+//            if(msPressed > 3000)
+//            {
+//                doButtonAction = true;
+//            }
+//            outputLed6_SetHigh();
+        }
+        else
+        {
+          //  msPressed = 0;
+            outputLed6_SetLow();
+        }
+        
+        
+        
+        if(doButtonAction)
+        {
+            
+            while(!inputTeachIn_GetValue())
+            {
+
+            }
+            
+            switch(currentState)
+            {
+                case STATE_NORMAL:
+                    setState(STATE_TEACH_LEFT);
+                    break;
+                    
+                case STATE_TEACH_LEFT:
+                    setState(STATE_TEACH_RIGHT);
+                    break;
+
+                case STATE_TEACH_RIGHT:
+                    setState(STATE_NORMAL);
+                    break;
+            }
+            
+            
+            
+            doButtonAction = false;
+        }
+        
    
         
-        switch(mainState)
+        switch(currentState)
         {
+            case STATE_BLINK:
+                if(doToggle)
+                {
+                    outputLed1_SetHigh();
+                    outputLed2_SetLow();
+                    outputLed3_SetLow();                       
+                    outputLed4_SetLow();
+                    outputLed5_SetLow(); 
+                    outputLed6_SetHigh();
+                    outputLed7_SetLow();
+                    outputLed8_SetLow();
+                    outputLed9_SetLow();
+                    outputLed10_SetLow();
+                    outputLed11_SetLow();
+                }
+
+                break;
+            
             case STATE_NORMAL:
 
                 //Brightness control
-                if(channel == channelRudder)
+                if(channel == channelBrightness)
                 {
-                    
+                    PWM3_LoadDutyValue(msTick);
                 }
                 else //Rudder position
                 {
-                    
                     
                     
                     i++;
@@ -117,52 +319,21 @@ void main(void)
                   //  adcValue = i >> 16;
                     
                     
-                    PWM3_LoadDutyValue(adcValue);
-                    
-                    adcValue = 1023;
+                   
+                  // PWM3_LoadDutyValue(adcValue>>1);
+                   // adcValue = 1023;
                     
                     if(adcValue < 54)
                     {  
-                        outputLed1_SetHigh();
-                        outputLed2_SetLow();
-                        outputLed3_SetLow();                       
-                        outputLed4_SetLow();
-                        outputLed5_SetLow(); 
-                        outputLed6_SetHigh();
-                        outputLed7_SetLow();
-                        outputLed8_SetLow();
-                        outputLed9_SetLow();
-                        outputLed10_SetLow();
-                        outputLed11_SetLow();
+                        ledBitMap = 0b00000100001;
                     }
                     else if(adcValue < 108)
                     {
-                        outputLed1_SetHigh();
-                        outputLed2_SetHigh();
-                        outputLed3_SetLow();                       
-                        outputLed4_SetLow();
-                        outputLed5_SetLow(); 
-                        outputLed6_SetHigh();
-                        outputLed7_SetLow();
-                        outputLed8_SetLow();
-                        outputLed9_SetLow();
-                        outputLed10_SetLow();
-                        outputLed11_SetLow();
-
+                        ledBitMap = 0b00000100011;
                     }
                     else if(adcValue < 162)
                     {
-                        outputLed1_SetLow();
-                        outputLed2_SetHigh();
-                        outputLed3_SetLow();                       
-                        outputLed4_SetLow();
-                        outputLed5_SetLow(); 
-                        outputLed6_SetHigh();
-                        outputLed7_SetLow();
-                        outputLed8_SetLow();
-                        outputLed9_SetLow();
-                        outputLed10_SetLow();
-                        outputLed11_SetLow();
+                        ledBitMap = 0b00000100011;
                     }
                     else if(adcValue < 215)
                     {
@@ -394,37 +565,27 @@ void main(void)
                 break;
             
             case STATE_TEACH_LEFT:
-                //On
-                outputLed1_SetHigh();
-                outputLed2_SetHigh();
-                outputLed3_SetHigh();
-                outputLed4_SetHigh();
-                outputLed5_SetHigh();
-
-                //Off
-                outputLed6_SetLow();
-                outputLed7_SetLow();
-                outputLed8_SetLow();
-                outputLed9_SetLow();
-                outputLed10_SetLow();
-                outputLed11_SetLow();
+                if(doToggle)
+                {
+                    outputLed1_Toggle();
+                    outputLed2_Toggle();
+                    outputLed3_Toggle();
+                    outputLed4_Toggle();
+                    outputLed5_Toggle();
+                    doToggle = false;
+                }
                 break;
             
-            case STATE_TEACH_RIGHT:
-                //Off
-                outputLed1_SetLow();
-                outputLed2_SetLow();
-                outputLed3_SetLow();
-                outputLed4_SetLow();
-                outputLed5_SetLow();
-                outputLed6_SetLow();
-                
-                //On
-                outputLed7_SetHigh();
-                outputLed8_SetHigh();
-                outputLed9_SetHigh();
-                outputLed10_SetHigh();
-                outputLed11_SetHigh();
+            case STATE_TEACH_RIGHT:               
+                if(doToggle)
+                {
+                    outputLed7_SetHigh();
+                    outputLed8_SetHigh();
+                    outputLed9_SetHigh();
+                    outputLed10_SetHigh();
+                    outputLed11_Toggle();
+                    doToggle = false;
+                }
                 break;    
         }
         
