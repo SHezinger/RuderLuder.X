@@ -4065,7 +4065,7 @@ void TMR2_Initialize(void)
     PIR1bits.TMR2IF = 0;
 
 
-    T2CON = 0x3C;
+    T2CON = 0x1C;
 }
 
 void TMR2_StartTimer(void)

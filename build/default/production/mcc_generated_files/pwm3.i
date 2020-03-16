@@ -4047,7 +4047,7 @@ typedef uint32_t uint_fast32_t;
  {
 
 
-    PWM3CON = 0xC0;
+    PWM3CON = 0xD0;
 
 
     PWM3DCH = 0xFF;

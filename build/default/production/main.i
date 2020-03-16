@@ -4117,6 +4117,27 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal);
 _Bool TMR2_HasOverflowOccured(void);
 # 58 "./mcc_generated_files/mcc.h" 2
 
+# 1 "./mcc_generated_files/tmr0.h" 1
+# 104 "./mcc_generated_files/tmr0.h"
+void TMR0_Initialize(void);
+# 135 "./mcc_generated_files/tmr0.h"
+uint8_t TMR0_ReadTimer(void);
+# 174 "./mcc_generated_files/tmr0.h"
+void TMR0_WriteTimer(uint8_t timerVal);
+# 210 "./mcc_generated_files/tmr0.h"
+void TMR0_Reload(void);
+# 225 "./mcc_generated_files/tmr0.h"
+void TMR0_ISR(void);
+# 243 "./mcc_generated_files/tmr0.h"
+void TMR0_CallBack(void);
+# 261 "./mcc_generated_files/tmr0.h"
+ void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
+# 279 "./mcc_generated_files/tmr0.h"
+extern void (*TMR0_InterruptHandler)(void);
+# 297 "./mcc_generated_files/tmr0.h"
+void TMR0_DefaultInterruptHandler(void);
+# 59 "./mcc_generated_files/mcc.h" 2
+
 # 1 "./mcc_generated_files/adc.h" 1
 # 72 "./mcc_generated_files/adc.h"
 typedef uint16_t adc_result_t;
@@ -4151,27 +4172,6 @@ adc_result_t ADC_GetConversionResult(void);
 adc_result_t ADC_GetConversion(adc_channel_t channel);
 # 316 "./mcc_generated_files/adc.h"
 void ADC_TemperatureAcquisitionDelay(void);
-# 59 "./mcc_generated_files/mcc.h" 2
-
-# 1 "./mcc_generated_files/tmr0.h" 1
-# 104 "./mcc_generated_files/tmr0.h"
-void TMR0_Initialize(void);
-# 135 "./mcc_generated_files/tmr0.h"
-uint8_t TMR0_ReadTimer(void);
-# 174 "./mcc_generated_files/tmr0.h"
-void TMR0_WriteTimer(uint8_t timerVal);
-# 210 "./mcc_generated_files/tmr0.h"
-void TMR0_Reload(void);
-# 225 "./mcc_generated_files/tmr0.h"
-void TMR0_ISR(void);
-# 243 "./mcc_generated_files/tmr0.h"
-void TMR0_CallBack(void);
-# 261 "./mcc_generated_files/tmr0.h"
- void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
-# 279 "./mcc_generated_files/tmr0.h"
-extern void (*TMR0_InterruptHandler)(void);
-# 297 "./mcc_generated_files/tmr0.h"
-void TMR0_DefaultInterruptHandler(void);
 # 60 "./mcc_generated_files/mcc.h" 2
 # 75 "./mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
@@ -4195,15 +4195,10 @@ typedef enum states
 
 
 
-static uint32_t i = 0;
-
 static volatile _Bool doButtonAction = 0;
-static volatile uint32_t msTick = 0;
-static volatile _Bool doToggle;
-
-static volatile uint16_t ledBitMap = 0b11111111111;
-static volatile uint8_t ledBitIndex = 0;
-
+static volatile uint16_t msTick = 0;
+static volatile uint16_t msPressed = 0;
+static _Bool doToggle;
 static state_t currentState = STATE_NORMAL;
 
 void timer0CallBack()
@@ -4211,11 +4206,21 @@ void timer0CallBack()
 
     msTick++;
 
-    if(msTick > 1023)
+    if(msTick > 200)
     {
         doToggle = 1;
         msTick = 0;
     }
+
+}
+
+void setState(state_t newState)
+{
+    if(newState == currentState)
+    {
+        return;
+    }
+
 
     do { LATCbits.LATC0 = 0; } while(0);
     do { LATCbits.LATC1 = 0; } while(0);
@@ -4230,92 +4235,16 @@ void timer0CallBack()
     do { LATBbits.LATB7 = 0; } while(0);
 
 
-    switch(ledBitIndex)
-    {
-        case 0:
-            if(ledBitMap & 0b00000000001)
-                do { LATCbits.LATC0 = 1; } while(0);
-            break;
-
-        case 1:
-            if(ledBitMap & 0b00000000010)
-                do { LATCbits.LATC1 = 1; } while(0);
-            break;
-
-        case 2:
-            if(ledBitMap & 0b00000000100)
-                do { LATCbits.LATC2 = 1; } while(0);
-            break;
-
-        case 3:
-            if(ledBitMap & 0b00000001000)
-                do { LATCbits.LATC3 = 1; } while(0);
-            break;
-    }
-
-    ledBitIndex++;
-
-    if(ledBitIndex > 10)
-    {
-        ledBitIndex = 0;
-    }
-
-}
-
-void setState(state_t newState)
-{
-    if(newState == currentState)
-    {
-        return;
-    }
-
-
 
     switch(newState)
     {
-        case STATE_NORMAL:
-            do { LATCbits.LATC0 = 0; } while(0);
-            do { LATCbits.LATC1 = 0; } while(0);
-            do { LATCbits.LATC2 = 0; } while(0);
-            do { LATCbits.LATC3 = 0; } while(0);
-            do { LATCbits.LATC4 = 0; } while(0);
-            do { LATCbits.LATC5 = 1; } while(0);
-            do { LATCbits.LATC6 = 0; } while(0);
-            do { LATCbits.LATC7 = 0; } while(0);
-            do { LATBbits.LATB5 = 0; } while(0);
-            do { LATBbits.LATB6 = 0; } while(0);
-            do { LATBbits.LATB7 = 0; } while(0);
-            break;
-
         case STATE_TEACH_LEFT:
             do { LATCbits.LATC0 = 1; } while(0);
-            do { LATCbits.LATC1 = 0; } while(0);
-            do { LATCbits.LATC2 = 0; } while(0);
-            do { LATCbits.LATC3 = 0; } while(0);
-            do { LATCbits.LATC4 = 0; } while(0);
-            do { LATCbits.LATC5 = 0; } while(0);
-            do { LATCbits.LATC6 = 0; } while(0);
-            do { LATCbits.LATC7 = 0; } while(0);
-            do { LATBbits.LATB5 = 0; } while(0);
-            do { LATBbits.LATB6 = 0; } while(0);
-            do { LATBbits.LATB7 = 0; } while(0);
             break;
 
         case STATE_TEACH_RIGHT:
-            do { LATCbits.LATC0 = 0; } while(0);
-            do { LATCbits.LATC1 = 0; } while(0);
-            do { LATCbits.LATC2 = 0; } while(0);
-            do { LATCbits.LATC3 = 0; } while(0);
-            do { LATCbits.LATC4 = 0; } while(0);
-            do { LATCbits.LATC5 = 1; } while(0);
-            do { LATCbits.LATC6 = 1; } while(0);
-            do { LATCbits.LATC7 = 1; } while(0);
-            do { LATBbits.LATB5 = 1; } while(0);
-            do { LATBbits.LATB6 = 1; } while(0);
             do { LATBbits.LATB7 = 1; } while(0);
             break;
-
-
     }
 
     msTick = 0;
@@ -4334,7 +4263,7 @@ void main(void)
 
 
     (INTCONbits.GIE = 1);
-# 208 "main.c"
+# 137 "main.c"
     setState(STATE_NORMAL);
 
 
@@ -4342,7 +4271,7 @@ void main(void)
     TMR0_SetInterruptHandler(timer0CallBack);
 
     TMR2_StartTimer();
-# 223 "main.c"
+# 152 "main.c"
     while(1)
     {
         static adc_channel_t channel = channelBrightness;
@@ -4356,14 +4285,21 @@ void main(void)
 
 
 
-        if(!PORTAbits.RA5 )
+        if(!PORTAbits.RA5 && !doButtonAction)
         {
-            setState(STATE_BLINK);
-# 247 "main.c"
+
+
+            msPressed++;
+
+            if(msPressed > 3000)
+            {
+                doButtonAction = 1;
+            }
+            do { LATCbits.LATC5 = 1; } while(0);
         }
         else
         {
-
+            msPressed = 0;
             do { LATCbits.LATC5 = 0; } while(0);
         }
 
@@ -4422,250 +4358,110 @@ void main(void)
             case STATE_NORMAL:
 
 
+
                 if(channel == channelBrightness)
                 {
-                    PWM3_LoadDutyValue(msTick);
+                    PWM3_LoadDutyValue(adcValue);
                 }
                 else
                 {
 
+                    do { LATCbits.LATC0 = 0; } while(0);
+                    do { LATCbits.LATC1 = 0; } while(0);
+                    do { LATCbits.LATC2 = 0; } while(0);
+                    do { LATCbits.LATC3 = 0; } while(0);
+                    do { LATCbits.LATC4 = 0; } while(0);
+                    do { LATCbits.LATC5 = 1; } while(0);
+                    do { LATCbits.LATC6 = 0; } while(0);
+                    do { LATCbits.LATC7 = 0; } while(0);
+                    do { LATBbits.LATB5 = 0; } while(0);
+                    do { LATBbits.LATB6 = 0; } while(0);
+                    do { LATBbits.LATB7 = 0; } while(0);
 
-                    i++;
-# 326 "main.c"
+
+
                     if(adcValue < 54)
                     {
-                        ledBitMap = 0b00000100001;
+                        do { LATCbits.LATC0 = 1; } while(0);
                     }
                     else if(adcValue < 108)
                     {
-                        ledBitMap = 0b00000100011;
+                        do { LATCbits.LATC0 = 1; } while(0);
+                        do { LATCbits.LATC1 = 1; } while(0);
                     }
                     else if(adcValue < 162)
                     {
-                        ledBitMap = 0b00000100011;
+                        do { LATCbits.LATC1 = 1; } while(0);
                     }
                     else if(adcValue < 215)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
                         do { LATCbits.LATC1 = 1; } while(0);
                         do { LATCbits.LATC2 = 1; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 269)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
                         do { LATCbits.LATC2 = 1; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 323)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
                         do { LATCbits.LATC2 = 1; } while(0);
                         do { LATCbits.LATC3 = 1; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 377)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
                         do { LATCbits.LATC3 = 1; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 431)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
                         do { LATCbits.LATC3 = 1; } while(0);
                         do { LATCbits.LATC4 = 1; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 485)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
                         do { LATCbits.LATC4 = 1; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 538)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
+
                     }
                     else if(adcValue < 592)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
                         do { LATCbits.LATC6 = 1; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 646)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
                         do { LATCbits.LATC6 = 1; } while(0);
                         do { LATCbits.LATC7 = 1; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 700)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
                         do { LATCbits.LATC7 = 1; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 754)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
                         do { LATCbits.LATC7 = 1; } while(0);
                         do { LATBbits.LATB5 = 1; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 808)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
                         do { LATBbits.LATB5 = 1; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 861)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
                         do { LATBbits.LATB5 = 1; } while(0);
                         do { LATBbits.LATB6 = 1; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 915)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
                         do { LATBbits.LATB6 = 1; } while(0);
-                        do { LATBbits.LATB7 = 0; } while(0);
                     }
                     else if(adcValue < 969)
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
                         do { LATBbits.LATB6 = 1; } while(0);
                         do { LATBbits.LATB7 = 1; } while(0);
                     }
                     else
                     {
-                        do { LATCbits.LATC0 = 0; } while(0);
-                        do { LATCbits.LATC1 = 0; } while(0);
-                        do { LATCbits.LATC2 = 0; } while(0);
-                        do { LATCbits.LATC3 = 0; } while(0);
-                        do { LATCbits.LATC4 = 0; } while(0);
-                        do { LATCbits.LATC5 = 1; } while(0);
-                        do { LATCbits.LATC6 = 0; } while(0);
-                        do { LATCbits.LATC7 = 0; } while(0);
-                        do { LATBbits.LATB5 = 0; } while(0);
-                        do { LATBbits.LATB6 = 0; } while(0);
                         do { LATBbits.LATB7 = 1; } while(0);
                     }
 
