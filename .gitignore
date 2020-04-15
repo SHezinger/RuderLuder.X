@@ -1,3 +1,4 @@
 /nbproject/private/
-/dist/default/production/
+dist/
+!dist/*hex
 build/
