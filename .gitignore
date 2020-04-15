@@ -1,4 +1,4 @@
 /nbproject/private/
 dist/
-!dist/*hex
+!dist/default/production/RuderLuder.X.production.hex
 build/

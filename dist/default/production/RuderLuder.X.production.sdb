@@ -18,7 +18,7 @@ STATE_TEACH_RIGHT 2
 STATE_BLINK 3
 ]
 "154
-[e E2388 . `uc
+[e E2374 . `uc
 channelRudder 3
 channelBrightness 10
 channel_Temp 29
@@ -276,7 +276,7 @@ channel_FVR 31
 "160
 [v main@adcValue adcValue `us  1 a 2 6 ]
 "154
-[v main@channel channel `E2388  1 s 1 channel ]
+[v main@channel channel `E2374  1 s 1 channel ]
 "375
 } 0
 "78

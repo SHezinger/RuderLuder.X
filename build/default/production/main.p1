@@ -44,21 +44,21 @@ Version 4.0 HI-TECH Software Intermediate Code
 "374
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 374: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
 [v _INTCONbits `VS30 ~T0 @X0 0 e@11 ]
-[v F2377 `(v ~T0 @X0 0 tf ]
+[v F2397 `(v ~T0 @X0 0 tf ]
 "261 ./mcc_generated_files/tmr0.h
 [; ;./mcc_generated_files/tmr0.h: 261:  void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
-[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F2377 ]
+[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F2397 ]
 [v F2421 `(v ~T0 @X0 0 tf ]
 "132 ./mcc_generated_files/tmr2.h
 [; ;./mcc_generated_files/tmr2.h: 132: void TMR2_StartTimer(void);
 [v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
 "154 main.c
 [; ;main.c: 154:         static adc_channel_t channel = channelBrightness;
-[c E2388 3 10 29 31 .. ]
-[n E2388 . channelRudder channelBrightness channel_Temp channel_FVR  ]
+[c E2374 3 10 29 31 .. ]
+[n E2374 . channelRudder channelBrightness channel_Temp channel_FVR  ]
 "288 ./mcc_generated_files/adc.h
 [; ;./mcc_generated_files/adc.h: 288: adc_result_t ADC_GetConversion(adc_channel_t channel);
-[v _ADC_GetConversion `(us ~T0 @X0 0 ef1`E2388 ]
+[v _ADC_GetConversion `(us ~T0 @X0 0 ef1`E2374 ]
 "435 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f1507.h: 435:     struct {
 [s S34 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -707,13 +707,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 "154
 [; ;main.c: 154:         static adc_channel_t channel = channelBrightness;
-[v F2423 `E2388 ~T0 @X0 1 s channel ]
+[v F2423 `E2374 ~T0 @X0 1 s channel ]
 [i F2423
-. `E2388 1
+. `E2374 1
 ]
 "157
 [; ;main.c: 157:         channel = (channel == channelRudder) ? channelBrightness : channelRudder;
-[e = F2423 -> ? == -> F2423 `ui -> . `E2388 0 `ui : . `E2388 1 . `E2388 0 `E2388 ]
+[e = F2423 -> ? == -> F2423 `ui -> . `E2374 0 `ui : . `E2374 1 . `E2374 0 `E2374 ]
 "160
 [; ;main.c: 160:         uint16_t adcValue = ADC_GetConversion(channel);
 [v _adcValue `us ~T0 @X0 1 a ]
@@ -946,7 +946,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 420 ]
 "239
 [; ;main.c: 239:                 if(channel == channelBrightness)
-[e $ ! == -> F2423 `ui -> . `E2388 1 `ui 421  ]
+[e $ ! == -> F2423 `ui -> . `E2374 1 `ui 421  ]
 "240
 [; ;main.c: 240:                 {
 {
