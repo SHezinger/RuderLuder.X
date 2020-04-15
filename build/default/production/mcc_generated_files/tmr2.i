@@ -3944,8 +3944,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 51 "mcc_generated_files/tmr2.c" 2
-
+# 52 "mcc_generated_files/tmr2.c" 2
 # 1 "mcc_generated_files/tmr2.h" 1
 # 54 "mcc_generated_files/tmr2.h"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 1 3
@@ -4031,10 +4030,9 @@ typedef int32_t int_fast32_t;
 typedef uint32_t uint_fast16_t;
 typedef uint32_t uint_fast32_t;
 # 139 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 2 3
-# 54 "mcc_generated_files/tmr2.h" 2
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
 # 55 "mcc_generated_files/tmr2.h" 2
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
+# 56 "mcc_generated_files/tmr2.h" 2
 # 103 "mcc_generated_files/tmr2.h"
 void TMR2_Initialize(void);
 # 132 "mcc_generated_files/tmr2.h"
@@ -4049,7 +4047,7 @@ void TMR2_WriteTimer(uint8_t timerVal);
 void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 325 "mcc_generated_files/tmr2.h"
 _Bool TMR2_HasOverflowOccured(void);
-# 52 "mcc_generated_files/tmr2.c" 2
+# 53 "mcc_generated_files/tmr2.c" 2
 # 62 "mcc_generated_files/tmr2.c"
 void TMR2_Initialize(void)
 {

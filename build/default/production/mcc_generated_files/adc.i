@@ -3944,8 +3944,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 51 "mcc_generated_files/adc.c" 2
-
+# 52 "mcc_generated_files/adc.c" 2
 # 1 "mcc_generated_files/adc.h" 1
 # 55 "mcc_generated_files/adc.h"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 1 3
@@ -4031,10 +4030,9 @@ typedef int32_t int_fast32_t;
 typedef uint32_t uint_fast16_t;
 typedef uint32_t uint_fast32_t;
 # 139 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 2 3
-# 55 "mcc_generated_files/adc.h" 2
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
 # 56 "mcc_generated_files/adc.h" 2
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
+# 57 "mcc_generated_files/adc.h" 2
 # 72 "mcc_generated_files/adc.h"
 typedef uint16_t adc_result_t;
 
@@ -4068,11 +4066,9 @@ adc_result_t ADC_GetConversionResult(void);
 adc_result_t ADC_GetConversion(adc_channel_t channel);
 # 316 "mcc_generated_files/adc.h"
 void ADC_TemperatureAcquisitionDelay(void);
-# 52 "mcc_generated_files/adc.c" 2
-
-# 1 "mcc_generated_files/device_config.h" 1
 # 53 "mcc_generated_files/adc.c" 2
-
+# 1 "mcc_generated_files/device_config.h" 1
+# 54 "mcc_generated_files/adc.c" 2
 
 
 

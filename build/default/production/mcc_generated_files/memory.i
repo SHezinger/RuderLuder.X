@@ -3944,13 +3944,11 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 51 "mcc_generated_files/memory.c" 2
-
+# 52 "mcc_generated_files/memory.c" 2
 # 1 "mcc_generated_files/memory.h" 1
 # 54 "mcc_generated_files/memory.h"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdbool.h" 1 3
-# 54 "mcc_generated_files/memory.h" 2
-
+# 55 "mcc_generated_files/memory.h" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 1 3
 # 22 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 3
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\bits/alltypes.h" 1 3
@@ -4034,7 +4032,7 @@ typedef int32_t int_fast32_t;
 typedef uint32_t uint_fast16_t;
 typedef uint32_t uint_fast32_t;
 # 139 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c99\\stdint.h" 2 3
-# 55 "mcc_generated_files/memory.h" 2
+# 56 "mcc_generated_files/memory.h" 2
 # 99 "mcc_generated_files/memory.h"
 uint16_t FLASH_ReadWord(uint16_t flashAddr);
 # 128 "mcc_generated_files/memory.h"
@@ -4043,8 +4041,7 @@ void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
 int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
 # 189 "mcc_generated_files/memory.h"
 void FLASH_EraseBlock(uint16_t startAddr);
-# 52 "mcc_generated_files/memory.c" 2
-
+# 53 "mcc_generated_files/memory.c" 2
 
 
 
