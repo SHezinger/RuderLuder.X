@@ -3942,9 +3942,9 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 137 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\pic.h" 3
-extern __bank0 unsigned char __resetbits;
-extern __bank0 __bit __powerdown;
-extern __bank0 __bit __timeout;
+extern unsigned char __resetbits;
+extern __bit __powerdown;
+extern __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
 # 50 "./mcc_generated_files/mcc.h" 2
 # 1 "./mcc_generated_files/device_config.h" 1
@@ -4107,6 +4107,26 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 325 "./mcc_generated_files/tmr2.h"
 _Bool TMR2_HasOverflowOccured(void);
 # 59 "./mcc_generated_files/mcc.h" 2
+# 1 "./mcc_generated_files/tmr0.h" 1
+# 104 "./mcc_generated_files/tmr0.h"
+void TMR0_Initialize(void);
+# 135 "./mcc_generated_files/tmr0.h"
+uint8_t TMR0_ReadTimer(void);
+# 174 "./mcc_generated_files/tmr0.h"
+void TMR0_WriteTimer(uint8_t timerVal);
+# 210 "./mcc_generated_files/tmr0.h"
+void TMR0_Reload(void);
+# 225 "./mcc_generated_files/tmr0.h"
+void TMR0_ISR(void);
+# 243 "./mcc_generated_files/tmr0.h"
+void TMR0_CallBack(void);
+# 261 "./mcc_generated_files/tmr0.h"
+ void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
+# 279 "./mcc_generated_files/tmr0.h"
+extern void (*TMR0_InterruptHandler)(void);
+# 297 "./mcc_generated_files/tmr0.h"
+void TMR0_DefaultInterruptHandler(void);
+# 60 "./mcc_generated_files/mcc.h" 2
 # 1 "./mcc_generated_files/adc.h" 1
 # 72 "./mcc_generated_files/adc.h"
 typedef uint16_t adc_result_t;
@@ -4141,26 +4161,6 @@ adc_result_t ADC_GetConversionResult(void);
 adc_result_t ADC_GetConversion(adc_channel_t channel);
 # 316 "./mcc_generated_files/adc.h"
 void ADC_TemperatureAcquisitionDelay(void);
-# 60 "./mcc_generated_files/mcc.h" 2
-# 1 "./mcc_generated_files/tmr0.h" 1
-# 104 "./mcc_generated_files/tmr0.h"
-void TMR0_Initialize(void);
-# 135 "./mcc_generated_files/tmr0.h"
-uint8_t TMR0_ReadTimer(void);
-# 174 "./mcc_generated_files/tmr0.h"
-void TMR0_WriteTimer(uint8_t timerVal);
-# 210 "./mcc_generated_files/tmr0.h"
-void TMR0_Reload(void);
-# 225 "./mcc_generated_files/tmr0.h"
-void TMR0_ISR(void);
-# 243 "./mcc_generated_files/tmr0.h"
-void TMR0_CallBack(void);
-# 261 "./mcc_generated_files/tmr0.h"
- void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
-# 279 "./mcc_generated_files/tmr0.h"
-extern void (*TMR0_InterruptHandler)(void);
-# 297 "./mcc_generated_files/tmr0.h"
-void TMR0_DefaultInterruptHandler(void);
 # 61 "./mcc_generated_files/mcc.h" 2
 # 75 "./mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
@@ -4188,6 +4188,11 @@ static volatile uint16_t msTick = 0;
 static volatile uint16_t msPressed = 0;
 static _Bool doToggle;
 static state_t currentState = STATE_NORMAL;
+
+
+static const uint32_t fixedPointFactor = 1000;
+static uint32_t factor = 1000;
+static uint32_t offset = 0;
 
 void timer0CallBack()
 {
@@ -4226,6 +4231,32 @@ void setState(state_t newState)
 
     switch(newState)
     {
+        case STATE_NORMAL:
+        {
+
+
+
+
+            uint32_t flashEntry;
+            flashEntry = (uint32_t)FLASH_ReadWord(0x800 -7) << 24;
+            flashEntry += (uint32_t)FLASH_ReadWord(0x800 -6) << 16;
+            flashEntry += FLASH_ReadWord(0x800 -5) << 8;
+            flashEntry += FLASH_ReadWord(0x800 -4);
+
+            factor = (flashEntry != 0xFFFFFFFF) ? flashEntry : fixedPointFactor;
+
+
+
+            flashEntry = FLASH_ReadWord(0x800 -3) << 24;
+            flashEntry += FLASH_ReadWord(0x800 -2) << 16;
+            flashEntry += FLASH_ReadWord(0x800 -1) << 8;
+            flashEntry += FLASH_ReadWord(0x800);
+
+            offset = (flashEntry != 0xFFFFFFFF) ? flashEntry : 0;
+
+            break;
+        }
+
         case STATE_TEACH_LEFT:
             do { LATCbits.LATC0 = 1; } while(0);
             break;
@@ -4251,7 +4282,7 @@ void main(void)
 
 
     (INTCONbits.GIE = 1);
-# 137 "main.c"
+# 168 "main.c"
     setState(STATE_NORMAL);
 
 
@@ -4259,7 +4290,7 @@ void main(void)
     TMR0_SetInterruptHandler(timer0CallBack);
 
     TMR2_StartTimer();
-# 152 "main.c"
+# 183 "main.c"
     while(1)
     {
         static adc_channel_t channel = channelBrightness;
@@ -4365,6 +4396,8 @@ void main(void)
                     do { LATBbits.LATB5 = 0; } while(0);
                     do { LATBbits.LATB6 = 0; } while(0);
                     do { LATBbits.LATB7 = 0; } while(0);
+
+                    adcValue = ((uint32_t)adcValue*factor)/fixedPointFactor + offset;
 
 
 

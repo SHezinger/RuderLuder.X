@@ -56,8 +56,8 @@
 #include "pwm3.h"
 #include "memory.h"
 #include "tmr2.h"
-#include "adc.h"
 #include "tmr0.h"
+#include "adc.h"
 
 
 

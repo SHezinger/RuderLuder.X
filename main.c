@@ -62,6 +62,11 @@ static volatile uint16_t msPressed = 0;
 static bool doToggle;
 static state_t currentState = STATE_NORMAL;
 
+
+static const uint32_t fixedPointFactor = 1000;
+static uint32_t factor = 1000;
+static uint32_t offset = 0;
+
 void timer0CallBack()
 {
     
@@ -98,7 +103,33 @@ void setState(state_t newState)
 
     
     switch(newState)
-    {            
+    {
+        case STATE_NORMAL:
+        {
+            //Read calibration values from Flash
+            
+            
+            //Get factor
+            uint32_t flashEntry;
+            flashEntry =    (uint32_t)FLASH_ReadWord(END_FLASH-7) << 24;
+            flashEntry +=   (uint32_t)FLASH_ReadWord(END_FLASH-6) << 16;
+            flashEntry += FLASH_ReadWord(END_FLASH-5) << 8;
+            flashEntry += FLASH_ReadWord(END_FLASH-4);
+            
+            factor = (flashEntry != 0xFFFFFFFF) ? flashEntry : fixedPointFactor;
+
+            
+            //Get Offset
+            flashEntry  = FLASH_ReadWord(END_FLASH-3) << 24;
+            flashEntry += FLASH_ReadWord(END_FLASH-2) << 16;
+            flashEntry += FLASH_ReadWord(END_FLASH-1) << 8;
+            flashEntry += FLASH_ReadWord(END_FLASH);
+
+            offset = (flashEntry != 0xFFFFFFFF) ? flashEntry : 0;
+            
+            break;
+        }
+           
         case STATE_TEACH_LEFT:
             outputLed1_SetHigh();
             break;
@@ -254,6 +285,8 @@ void main(void)
                     outputLed9_SetLow();
                     outputLed10_SetLow();
                     outputLed11_SetLow();
+                    
+                    adcValue = ((uint32_t)adcValue*factor)/fixedPointFactor + offset;
 
 
                     

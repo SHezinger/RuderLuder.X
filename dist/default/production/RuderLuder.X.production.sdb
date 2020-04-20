@@ -17,22 +17,26 @@ STATE_TEACH_LEFT 1
 STATE_TEACH_RIGHT 2
 STATE_BLINK 3
 ]
-"154
-[e E2374 . `uc
+"185
+[e E2388 . `uc
 channelRudder 3
 channelBrightness 10
 channel_Temp 29
 channel_FVR 31
 ]
+"5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
 "10 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
+"15 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\Umul8_16.c
 [v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
-"65 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"70 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _timer0CallBack timer0CallBack `(v  1 e 1 0 ]
-"78
+"83
 [v _setState setState `(v  1 e 1 0 ]
-"117
+"148
 [v _main main `(v  1 e 1 0 ]
 "67 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
@@ -89,7 +93,7 @@ channel_FVR 31
 ]
 [u S259 . 1 `S245 1 . 1 0 `S254 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES259  1 e 1 @11 ]
-[s S499 . 1 `uc 1 RA0 1 0 :1:0 
+[s S500 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -97,8 +101,8 @@ channel_FVR 31
 `uc 1 RA5 1 0 :1:5 
 ]
 "444
-[u S506 . 1 `S499 1 . 1 0 ]
-[v _PORTAbits PORTAbits `VES506  1 e 1 @12 ]
+[u S507 . 1 `S500 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES507  1 e 1 @12 ]
 [s S179 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 . 1 0 :4:2 
@@ -244,8 +248,6 @@ channel_FVR 31
 "2290
 [u S373 . 1 `S365 1 . 1 0 ]
 [v _PMCON1bits PMCON1bits `VES373  1 e 1 @405 ]
-"2330
-[v _PMCON2 PMCON2 `VEuc  1 e 1 @406 ]
 "2384
 [v _WPUA WPUA `VEuc  1 e 1 @524 ]
 "2442
@@ -266,27 +268,65 @@ channel_FVR 31
 [v _doToggle doToggle `a  1 s 1 doToggle ]
 "63
 [v _currentState currentState `E2406  1 s 1 currentState ]
+"67
+[v _factor factor `ul  1 s 4 factor ]
+"68
+[v _offset offset `ul  1 s 4 offset ]
 "58 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/tmr0.c
 [v _timer0ReloadVal timer0ReloadVal `VEuc  1 e 1 0 ]
 "59
 [v _TMR0_InterruptHandler TMR0_InterruptHandler `*.37(v  1 e 2 0 ]
-"117 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"148 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"160
-[v main@adcValue adcValue `us  1 a 2 6 ]
-"154
-[v main@channel channel `E2374  1 s 1 channel ]
-"375
+"191
+[v main@adcValue adcValue `us  1 a 2 15 ]
+"185
+[v main@channel channel `E2388  1 s 1 channel ]
+"408
 } 0
-"78
+"83
 [v _setState setState `(v  1 e 1 0 ]
 {
 [v setState@newState newState `E2406  1 a 1 wreg ]
+"113
+[v setState@flashEntry flashEntry `ul  1 a 4 8 ]
+"83
 [v setState@newState newState `E2406  1 a 1 wreg ]
-"80
-[v setState@newState newState `E2406  1 a 1 2 ]
-"114
+"85
+[v setState@newState newState `E2406  1 a 1 7 ]
+"145
+} 0
+"58 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/memory.c
+[v _FLASH_ReadWord FLASH_ReadWord `(us  1 e 2 0 ]
+{
+"60
+[v FLASH_ReadWord@GIEBitValue GIEBitValue `uc  1 a 1 2 ]
+"58
+[v FLASH_ReadWord@flashAddr flashAddr `us  1 p 2 0 ]
+"73
+} 0
+"15 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+{
+"17
+[v ___lmul@product product `ul  1 a 4 8 ]
+"15
+[v ___lmul@multiplier multiplier `ul  1 p 4 0 ]
+[v ___lmul@multiplicand multiplicand `ul  1 p 4 4 ]
+"129
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c99\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+{
+"10
+[v ___lldiv@quotient quotient `ul  1 a 4 8 ]
+"11
+[v ___lldiv@counter counter `uc  1 a 1 12 ]
+"5
+[v ___lldiv@divisor divisor `ul  1 p 4 0 ]
+[v ___lldiv@dividend dividend `ul  1 p 4 4 ]
+"30
 } 0
 "79 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/tmr2.c
 [v _TMR2_StartTimer TMR2_StartTimer `(v  1 e 1 0 ]
@@ -374,8 +414,8 @@ channel_FVR 31
 {
 "140
 } 0
-"65 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"70 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _timer0CallBack timer0CallBack `(v  1 e 1 0 ]
 {
-"76
+"81
 } 0
