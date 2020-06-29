@@ -47,8 +47,7 @@ typedef enum states
 {
     STATE_NORMAL,
     STATE_TEACH_LEFT,
-    STATE_TEACH_RIGHT,
-    STATE_BLINK
+    STATE_TEACH_RIGHT
 }state_t;
 
 /*
@@ -63,9 +62,15 @@ static bool doToggle;
 static state_t currentState = STATE_NORMAL;
 
 
-static const uint32_t fixedPointFactor = 1000;
-static uint32_t factor = 1000;
-static uint32_t offset = 0;
+static int32_t adcValuePosition = 0;
+
+static uint32_t lowerLimit = 0;
+static uint32_t upperLimit = 1023;
+
+//Calibration values
+static const int32_t fixedPointFactor = 1000;
+static int32_t m = 1 * fixedPointFactor;
+static int24_t b = 0;
 
 void timer0CallBack()
 {
@@ -77,8 +82,11 @@ void timer0CallBack()
         doToggle = true;
         msTick = 0;
     }
-    
 }
+
+
+void setLedsForPositioning(int32_t position);
+
 
 void setState(state_t newState)
 {
@@ -109,23 +117,23 @@ void setState(state_t newState)
             //Read calibration values from Flash
             
             
-            //Get factor
-            uint32_t flashEntry;
-            flashEntry =    (uint32_t)FLASH_ReadWord(END_FLASH-7) << 24;
-            flashEntry +=   (uint32_t)FLASH_ReadWord(END_FLASH-6) << 16;
-            flashEntry += FLASH_ReadWord(END_FLASH-5) << 8;
-            flashEntry += FLASH_ReadWord(END_FLASH-4);
-            
-            factor = (flashEntry != 0xFFFFFFFF) ? flashEntry : fixedPointFactor;
-
-            
-            //Get Offset
-            flashEntry  = FLASH_ReadWord(END_FLASH-3) << 24;
-            flashEntry += FLASH_ReadWord(END_FLASH-2) << 16;
-            flashEntry += FLASH_ReadWord(END_FLASH-1) << 8;
-            flashEntry += FLASH_ReadWord(END_FLASH);
-
-            offset = (flashEntry != 0xFFFFFFFF) ? flashEntry : 0;
+//            //Get factor
+//            uint32_t flashEntry;
+//            flashEntry =  (uint32_t)FLASH_ReadWord(END_FLASH-7) << 24;
+//            flashEntry += (uint32_t)FLASH_ReadWord(END_FLASH-6) << 16;
+//            flashEntry += FLASH_ReadWord(END_FLASH-5) << 8;
+//            flashEntry += FLASH_ReadWord(END_FLASH-4);
+//            
+//            factor = (flashEntry != 0xFFFFFFFF) ? flashEntry : factor;
+//
+//            
+//            //Get Offset
+//            flashEntry  = FLASH_ReadWord(END_FLASH-3) << 24;
+//            flashEntry += FLASH_ReadWord(END_FLASH-2) << 16;
+//            flashEntry += FLASH_ReadWord(END_FLASH-1) << 8;
+//            flashEntry += FLASH_ReadWord(END_FLASH);
+//
+//            offset = (flashEntry != 0xFFFFFFFF) ? flashEntry : 0;
             
             break;
         }
@@ -168,17 +176,8 @@ void main(void)
     setState(STATE_NORMAL);
     
     
-    
     TMR0_SetInterruptHandler(timer0CallBack);
-     
     TMR2_StartTimer();
-    
-    
-    
-    
-  
-
-    
 
     while(1)
     {
@@ -187,16 +186,23 @@ void main(void)
         //Select next adc channel
         channel = (channel == channelRudder) ? channelBrightness : channelRudder;
         
+        
+        
         //Get next adc value
-        uint16_t adcValue = ADC_GetConversion(channel);
+        if(channel == channelRudder)
+        {
+            adcValuePosition = ADC_GetConversion(channel);
+        }
+        else
+        {    
+            //Set brightness
+            PWM3_LoadDutyValue(ADC_GetConversion(channel));
+        }
         
         
-            
 
         if(!inputTeachIn_GetValue() && !doButtonAction)
         {
-           // setState(STATE_TEACH_LEFT);
-            
             msPressed++;
 
             if(msPressed > 3000)
@@ -228,15 +234,19 @@ void main(void)
                     break;
                     
                 case STATE_TEACH_LEFT:
+                    lowerLimit = adcValuePosition;
                     setState(STATE_TEACH_RIGHT);
                     break;
 
                 case STATE_TEACH_RIGHT:
+                    upperLimit = adcValuePosition;
+                    
+                    m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
+                    b = lowerLimit*m; 
+                    
                     setState(STATE_NORMAL);
                     break;
             }
-            
-            
             
             doButtonAction = false;
         }
@@ -245,139 +255,13 @@ void main(void)
         
         switch(currentState)
         {
-            case STATE_BLINK:
-                if(doToggle)
-                {
-                    outputLed1_SetHigh();
-                    outputLed2_SetLow();
-                    outputLed3_SetLow();                       
-                    outputLed4_SetLow();
-                    outputLed5_SetLow(); 
-                    outputLed6_SetHigh();
-                    outputLed7_SetLow();
-                    outputLed8_SetLow();
-                    outputLed9_SetLow();
-                    outputLed10_SetLow();
-                    outputLed11_SetLow();
-                }
-
-                break;
-            
             case STATE_NORMAL:
-            
-
-                //Brightness control
                 if(channel == channelBrightness)
-                {
-                    PWM3_LoadDutyValue(adcValue);
+                { 
+                    adcValuePosition = (adcValuePosition*m-b)/fixedPointFactor;
+                    setLedsForPositioning(adcValuePosition);
                 }
-                else //Rudder position
-                {
-                    
-                    outputLed1_SetLow();
-                    outputLed2_SetLow();
-                    outputLed3_SetLow();                       
-                    outputLed4_SetLow();
-                    outputLed5_SetLow(); 
-                    outputLed6_SetHigh();
-                    outputLed7_SetLow();
-                    outputLed8_SetLow();
-                    outputLed9_SetLow();
-                    outputLed10_SetLow();
-                    outputLed11_SetLow();
-                    
-                    adcValue = ((uint32_t)adcValue*factor)/fixedPointFactor + offset;
-
-
-                    
-                    if(adcValue < 54)
-                    {  
-                        outputLed1_SetHigh();
-                    }
-                    else if(adcValue < 108)
-                    {
-                        outputLed1_SetHigh();
-                        outputLed2_SetHigh();
-                    }
-                    else if(adcValue < 162)
-                    {
-                        outputLed2_SetHigh();
-                    }
-                    else if(adcValue < 215)
-                    {
-                        outputLed2_SetHigh();
-                        outputLed3_SetHigh();                       
-                    }
-                    else if(adcValue < 269)
-                    {
-                        outputLed3_SetHigh();                       
-                    }
-                    else if(adcValue < 323)
-                    {
-                        outputLed3_SetHigh();                       
-                        outputLed4_SetHigh();
-                    }
-                    else if(adcValue < 377)
-                    {                    
-                        outputLed4_SetHigh();
-                    }
-                    else if(adcValue < 431)
-                    {                   
-                        outputLed4_SetHigh();
-                        outputLed5_SetHigh(); 
-                    }
-                    else if(adcValue < 485)
-                    {
-                        outputLed5_SetHigh(); 
-                    }
-                    else if(adcValue < 538)         //Center
-                    {
-
-                    }
-                    else if(adcValue < 592)         
-                    {
-                        outputLed7_SetHigh();
-                    }
-                    else if(adcValue < 646)         
-                    {
-                        outputLed7_SetHigh();
-                        outputLed8_SetHigh();
-                    }
-                    else if(adcValue < 700)         
-                    {
-                        outputLed8_SetHigh();
-                    }
-                    else if(adcValue < 754)         
-                    {
-                        outputLed8_SetHigh();
-                        outputLed9_SetHigh();
-                    }
-                    else if(adcValue < 808)         
-                    {
-                        outputLed9_SetHigh();
-                    }
-                    else if(adcValue < 861)         
-                    {
-                        outputLed9_SetHigh();
-                        outputLed10_SetHigh();
-                    }
-                    else if(adcValue < 915)         
-                    {
-                        outputLed10_SetHigh();
-                    }
-                    else if(adcValue < 969)         
-                    {
-                        outputLed10_SetHigh();
-                        outputLed11_SetHigh();
-                    }
-                    else   
-                    {
-                        outputLed11_SetHigh();
-                    }
-                    
-
-                }
-                break;
+                break;    
             
             case STATE_TEACH_LEFT:
                 if(doToggle)
@@ -390,14 +274,16 @@ void main(void)
                     doToggle = false;
                 }
                 break;
+
+                
             
             case STATE_TEACH_RIGHT:               
                 if(doToggle)
                 {
-                    outputLed7_SetHigh();
-                    outputLed8_SetHigh();
-                    outputLed9_SetHigh();
-                    outputLed10_SetHigh();
+                    outputLed7_Toggle();
+                    outputLed8_Toggle();
+                    outputLed9_Toggle();
+                    outputLed10_Toggle();
                     outputLed11_Toggle();
                     doToggle = false;
                 }
@@ -406,6 +292,132 @@ void main(void)
         
     };
 }
+
+
+
+
+void setLedsForPositioning(int32_t adcValue)
+{
+    outputLed1_SetLow();
+    outputLed2_SetLow();
+    outputLed3_SetLow();                       
+    outputLed4_SetLow();
+    outputLed5_SetLow(); 
+    outputLed6_SetHigh();
+    outputLed7_SetLow();
+    outputLed8_SetLow();
+    outputLed9_SetLow();
+    outputLed10_SetLow();
+    outputLed11_SetLow();
+
+
+
+    if(adcValue < 54)
+    {  
+        outputLed1_SetHigh();
+    }
+    else if(adcValue < 108)
+    {
+        outputLed1_SetHigh();
+        outputLed2_SetHigh();
+    }
+    else if(adcValue < 162)
+    {
+        outputLed2_SetHigh();
+    }
+    else if(adcValue < 215)
+    {
+        outputLed2_SetHigh();
+        outputLed3_SetHigh();                       
+    }
+    else if(adcValue < 269)
+    {
+        outputLed3_SetHigh();                       
+    }
+    else if(adcValue < 323)
+    {
+        outputLed3_SetHigh();                       
+        outputLed4_SetHigh();
+    }
+    else if(adcValue < 377)
+    {                    
+        outputLed4_SetHigh();
+    }
+    else if(adcValue < 431)
+    {                   
+        outputLed4_SetHigh();
+        outputLed5_SetHigh(); 
+    }
+    else if(adcValue < 485)
+    {
+        outputLed5_SetHigh(); 
+    }
+    else if(adcValue < 538)         //Center
+    {
+
+    }
+    else if(adcValue < 592)         
+    {
+        outputLed7_SetHigh();
+    }
+    else if(adcValue < 646)         
+    {
+        outputLed7_SetHigh();
+        outputLed8_SetHigh();
+    }
+    else if(adcValue < 700)         
+    {
+        outputLed8_SetHigh();
+    }
+    else if(adcValue < 754)         
+    {
+        outputLed8_SetHigh();
+        outputLed9_SetHigh();
+    }
+    else if(adcValue < 808)         
+    {
+        outputLed9_SetHigh();
+    }
+    else if(adcValue < 861)         
+    {
+        outputLed9_SetHigh();
+        outputLed10_SetHigh();
+    }
+    else if(adcValue < 915)         
+    {
+        outputLed10_SetHigh();
+    }
+    else if(adcValue < 969)         
+    {
+        outputLed10_SetHigh();
+        outputLed11_SetHigh();
+    }
+    else   
+    {
+        outputLed11_SetHigh();
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  End of File
 */
