@@ -54,6 +54,9 @@ typedef enum states
                          Main application
  */
 
+#define ADC_ABSOLUTE_LOWER_LIMIT    (0)
+#define ADC_ABSOLUTE_UPPER_LIMIT    (1023)
+
 
 static volatile bool doButtonAction = false;
 static volatile uint16_t msTick = 0;
@@ -64,17 +67,19 @@ static state_t currentState = STATE_NORMAL;
 
 static int32_t adcValuePosition = 0;
 
-static uint32_t lowerLimit = 0;
-static uint32_t upperLimit = 1023;
+static uint32_t lowerLimit = ADC_ABSOLUTE_LOWER_LIMIT;
+static uint32_t upperLimit = ADC_ABSOLUTE_UPPER_LIMIT;
 
 //Calibration values
 static const int32_t fixedPointFactor = 1000;
 static int32_t m = 1 * fixedPointFactor;
 static int24_t b = 0;
 
+
+
+
 void timer0CallBack()
 {
-    
     msTick++;
     
     if(msTick > 200)
@@ -113,30 +118,28 @@ void setState(state_t newState)
     switch(newState)
     {
         case STATE_NORMAL:
-        {
+        
             //Read calibration values from Flash
             
+            //Read lower limit
+            lowerLimit = 0;
+            lowerLimit += (int32_t)FLASH_ReadWord(END_FLASH-4) << 16;
+            lowerLimit += (int32_t)FLASH_ReadWord(END_FLASH-3);
             
-//            //Get factor
-//            uint32_t flashEntry;
-//            flashEntry =  (uint32_t)FLASH_ReadWord(END_FLASH-7) << 24;
-//            flashEntry += (uint32_t)FLASH_ReadWord(END_FLASH-6) << 16;
-//            flashEntry += FLASH_ReadWord(END_FLASH-5) << 8;
-//            flashEntry += FLASH_ReadWord(END_FLASH-4);
-//            
-//            factor = (flashEntry != 0xFFFFFFFF) ? flashEntry : factor;
-//
-//            
-//            //Get Offset
-//            flashEntry  = FLASH_ReadWord(END_FLASH-3) << 24;
-//            flashEntry += FLASH_ReadWord(END_FLASH-2) << 16;
-//            flashEntry += FLASH_ReadWord(END_FLASH-1) << 8;
-//            flashEntry += FLASH_ReadWord(END_FLASH);
-//
-//            offset = (flashEntry != 0xFFFFFFFF) ? flashEntry : 0;
+            //Read upper limit
+            upperLimit = 0;
+            upperLimit += (int32_t)FLASH_ReadWord(END_FLASH-2) << 16;
+            upperLimit += (int32_t)FLASH_ReadWord(END_FLASH-1) ;
+
             
+//            lowerLimit = (lowerLimit < ADC_ABSOLUTE_LOWER_LIMIT) ? ADC_ABSOLUTE_LOWER_LIMIT : lowerLimit;
+//            upperLimit = (upperLimit > ADC_ABSOLUTE_UPPER_LIMIT) ? ADC_ABSOLUTE_UPPER_LIMIT : upperLimit;
+
+            
+            m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
+            b = lowerLimit*m; 
             break;
-        }
+        
            
         case STATE_TEACH_LEFT:
             outputLed1_SetHigh();
@@ -158,20 +161,8 @@ void main(void)
     // initialize the device
     SYSTEM_Initialize();
 
-    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
-    // Use the following macros to:
-
     // Enable the Global Interrupts
     INTERRUPT_GlobalInterruptEnable();
-
-    // Enable the Peripheral Interrupts
- //   INTERRUPT_PeripheralInterruptEnable();
-
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
-
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
     
     setState(STATE_NORMAL);
     
@@ -227,6 +218,8 @@ void main(void)
 
             }
             
+            
+            //Change state
             switch(currentState)
             {
                 case STATE_NORMAL:
@@ -235,17 +228,32 @@ void main(void)
                     
                 case STATE_TEACH_LEFT:
                     lowerLimit = adcValuePosition;
+                    
                     setState(STATE_TEACH_RIGHT);
                     break;
 
                 case STATE_TEACH_RIGHT:
+                {
                     upperLimit = adcValuePosition;
                     
-                    m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
-                    b = lowerLimit*m; 
+                    
+                    //Write flash
+                    #define FLASH_ROW_ADDRESS     ( END_FLASH-WRITE_FLASH_BLOCKSIZE-1)
+
+                    uint16_t wrBlockData[WRITE_FLASH_BLOCKSIZE];
+                    
+                    
+                    wrBlockData[WRITE_FLASH_BLOCKSIZE-1] = (uint16_t)(upperLimit);
+                    wrBlockData[WRITE_FLASH_BLOCKSIZE-2] = (uint16_t)(upperLimit >> 16);
+                    wrBlockData[WRITE_FLASH_BLOCKSIZE-3] = (uint16_t)(lowerLimit);
+                    wrBlockData[WRITE_FLASH_BLOCKSIZE-4] = (uint16_t)(lowerLimit >> 16);
+
+                    // write to Flash memory block
+                    FLASH_WriteBlock((uint16_t)FLASH_ROW_ADDRESS, (uint16_t*)wrBlockData);
                     
                     setState(STATE_NORMAL);
                     break;
+                }
             }
             
             doButtonAction = false;
