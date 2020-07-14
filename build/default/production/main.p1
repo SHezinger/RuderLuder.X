@@ -1,8 +1,8 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"65 main.c
-[; ;main.c: 65: static state_t currentState = STATE_NORMAL;
-[c E2406 0 1 2 .. ]
-[n E2406 states STATE_NORMAL STATE_TEACH_LEFT STATE_TEACH_RIGHT  ]
+"66 main.c
+[; ;main.c: 66: static state_t currentState = STATE_NORMAL;
+[c E2406 0 1 2 3 .. ]
+[n E2406 states STATE_UNDEFINED STATE_NORMAL STATE_TEACH_LEFT STATE_TEACH_RIGHT  ]
 "1865 C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\pic\include\proc\pic16f1507.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\pic\include\proc\pic16f1507.h: 1865:     struct {
 [s S108 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -51,12 +51,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 "261 ./mcc_generated_files/tmr0.h
 [; ;./mcc_generated_files/tmr0.h: 261:  void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
 [v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*F2377 ]
-[v F2428 `(v ~T0 @X0 0 tf ]
+[v F2429 `(v ~T0 @X0 0 tf ]
 "132 ./mcc_generated_files/tmr2.h
 [; ;./mcc_generated_files/tmr2.h: 132: void TMR2_StartTimer(void);
 [v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
-"175 main.c
-[; ;main.c: 175:         static adc_channel_t channel = channelBrightness;
+"176 main.c
+[; ;main.c: 176:         static adc_channel_t channel = channelBrightness;
 [c E2388 3 10 29 31 .. ]
 [n E2388 . channelRudder channelBrightness channel_Temp channel_FVR  ]
 "288 ./mcc_generated_files/adc.h
@@ -79,8 +79,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "164 ./mcc_generated_files/memory.h
 [; ;./mcc_generated_files/memory.h: 164: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
 [v _FLASH_WriteBlock `(c ~T0 @X0 0 ef2`us`*us ]
-"93 main.c
-[; ;main.c: 93: void setLedsForPositioning(int32_t position);
+"94 main.c
+[; ;main.c: 94: void setLedsForPositioning(int32_t position);
 [v _setLedsForPositioning `(v ~T0 @X0 0 ef1`l ]
 "54 C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\pic\include\proc\pic16f1507.h
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\pic\include\proc\pic16f1507.h: 54: __asm("INDF0 equ 00h");
@@ -472,1137 +472,1137 @@ Version 4.0 HI-TECH Software Intermediate Code
 "6215
 [; ;C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\pic\include\proc\pic16f1507.h: 6215: __asm("TOSH equ 0FEFh");
 [; <" TOSH equ 0FEFh ;# ">
-"61 main.c
-[; ;main.c: 61: static volatile _Bool doButtonAction = 0;
+"62 main.c
+[; ;main.c: 62: static volatile _Bool doButtonAction = 0;
 [v _doButtonAction `Va ~T0 @X0 1 s ]
 [i _doButtonAction
 -> -> 0 `i `a
 ]
-"62
-[; ;main.c: 62: static volatile uint16_t msTick = 0;
+"63
+[; ;main.c: 63: static volatile uint16_t msTick = 0;
 [v _msTick `Vus ~T0 @X0 1 s ]
 [i _msTick
 -> -> 0 `i `us
 ]
-"63
-[; ;main.c: 63: static volatile uint16_t msPressed = 0;
+"64
+[; ;main.c: 64: static volatile uint16_t msPressed = 0;
 [v _msPressed `Vus ~T0 @X0 1 s ]
 [i _msPressed
 -> -> 0 `i `us
 ]
-"64
-[; ;main.c: 64: static _Bool doToggle;
-[v _doToggle `a ~T0 @X0 1 s ]
 "65
-[; ;main.c: 65: static state_t currentState = STATE_NORMAL;
+[; ;main.c: 65: static _Bool doToggle;
+[v _doToggle `a ~T0 @X0 1 s ]
+"66
+[; ;main.c: 66: static state_t currentState = STATE_NORMAL;
 [v _currentState `E2406 ~T0 @X0 1 s ]
 [i _currentState
-. `E2406 0
+. `E2406 1
 ]
-"68
-[; ;main.c: 68: static int32_t adcValuePosition = 0;
+"69
+[; ;main.c: 69: static int32_t adcValuePosition = 0;
 [v _adcValuePosition `l ~T0 @X0 1 s ]
 [i _adcValuePosition
 -> -> 0 `i `l
 ]
-"70
-[; ;main.c: 70: static uint32_t lowerLimit = (0);
+"71
+[; ;main.c: 71: static uint32_t lowerLimit = (0);
 [v _lowerLimit `ul ~T0 @X0 1 s ]
 [i _lowerLimit
 -> -> -> 0 `i `l `ul
 ]
-"71
-[; ;main.c: 71: static uint32_t upperLimit = (1023);
+"72
+[; ;main.c: 72: static uint32_t upperLimit = (1023);
 [v _upperLimit `ul ~T0 @X0 1 s ]
 [i _upperLimit
 -> -> -> 1023 `i `l `ul
 ]
-"74
-[; ;main.c: 74: static const int32_t fixedPointFactor = 1000;
+"75
+[; ;main.c: 75: static const int32_t fixedPointFactor = 1000;
 [v _fixedPointFactor `Cl ~T0 @X0 1 s ]
 [i _fixedPointFactor
 -> -> 1000 `i `l
 ]
-"75
-[; ;main.c: 75: static int32_t m = 1 * fixedPointFactor;
+"76
+[; ;main.c: 76: static int32_t m = 1 * fixedPointFactor;
 [v _m `l ~T0 @X0 1 s ]
 [i _m
 * -> -> 1 `i `l _fixedPointFactor
 ]
-"76
-[; ;main.c: 76: static int24_t b = 0;
+"77
+[; ;main.c: 77: static int24_t b = 0;
 [v _b `m ~T0 @X0 1 s ]
 [i _b
 -> -> 0 `i `m
 ]
-"81
-[; ;main.c: 81: void timer0CallBack()
-[v _timer0CallBack `(v ~T0 @X0 1 ef ]
 "82
-[; ;main.c: 82: {
+[; ;main.c: 82: void timer0CallBack()
+[v _timer0CallBack `(v ~T0 @X0 1 ef ]
+"83
+[; ;main.c: 83: {
 {
 [e :U _timer0CallBack ]
 [f ]
-"83
-[; ;main.c: 83:     msTick++;
+"84
+[; ;main.c: 84:     msTick++;
 [e ++ _msTick -> -> 1 `i `Vus ]
-"85
-[; ;main.c: 85:     if(msTick > 200)
-[e $ ! > -> _msTick `ui -> -> 200 `i `ui 315  ]
 "86
-[; ;main.c: 86:     {
-{
+[; ;main.c: 86:     if(msTick > 200)
+[e $ ! > -> _msTick `ui -> -> 200 `i `ui 315  ]
 "87
-[; ;main.c: 87:         doToggle = 1;
-[e = _doToggle -> -> 1 `i `a ]
+[; ;main.c: 87:     {
+{
 "88
-[; ;main.c: 88:         msTick = 0;
-[e = _msTick -> -> 0 `i `us ]
+[; ;main.c: 88:         doToggle = 1;
+[e = _doToggle -> -> 1 `i `a ]
 "89
-[; ;main.c: 89:     }
+[; ;main.c: 89:         msTick = 0;
+[e = _msTick -> -> 0 `i `us ]
+"90
+[; ;main.c: 90:     }
 }
 [e :U 315 ]
-"90
-[; ;main.c: 90: }
+"91
+[; ;main.c: 91: }
 [e :UE 314 ]
 }
-"96
-[; ;main.c: 96: void setState(state_t newState)
-[v _setState `(v ~T0 @X0 1 ef1`E2406 ]
 "97
-[; ;main.c: 97: {
+[; ;main.c: 97: void setState(state_t newState)
+[v _setState `(v ~T0 @X0 1 ef1`E2406 ]
+"98
+[; ;main.c: 98: {
 {
 [e :U _setState ]
-"96
-[; ;main.c: 96: void setState(state_t newState)
-[v _newState `E2406 ~T0 @X0 1 r1 ]
 "97
-[; ;main.c: 97: {
-[f ]
+[; ;main.c: 97: void setState(state_t newState)
+[v _newState `E2406 ~T0 @X0 1 r1 ]
 "98
-[; ;main.c: 98:     if(newState == currentState)
-[e $ ! == -> _newState `ui -> _currentState `ui 317  ]
+[; ;main.c: 98: {
+[f ]
 "99
-[; ;main.c: 99:     {
-{
+[; ;main.c: 99:     if(newState == currentState)
+[e $ ! == -> _newState `ui -> _currentState `ui 317  ]
 "100
-[; ;main.c: 100:         return;
-[e $UE 316  ]
+[; ;main.c: 100:     {
+{
 "101
-[; ;main.c: 101:     }
+[; ;main.c: 101:         return;
+[e $UE 316  ]
+"102
+[; ;main.c: 102:     }
 }
 [e :U 317 ]
-"104
-[; ;main.c: 104:     do { LATCbits.LATC0 = 0; } while(0);
+"105
+[; ;main.c: 105:     do { LATCbits.LATC0 = 0; } while(0);
 [e :U 320 ]
 {
 [e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
 }
 [e :U 319 ]
-"105
-[; ;main.c: 105:     do { LATCbits.LATC1 = 0; } while(0);
+"106
+[; ;main.c: 106:     do { LATCbits.LATC1 = 0; } while(0);
 [e :U 323 ]
 {
 [e = . . _LATCbits 0 1 -> -> 0 `i `uc ]
 }
 [e :U 322 ]
-"106
-[; ;main.c: 106:     do { LATCbits.LATC2 = 0; } while(0);
+"107
+[; ;main.c: 107:     do { LATCbits.LATC2 = 0; } while(0);
 [e :U 326 ]
 {
 [e = . . _LATCbits 0 2 -> -> 0 `i `uc ]
 }
 [e :U 325 ]
-"107
-[; ;main.c: 107:     do { LATCbits.LATC3 = 0; } while(0);
+"108
+[; ;main.c: 108:     do { LATCbits.LATC3 = 0; } while(0);
 [e :U 329 ]
 {
 [e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
 }
 [e :U 328 ]
-"108
-[; ;main.c: 108:     do { LATCbits.LATC4 = 0; } while(0);
+"109
+[; ;main.c: 109:     do { LATCbits.LATC4 = 0; } while(0);
 [e :U 332 ]
 {
 [e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
 }
 [e :U 331 ]
-"109
-[; ;main.c: 109:     do { LATCbits.LATC5 = 0; } while(0);
+"110
+[; ;main.c: 110:     do { LATCbits.LATC5 = 0; } while(0);
 [e :U 335 ]
 {
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
 }
 [e :U 334 ]
-"110
-[; ;main.c: 110:     do { LATCbits.LATC6 = 0; } while(0);
+"111
+[; ;main.c: 111:     do { LATCbits.LATC6 = 0; } while(0);
 [e :U 338 ]
 {
 [e = . . _LATCbits 0 6 -> -> 0 `i `uc ]
 }
 [e :U 337 ]
-"111
-[; ;main.c: 111:     do { LATCbits.LATC7 = 0; } while(0);
+"112
+[; ;main.c: 112:     do { LATCbits.LATC7 = 0; } while(0);
 [e :U 341 ]
 {
 [e = . . _LATCbits 0 7 -> -> 0 `i `uc ]
 }
 [e :U 340 ]
-"112
-[; ;main.c: 112:     do { LATBbits.LATB5 = 0; } while(0);
+"113
+[; ;main.c: 113:     do { LATBbits.LATB5 = 0; } while(0);
 [e :U 344 ]
 {
 [e = . . _LATBbits 0 2 -> -> 0 `i `uc ]
 }
 [e :U 343 ]
-"113
-[; ;main.c: 113:     do { LATBbits.LATB6 = 0; } while(0);
+"114
+[; ;main.c: 114:     do { LATBbits.LATB6 = 0; } while(0);
 [e :U 347 ]
 {
 [e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
 }
 [e :U 346 ]
-"114
-[; ;main.c: 114:     do { LATBbits.LATB7 = 0; } while(0);
+"115
+[; ;main.c: 115:     do { LATBbits.LATB7 = 0; } while(0);
 [e :U 350 ]
 {
 [e = . . _LATBbits 0 4 -> -> 0 `i `uc ]
 }
 [e :U 349 ]
-"118
-[; ;main.c: 118:     switch(newState)
-[e $U 352  ]
 "119
-[; ;main.c: 119:     {
-{
+[; ;main.c: 119:     switch(newState)
+[e $U 352  ]
 "120
-[; ;main.c: 120:         case STATE_NORMAL:
+[; ;main.c: 120:     {
+{
+"121
+[; ;main.c: 121:         case STATE_NORMAL:
 [e :U 353 ]
-"125
-[; ;main.c: 125:             lowerLimit = 0;
-[e = _lowerLimit -> -> -> 0 `i `l `ul ]
 "126
-[; ;main.c: 126:             lowerLimit += (int32_t)FLASH_ReadWord(0x800 -4) << 16;
-[e =+ _lowerLimit -> << -> ( _FLASH_ReadWord (1 -> - -> 2048 `i -> 4 `i `us `l -> 16 `i `ul ]
+[; ;main.c: 126:             lowerLimit = 0;
+[e = _lowerLimit -> -> -> 0 `i `l `ul ]
 "127
-[; ;main.c: 127:             lowerLimit += (int32_t)FLASH_ReadWord(0x800 -3);
+[; ;main.c: 127:             lowerLimit += (int32_t)FLASH_ReadWord(0x800 -4) << 16;
+[e =+ _lowerLimit -> << -> ( _FLASH_ReadWord (1 -> - -> 2048 `i -> 4 `i `us `l -> 16 `i `ul ]
+"128
+[; ;main.c: 128:             lowerLimit += (int32_t)FLASH_ReadWord(0x800 -3);
 [e =+ _lowerLimit -> -> ( _FLASH_ReadWord (1 -> - -> 2048 `i -> 3 `i `us `l `ul ]
-"130
-[; ;main.c: 130:             upperLimit = 0;
-[e = _upperLimit -> -> -> 0 `i `l `ul ]
 "131
-[; ;main.c: 131:             upperLimit += (int32_t)FLASH_ReadWord(0x800 -2) << 16;
-[e =+ _upperLimit -> << -> ( _FLASH_ReadWord (1 -> - -> 2048 `i -> 2 `i `us `l -> 16 `i `ul ]
+[; ;main.c: 131:             upperLimit = 0;
+[e = _upperLimit -> -> -> 0 `i `l `ul ]
 "132
-[; ;main.c: 132:             upperLimit += (int32_t)FLASH_ReadWord(0x800 -1) ;
+[; ;main.c: 132:             upperLimit += (int32_t)FLASH_ReadWord(0x800 -2) << 16;
+[e =+ _upperLimit -> << -> ( _FLASH_ReadWord (1 -> - -> 2048 `i -> 2 `i `us `l -> 16 `i `ul ]
+"133
+[; ;main.c: 133:             upperLimit += (int32_t)FLASH_ReadWord(0x800 -1) ;
 [e =+ _upperLimit -> -> ( _FLASH_ReadWord (1 -> - -> 2048 `i -> 1 `i `us `l `ul ]
-"139
-[; ;main.c: 139:             m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
-[e = _m -> / -> * -> -> 1023 `i `l _fixedPointFactor `ul - _upperLimit _lowerLimit `l ]
 "140
-[; ;main.c: 140:             b = lowerLimit*m;
-[e = _b -> * _lowerLimit -> _m `ul `m ]
+[; ;main.c: 140:             m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
+[e = _m -> / -> * -> -> 1023 `i `l _fixedPointFactor `ul - _upperLimit _lowerLimit `l ]
 "141
-[; ;main.c: 141:             break;
+[; ;main.c: 141:             b = lowerLimit*m;
+[e = _b -> * _lowerLimit -> _m `ul `m ]
+"142
+[; ;main.c: 142:             break;
 [e $U 351  ]
-"144
-[; ;main.c: 144:         case STATE_TEACH_LEFT:
-[e :U 354 ]
 "145
-[; ;main.c: 145:             do { LATCbits.LATC0 = 1; } while(0);
+[; ;main.c: 145:         case STATE_TEACH_LEFT:
+[e :U 354 ]
+"146
+[; ;main.c: 146:             do { LATCbits.LATC0 = 1; } while(0);
 [e :U 357 ]
 {
 [e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
 }
 [e :U 356 ]
-"146
-[; ;main.c: 146:             break;
+"147
+[; ;main.c: 147:             break;
 [e $U 351  ]
-"148
-[; ;main.c: 148:         case STATE_TEACH_RIGHT:
-[e :U 358 ]
 "149
-[; ;main.c: 149:             do { LATBbits.LATB7 = 1; } while(0);
+[; ;main.c: 149:         case STATE_TEACH_RIGHT:
+[e :U 358 ]
+"150
+[; ;main.c: 150:             do { LATBbits.LATB7 = 1; } while(0);
 [e :U 361 ]
 {
 [e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
 }
 [e :U 360 ]
-"150
-[; ;main.c: 150:             break;
-[e $U 351  ]
 "151
-[; ;main.c: 151:     }
+[; ;main.c: 151:             break;
+[e $U 351  ]
+"152
+[; ;main.c: 152:     }
 }
 [e $U 351  ]
 [e :U 352 ]
-[e [\ -> _newState `ui , $ -> . `E2406 0 `ui 353
- , $ -> . `E2406 1 `ui 354
- , $ -> . `E2406 2 `ui 358
+[e [\ -> _newState `ui , $ -> . `E2406 1 `ui 353
+ , $ -> . `E2406 2 `ui 354
+ , $ -> . `E2406 3 `ui 358
  351 ]
 [e :U 351 ]
-"153
-[; ;main.c: 153:     msTick = 0;
+"154
+[; ;main.c: 154:     msTick = 0;
 [e = _msTick -> -> 0 `i `us ]
-"155
-[; ;main.c: 155:     currentState = newState;
-[e = _currentState _newState ]
 "156
-[; ;main.c: 156: }
+[; ;main.c: 156:     currentState = newState;
+[e = _currentState _newState ]
+"157
+[; ;main.c: 157: }
 [e :UE 316 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"159
-[; ;main.c: 159: void main(void)
-[v _main `(v ~T0 @X0 1 ef ]
 "160
-[; ;main.c: 160: {
+[; ;main.c: 160: void main(void)
+[v _main `(v ~T0 @X0 1 ef ]
+"161
+[; ;main.c: 161: {
 {
 [e :U _main ]
 [f ]
-"162
-[; ;main.c: 162:     SYSTEM_Initialize();
+"163
+[; ;main.c: 163:     SYSTEM_Initialize();
 [e ( _SYSTEM_Initialize ..  ]
-"165
-[; ;main.c: 165:     (INTCONbits.GIE = 1);
+"166
+[; ;main.c: 166:     (INTCONbits.GIE = 1);
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-"167
-[; ;main.c: 167:     setState(STATE_NORMAL);
-[e ( _setState (1 . `E2406 0 ]
-"170
-[; ;main.c: 170:     TMR0_SetInterruptHandler(timer0CallBack);
-[e ( _TMR0_SetInterruptHandler (1 -> &U _timer0CallBack `*F2428 ]
+"168
+[; ;main.c: 168:     setState(STATE_NORMAL);
+[e ( _setState (1 . `E2406 1 ]
 "171
-[; ;main.c: 171:     TMR2_StartTimer();
+[; ;main.c: 171:     TMR0_SetInterruptHandler(timer0CallBack);
+[e ( _TMR0_SetInterruptHandler (1 -> &U _timer0CallBack `*F2429 ]
+"172
+[; ;main.c: 172:     TMR2_StartTimer();
 [e ( _TMR2_StartTimer ..  ]
-"173
-[; ;main.c: 173:     while(1)
-[e :U 364 ]
 "174
-[; ;main.c: 174:     {
-{
+[; ;main.c: 174:     while(1)
+[e :U 364 ]
 "175
-[; ;main.c: 175:         static adc_channel_t channel = channelBrightness;
-[v F2430 `E2388 ~T0 @X0 1 s channel ]
-[i F2430
+[; ;main.c: 175:     {
+{
+"176
+[; ;main.c: 176:         static adc_channel_t channel = channelBrightness;
+[v F2431 `E2388 ~T0 @X0 1 s channel ]
+[i F2431
 . `E2388 1
 ]
-"178
-[; ;main.c: 178:         channel = (channel == channelRudder) ? channelBrightness : channelRudder;
-[e = F2430 -> ? == -> F2430 `ui -> . `E2388 0 `ui : . `E2388 1 . `E2388 0 `E2388 ]
-"183
-[; ;main.c: 183:         if(channel == channelRudder)
-[e $ ! == -> F2430 `ui -> . `E2388 0 `ui 366  ]
+"179
+[; ;main.c: 179:         channel = (channel == channelRudder) ? channelBrightness : channelRudder;
+[e = F2431 -> ? == -> F2431 `ui -> . `E2388 0 `ui : . `E2388 1 . `E2388 0 `E2388 ]
 "184
-[; ;main.c: 184:         {
-{
+[; ;main.c: 184:         if(channel == channelRudder)
+[e $ ! == -> F2431 `ui -> . `E2388 0 `ui 366  ]
 "185
-[; ;main.c: 185:             adcValuePosition = ADC_GetConversion(channel);
-[e = _adcValuePosition -> ( _ADC_GetConversion (1 F2430 `l ]
+[; ;main.c: 185:         {
+{
 "186
-[; ;main.c: 186:         }
+[; ;main.c: 186:             adcValuePosition = ADC_GetConversion(channel);
+[e = _adcValuePosition -> ( _ADC_GetConversion (1 F2431 `l ]
+"187
+[; ;main.c: 187:         }
 }
 [e $U 367  ]
-"187
-[; ;main.c: 187:         else
-[e :U 366 ]
 "188
-[; ;main.c: 188:         {
+[; ;main.c: 188:         else
+[e :U 366 ]
+"189
+[; ;main.c: 189:         {
 {
-"190
-[; ;main.c: 190:             PWM3_LoadDutyValue(ADC_GetConversion(channel));
-[e ( _PWM3_LoadDutyValue (1 ( _ADC_GetConversion (1 F2430 ]
 "191
-[; ;main.c: 191:         }
+[; ;main.c: 191:             PWM3_LoadDutyValue(ADC_GetConversion(channel));
+[e ( _PWM3_LoadDutyValue (1 ( _ADC_GetConversion (1 F2431 ]
+"192
+[; ;main.c: 192:         }
 }
 [e :U 367 ]
-"195
-[; ;main.c: 195:         if(!PORTAbits.RA5 && !doButtonAction)
-[e $ ! && ! != -> . . _PORTAbits 0 5 `i -> 0 `i ! != -> _doButtonAction `i -> 0 `i 368  ]
 "196
-[; ;main.c: 196:         {
-{
+[; ;main.c: 196:         if(!PORTAbits.RA5 && !doButtonAction)
+[e $ ! && ! != -> . . _PORTAbits 0 5 `i -> 0 `i ! != -> _doButtonAction `i -> 0 `i 368  ]
 "197
-[; ;main.c: 197:             msPressed++;
-[e ++ _msPressed -> -> 1 `i `Vus ]
-"199
-[; ;main.c: 199:             if(msPressed > 3000)
-[e $ ! > -> _msPressed `ui -> -> 3000 `i `ui 369  ]
-"200
-[; ;main.c: 200:             {
+[; ;main.c: 197:         {
 {
+"198
+[; ;main.c: 198:             msPressed++;
+[e ++ _msPressed -> -> 1 `i `Vus ]
+"200
+[; ;main.c: 200:             if(msPressed > 3000)
+[e $ ! > -> _msPressed `ui -> -> 3000 `i `ui 369  ]
 "201
-[; ;main.c: 201:                 doButtonAction = 1;
-[e = _doButtonAction -> -> 1 `i `a ]
+[; ;main.c: 201:             {
+{
 "202
-[; ;main.c: 202:             }
+[; ;main.c: 202:                 doButtonAction = 1;
+[e = _doButtonAction -> -> 1 `i `a ]
+"203
+[; ;main.c: 203:             }
 }
 [e :U 369 ]
-"203
-[; ;main.c: 203:             do { LATCbits.LATC5 = 1; } while(0);
+"204
+[; ;main.c: 204:             do { LATCbits.LATC5 = 1; } while(0);
 [e :U 372 ]
 {
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
 }
 [e :U 371 ]
-"204
-[; ;main.c: 204:         }
+"205
+[; ;main.c: 205:         }
 }
 [e $U 373  ]
-"205
-[; ;main.c: 205:         else
-[e :U 368 ]
 "206
-[; ;main.c: 206:         {
-{
+[; ;main.c: 206:         else
+[e :U 368 ]
 "207
-[; ;main.c: 207:             msPressed = 0;
-[e = _msPressed -> -> 0 `i `us ]
+[; ;main.c: 207:         {
+{
 "208
-[; ;main.c: 208:             do { LATCbits.LATC5 = 0; } while(0);
+[; ;main.c: 208:             msPressed = 0;
+[e = _msPressed -> -> 0 `i `us ]
+"209
+[; ;main.c: 209:             do { LATCbits.LATC5 = 0; } while(0);
 [e :U 376 ]
 {
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
 }
 [e :U 375 ]
-"209
-[; ;main.c: 209:         }
+"210
+[; ;main.c: 210:         }
 }
 [e :U 373 ]
-"213
-[; ;main.c: 213:         if(doButtonAction)
-[e $ ! != -> _doButtonAction `i -> 0 `i 377  ]
 "214
-[; ;main.c: 214:         {
+[; ;main.c: 214:         if(doButtonAction)
+[e $ ! != -> _doButtonAction `i -> 0 `i 377  ]
+"215
+[; ;main.c: 215:         {
 {
-"216
-[; ;main.c: 216:             while(!PORTAbits.RA5)
+"217
+[; ;main.c: 217:             while(!PORTAbits.RA5)
 [e $U 378  ]
 [e :U 379 ]
-"217
-[; ;main.c: 217:             {
+"218
+[; ;main.c: 218:             {
 {
-"219
-[; ;main.c: 219:             }
+"220
+[; ;main.c: 220:             }
 }
 [e :U 378 ]
-"216
-[; ;main.c: 216:             while(!PORTAbits.RA5)
+"217
+[; ;main.c: 217:             while(!PORTAbits.RA5)
 [e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 379  ]
 [e :U 380 ]
-"223
-[; ;main.c: 223:             switch(currentState)
-[e $U 382  ]
 "224
-[; ;main.c: 224:             {
-{
+[; ;main.c: 224:             switch(currentState)
+[e $U 382  ]
 "225
-[; ;main.c: 225:                 case STATE_NORMAL:
-[e :U 383 ]
-"226
-[; ;main.c: 226:                     setState(STATE_TEACH_LEFT);
-[e ( _setState (1 . `E2406 1 ]
-"227
-[; ;main.c: 227:                     break;
-[e $U 381  ]
-"229
-[; ;main.c: 229:                 case STATE_TEACH_LEFT:
-[e :U 384 ]
-"230
-[; ;main.c: 230:                     lowerLimit = adcValuePosition;
-[e = _lowerLimit -> _adcValuePosition `ul ]
-"232
-[; ;main.c: 232:                     setState(STATE_TEACH_RIGHT);
-[e ( _setState (1 . `E2406 2 ]
-"233
-[; ;main.c: 233:                     break;
-[e $U 381  ]
-"235
-[; ;main.c: 235:                 case STATE_TEACH_RIGHT:
-[e :U 385 ]
-"236
-[; ;main.c: 236:                 {
+[; ;main.c: 225:             {
 {
-"237
-[; ;main.c: 237:                     upperLimit = adcValuePosition;
-[e = _upperLimit -> _adcValuePosition `ul ]
-"243
-[; ;main.c: 243:                     uint16_t wrBlockData[16];
-[v _wrBlockData `us ~T0 @X0 -> 16 `i a ]
-"246
-[; ;main.c: 246:                     wrBlockData[16 -1] = (uint16_t)(upperLimit);
-[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 1 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> _upperLimit `us ]
-"247
-[; ;main.c: 247:                     wrBlockData[16 -2] = (uint16_t)(upperLimit >> 16);
-[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 2 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> >> _upperLimit -> 16 `i `us ]
-"248
-[; ;main.c: 248:                     wrBlockData[16 -3] = (uint16_t)(lowerLimit);
-[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 3 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> _lowerLimit `us ]
-"249
-[; ;main.c: 249:                     wrBlockData[16 -4] = (uint16_t)(lowerLimit >> 16);
-[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 4 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> >> _lowerLimit -> 16 `i `us ]
-"252
-[; ;main.c: 252:                     FLASH_WriteBlock((uint16_t)( 0x800 -16 -1), (uint16_t*)wrBlockData);
-[e ( _FLASH_WriteBlock (2 , -> - - -> 2048 `i -> 16 `i -> 1 `i `us &U _wrBlockData ]
-"254
-[; ;main.c: 254:                     setState(STATE_NORMAL);
-[e ( _setState (1 . `E2406 0 ]
-"255
-[; ;main.c: 255:                     break;
+"226
+[; ;main.c: 226:                 case STATE_NORMAL:
+[e :U 383 ]
+"227
+[; ;main.c: 227:                     setState(STATE_TEACH_LEFT);
+[e ( _setState (1 . `E2406 2 ]
+"228
+[; ;main.c: 228:                     break;
 [e $U 381  ]
+"230
+[; ;main.c: 230:                 case STATE_TEACH_LEFT:
+[e :U 384 ]
+"231
+[; ;main.c: 231:                     lowerLimit = adcValuePosition;
+[e = _lowerLimit -> _adcValuePosition `ul ]
+"233
+[; ;main.c: 233:                     setState(STATE_TEACH_RIGHT);
+[e ( _setState (1 . `E2406 3 ]
+"234
+[; ;main.c: 234:                     break;
+[e $U 381  ]
+"236
+[; ;main.c: 236:                 case STATE_TEACH_RIGHT:
+[e :U 385 ]
+"237
+[; ;main.c: 237:                 {
+{
+"238
+[; ;main.c: 238:                     upperLimit = adcValuePosition;
+[e = _upperLimit -> _adcValuePosition `ul ]
+"244
+[; ;main.c: 244:                     uint16_t wrBlockData[16];
+[v _wrBlockData `us ~T0 @X0 -> 16 `i a ]
+"247
+[; ;main.c: 247:                     wrBlockData[16 -1] = (uint16_t)(upperLimit);
+[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 1 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> _upperLimit `us ]
+"248
+[; ;main.c: 248:                     wrBlockData[16 -2] = (uint16_t)(upperLimit >> 16);
+[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 2 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> >> _upperLimit -> 16 `i `us ]
+"249
+[; ;main.c: 249:                     wrBlockData[16 -3] = (uint16_t)(lowerLimit);
+[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 3 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> _lowerLimit `us ]
+"250
+[; ;main.c: 250:                     wrBlockData[16 -4] = (uint16_t)(lowerLimit >> 16);
+[e = *U + &U _wrBlockData * -> -> - -> 16 `i -> 4 `i `ui `ux -> -> # *U &U _wrBlockData `ui `ux -> >> _lowerLimit -> 16 `i `us ]
+"253
+[; ;main.c: 253:                     FLASH_WriteBlock((uint16_t)( 0x800 -16 -1), (uint16_t*)wrBlockData);
+[e ( _FLASH_WriteBlock (2 , -> - - -> 2048 `i -> 16 `i -> 1 `i `us &U _wrBlockData ]
+"255
+[; ;main.c: 255:                     setState(STATE_NORMAL);
+[e ( _setState (1 . `E2406 1 ]
 "256
-[; ;main.c: 256:                 }
-}
+[; ;main.c: 256:                     break;
+[e $U 381  ]
 "257
-[; ;main.c: 257:             }
+[; ;main.c: 257:                 }
+}
+"258
+[; ;main.c: 258:             }
 }
 [e $U 381  ]
 [e :U 382 ]
-[e [\ -> _currentState `ui , $ -> . `E2406 0 `ui 383
- , $ -> . `E2406 1 `ui 384
- , $ -> . `E2406 2 `ui 385
+[e [\ -> _currentState `ui , $ -> . `E2406 1 `ui 383
+ , $ -> . `E2406 2 `ui 384
+ , $ -> . `E2406 3 `ui 385
  381 ]
 [e :U 381 ]
-"259
-[; ;main.c: 259:             doButtonAction = 0;
-[e = _doButtonAction -> -> 0 `i `a ]
 "260
-[; ;main.c: 260:         }
+[; ;main.c: 260:             doButtonAction = 0;
+[e = _doButtonAction -> -> 0 `i `a ]
+"261
+[; ;main.c: 261:         }
 }
 [e :U 377 ]
-"264
-[; ;main.c: 264:         switch(currentState)
-[e $U 387  ]
 "265
-[; ;main.c: 265:         {
-{
+[; ;main.c: 265:         switch(currentState)
+[e $U 387  ]
 "266
-[; ;main.c: 266:             case STATE_NORMAL:
-[e :U 388 ]
-"267
-[; ;main.c: 267:                 if(channel == channelBrightness)
-[e $ ! == -> F2430 `ui -> . `E2388 1 `ui 389  ]
-"268
-[; ;main.c: 268:                 {
+[; ;main.c: 266:         {
 {
+"267
+[; ;main.c: 267:             case STATE_NORMAL:
+[e :U 388 ]
+"268
+[; ;main.c: 268:                 if(channel == channelBrightness)
+[e $ ! == -> F2431 `ui -> . `E2388 1 `ui 389  ]
 "269
-[; ;main.c: 269:                     adcValuePosition = (adcValuePosition*m-b)/fixedPointFactor;
-[e = _adcValuePosition / - * _adcValuePosition _m -> _b `l _fixedPointFactor ]
+[; ;main.c: 269:                 {
+{
 "270
-[; ;main.c: 270:                     setLedsForPositioning(adcValuePosition);
-[e ( _setLedsForPositioning (1 _adcValuePosition ]
+[; ;main.c: 270:                     adcValuePosition = (adcValuePosition*m-b)/fixedPointFactor;
+[e = _adcValuePosition / - * _adcValuePosition _m -> _b `l _fixedPointFactor ]
 "271
-[; ;main.c: 271:                 }
+[; ;main.c: 271:                     setLedsForPositioning(adcValuePosition);
+[e ( _setLedsForPositioning (1 _adcValuePosition ]
+"272
+[; ;main.c: 272:                 }
 }
 [e :U 389 ]
-"272
-[; ;main.c: 272:                 break;
+"273
+[; ;main.c: 273:                 break;
 [e $U 386  ]
-"274
-[; ;main.c: 274:             case STATE_TEACH_LEFT:
-[e :U 390 ]
 "275
-[; ;main.c: 275:                 if(doToggle)
-[e $ ! != -> _doToggle `i -> 0 `i 391  ]
+[; ;main.c: 275:             case STATE_TEACH_LEFT:
+[e :U 390 ]
 "276
-[; ;main.c: 276:                 {
-{
+[; ;main.c: 276:                 if(doToggle)
+[e $ ! != -> _doToggle `i -> 0 `i 391  ]
 "277
-[; ;main.c: 277:                     do { LATCbits.LATC0 = ~LATCbits.LATC0; } while(0);
+[; ;main.c: 277:                 {
+{
+"278
+[; ;main.c: 278:                     do { LATCbits.LATC0 = ~LATCbits.LATC0; } while(0);
 [e :U 394 ]
 {
 [e = . . _LATCbits 0 0 -> ~ -> . . _LATCbits 0 0 `i `uc ]
 }
 [e :U 393 ]
-"278
-[; ;main.c: 278:                     do { LATCbits.LATC1 = ~LATCbits.LATC1; } while(0);
+"279
+[; ;main.c: 279:                     do { LATCbits.LATC1 = ~LATCbits.LATC1; } while(0);
 [e :U 397 ]
 {
 [e = . . _LATCbits 0 1 -> ~ -> . . _LATCbits 0 1 `i `uc ]
 }
 [e :U 396 ]
-"279
-[; ;main.c: 279:                     do { LATCbits.LATC2 = ~LATCbits.LATC2; } while(0);
+"280
+[; ;main.c: 280:                     do { LATCbits.LATC2 = ~LATCbits.LATC2; } while(0);
 [e :U 400 ]
 {
 [e = . . _LATCbits 0 2 -> ~ -> . . _LATCbits 0 2 `i `uc ]
 }
 [e :U 399 ]
-"280
-[; ;main.c: 280:                     do { LATCbits.LATC3 = ~LATCbits.LATC3; } while(0);
+"281
+[; ;main.c: 281:                     do { LATCbits.LATC3 = ~LATCbits.LATC3; } while(0);
 [e :U 403 ]
 {
 [e = . . _LATCbits 0 3 -> ~ -> . . _LATCbits 0 3 `i `uc ]
 }
 [e :U 402 ]
-"281
-[; ;main.c: 281:                     do { LATCbits.LATC4 = ~LATCbits.LATC4; } while(0);
+"282
+[; ;main.c: 282:                     do { LATCbits.LATC4 = ~LATCbits.LATC4; } while(0);
 [e :U 406 ]
 {
 [e = . . _LATCbits 0 4 -> ~ -> . . _LATCbits 0 4 `i `uc ]
 }
 [e :U 405 ]
-"282
-[; ;main.c: 282:                     doToggle = 0;
-[e = _doToggle -> -> 0 `i `a ]
 "283
-[; ;main.c: 283:                 }
+[; ;main.c: 283:                     doToggle = 0;
+[e = _doToggle -> -> 0 `i `a ]
+"284
+[; ;main.c: 284:                 }
 }
 [e :U 391 ]
-"284
-[; ;main.c: 284:                 break;
+"285
+[; ;main.c: 285:                 break;
 [e $U 386  ]
-"288
-[; ;main.c: 288:             case STATE_TEACH_RIGHT:
-[e :U 407 ]
 "289
-[; ;main.c: 289:                 if(doToggle)
-[e $ ! != -> _doToggle `i -> 0 `i 408  ]
+[; ;main.c: 289:             case STATE_TEACH_RIGHT:
+[e :U 407 ]
 "290
-[; ;main.c: 290:                 {
-{
+[; ;main.c: 290:                 if(doToggle)
+[e $ ! != -> _doToggle `i -> 0 `i 408  ]
 "291
-[; ;main.c: 291:                     do { LATCbits.LATC6 = ~LATCbits.LATC6; } while(0);
+[; ;main.c: 291:                 {
+{
+"292
+[; ;main.c: 292:                     do { LATCbits.LATC6 = ~LATCbits.LATC6; } while(0);
 [e :U 411 ]
 {
 [e = . . _LATCbits 0 6 -> ~ -> . . _LATCbits 0 6 `i `uc ]
 }
 [e :U 410 ]
-"292
-[; ;main.c: 292:                     do { LATCbits.LATC7 = ~LATCbits.LATC7; } while(0);
+"293
+[; ;main.c: 293:                     do { LATCbits.LATC7 = ~LATCbits.LATC7; } while(0);
 [e :U 414 ]
 {
 [e = . . _LATCbits 0 7 -> ~ -> . . _LATCbits 0 7 `i `uc ]
 }
 [e :U 413 ]
-"293
-[; ;main.c: 293:                     do { LATBbits.LATB5 = ~LATBbits.LATB5; } while(0);
+"294
+[; ;main.c: 294:                     do { LATBbits.LATB5 = ~LATBbits.LATB5; } while(0);
 [e :U 417 ]
 {
 [e = . . _LATBbits 0 2 -> ~ -> . . _LATBbits 0 2 `i `uc ]
 }
 [e :U 416 ]
-"294
-[; ;main.c: 294:                     do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0);
+"295
+[; ;main.c: 295:                     do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0);
 [e :U 420 ]
 {
 [e = . . _LATBbits 0 3 -> ~ -> . . _LATBbits 0 3 `i `uc ]
 }
 [e :U 419 ]
-"295
-[; ;main.c: 295:                     do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0);
+"296
+[; ;main.c: 296:                     do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0);
 [e :U 423 ]
 {
 [e = . . _LATBbits 0 4 -> ~ -> . . _LATBbits 0 4 `i `uc ]
 }
 [e :U 422 ]
-"296
-[; ;main.c: 296:                     doToggle = 0;
-[e = _doToggle -> -> 0 `i `a ]
 "297
-[; ;main.c: 297:                 }
+[; ;main.c: 297:                     doToggle = 0;
+[e = _doToggle -> -> 0 `i `a ]
+"298
+[; ;main.c: 298:                 }
 }
 [e :U 408 ]
-"298
-[; ;main.c: 298:                 break;
-[e $U 386  ]
 "299
-[; ;main.c: 299:         }
+[; ;main.c: 299:                 break;
+[e $U 386  ]
+"300
+[; ;main.c: 300:         }
 }
 [e $U 386  ]
 [e :U 387 ]
-[e [\ -> _currentState `ui , $ -> . `E2406 0 `ui 388
- , $ -> . `E2406 1 `ui 390
- , $ -> . `E2406 2 `ui 407
+[e [\ -> _currentState `ui , $ -> . `E2406 1 `ui 388
+ , $ -> . `E2406 2 `ui 390
+ , $ -> . `E2406 3 `ui 407
  386 ]
 [e :U 386 ]
-"301
-[; ;main.c: 301:     };
+"302
+[; ;main.c: 302:     };
 }
 [e :U 363 ]
 [e $U 364  ]
 [e :U 365 ]
-"302
-[; ;main.c: 302: }
+"303
+[; ;main.c: 303: }
 [e :UE 362 ]
 }
-"307
-[; ;main.c: 307: void setLedsForPositioning(int32_t adcValue)
-[v _setLedsForPositioning `(v ~T0 @X0 1 ef1`l ]
 "308
-[; ;main.c: 308: {
+[; ;main.c: 308: void setLedsForPositioning(int32_t adcValue)
+[v _setLedsForPositioning `(v ~T0 @X0 1 ef1`l ]
+"309
+[; ;main.c: 309: {
 {
 [e :U _setLedsForPositioning ]
-"307
-[; ;main.c: 307: void setLedsForPositioning(int32_t adcValue)
-[v _adcValue `l ~T0 @X0 1 r1 ]
 "308
-[; ;main.c: 308: {
-[f ]
+[; ;main.c: 308: void setLedsForPositioning(int32_t adcValue)
+[v _adcValue `l ~T0 @X0 1 r1 ]
 "309
-[; ;main.c: 309:     do { LATCbits.LATC0 = 0; } while(0);
+[; ;main.c: 309: {
+[f ]
+"310
+[; ;main.c: 310:     do { LATCbits.LATC0 = 0; } while(0);
 [e :U 427 ]
 {
 [e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
 }
 [e :U 426 ]
-"310
-[; ;main.c: 310:     do { LATCbits.LATC1 = 0; } while(0);
+"311
+[; ;main.c: 311:     do { LATCbits.LATC1 = 0; } while(0);
 [e :U 430 ]
 {
 [e = . . _LATCbits 0 1 -> -> 0 `i `uc ]
 }
 [e :U 429 ]
-"311
-[; ;main.c: 311:     do { LATCbits.LATC2 = 0; } while(0);
+"312
+[; ;main.c: 312:     do { LATCbits.LATC2 = 0; } while(0);
 [e :U 433 ]
 {
 [e = . . _LATCbits 0 2 -> -> 0 `i `uc ]
 }
 [e :U 432 ]
-"312
-[; ;main.c: 312:     do { LATCbits.LATC3 = 0; } while(0);
+"313
+[; ;main.c: 313:     do { LATCbits.LATC3 = 0; } while(0);
 [e :U 436 ]
 {
 [e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
 }
 [e :U 435 ]
-"313
-[; ;main.c: 313:     do { LATCbits.LATC4 = 0; } while(0);
+"314
+[; ;main.c: 314:     do { LATCbits.LATC4 = 0; } while(0);
 [e :U 439 ]
 {
 [e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
 }
 [e :U 438 ]
-"314
-[; ;main.c: 314:     do { LATCbits.LATC5 = 1; } while(0);
+"315
+[; ;main.c: 315:     do { LATCbits.LATC5 = 1; } while(0);
 [e :U 442 ]
 {
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
 }
 [e :U 441 ]
-"315
-[; ;main.c: 315:     do { LATCbits.LATC6 = 0; } while(0);
+"316
+[; ;main.c: 316:     do { LATCbits.LATC6 = 0; } while(0);
 [e :U 445 ]
 {
 [e = . . _LATCbits 0 6 -> -> 0 `i `uc ]
 }
 [e :U 444 ]
-"316
-[; ;main.c: 316:     do { LATCbits.LATC7 = 0; } while(0);
+"317
+[; ;main.c: 317:     do { LATCbits.LATC7 = 0; } while(0);
 [e :U 448 ]
 {
 [e = . . _LATCbits 0 7 -> -> 0 `i `uc ]
 }
 [e :U 447 ]
-"317
-[; ;main.c: 317:     do { LATBbits.LATB5 = 0; } while(0);
+"318
+[; ;main.c: 318:     do { LATBbits.LATB5 = 0; } while(0);
 [e :U 451 ]
 {
 [e = . . _LATBbits 0 2 -> -> 0 `i `uc ]
 }
 [e :U 450 ]
-"318
-[; ;main.c: 318:     do { LATBbits.LATB6 = 0; } while(0);
+"319
+[; ;main.c: 319:     do { LATBbits.LATB6 = 0; } while(0);
 [e :U 454 ]
 {
 [e = . . _LATBbits 0 3 -> -> 0 `i `uc ]
 }
 [e :U 453 ]
-"319
-[; ;main.c: 319:     do { LATBbits.LATB7 = 0; } while(0);
+"320
+[; ;main.c: 320:     do { LATBbits.LATB7 = 0; } while(0);
 [e :U 457 ]
 {
 [e = . . _LATBbits 0 4 -> -> 0 `i `uc ]
 }
 [e :U 456 ]
-"323
-[; ;main.c: 323:     if(adcValue < 54)
-[e $ ! < _adcValue -> -> 54 `i `l 458  ]
 "324
-[; ;main.c: 324:     {
-{
+[; ;main.c: 324:     if(adcValue < 54)
+[e $ ! < _adcValue -> -> 54 `i `l 458  ]
 "325
-[; ;main.c: 325:         do { LATCbits.LATC0 = 1; } while(0);
+[; ;main.c: 325:     {
+{
+"326
+[; ;main.c: 326:         do { LATCbits.LATC0 = 1; } while(0);
 [e :U 461 ]
 {
 [e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
 }
 [e :U 460 ]
-"326
-[; ;main.c: 326:     }
+"327
+[; ;main.c: 327:     }
 }
 [e $U 462  ]
-"327
-[; ;main.c: 327:     else if(adcValue < 108)
+"328
+[; ;main.c: 328:     else if(adcValue < 108)
 [e :U 458 ]
 [e $ ! < _adcValue -> -> 108 `i `l 463  ]
-"328
-[; ;main.c: 328:     {
-{
 "329
-[; ;main.c: 329:         do { LATCbits.LATC0 = 1; } while(0);
+[; ;main.c: 329:     {
+{
+"330
+[; ;main.c: 330:         do { LATCbits.LATC0 = 1; } while(0);
 [e :U 466 ]
 {
 [e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
 }
 [e :U 465 ]
-"330
-[; ;main.c: 330:         do { LATCbits.LATC1 = 1; } while(0);
+"331
+[; ;main.c: 331:         do { LATCbits.LATC1 = 1; } while(0);
 [e :U 469 ]
 {
 [e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
 }
 [e :U 468 ]
-"331
-[; ;main.c: 331:     }
+"332
+[; ;main.c: 332:     }
 }
 [e $U 470  ]
-"332
-[; ;main.c: 332:     else if(adcValue < 162)
+"333
+[; ;main.c: 333:     else if(adcValue < 162)
 [e :U 463 ]
 [e $ ! < _adcValue -> -> 162 `i `l 471  ]
-"333
-[; ;main.c: 333:     {
-{
 "334
-[; ;main.c: 334:         do { LATCbits.LATC1 = 1; } while(0);
+[; ;main.c: 334:     {
+{
+"335
+[; ;main.c: 335:         do { LATCbits.LATC1 = 1; } while(0);
 [e :U 474 ]
 {
 [e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
 }
 [e :U 473 ]
-"335
-[; ;main.c: 335:     }
+"336
+[; ;main.c: 336:     }
 }
 [e $U 475  ]
-"336
-[; ;main.c: 336:     else if(adcValue < 215)
+"337
+[; ;main.c: 337:     else if(adcValue < 215)
 [e :U 471 ]
 [e $ ! < _adcValue -> -> 215 `i `l 476  ]
-"337
-[; ;main.c: 337:     {
-{
 "338
-[; ;main.c: 338:         do { LATCbits.LATC1 = 1; } while(0);
+[; ;main.c: 338:     {
+{
+"339
+[; ;main.c: 339:         do { LATCbits.LATC1 = 1; } while(0);
 [e :U 479 ]
 {
 [e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
 }
 [e :U 478 ]
-"339
-[; ;main.c: 339:         do { LATCbits.LATC2 = 1; } while(0);
+"340
+[; ;main.c: 340:         do { LATCbits.LATC2 = 1; } while(0);
 [e :U 482 ]
 {
 [e = . . _LATCbits 0 2 -> -> 1 `i `uc ]
 }
 [e :U 481 ]
-"340
-[; ;main.c: 340:     }
+"341
+[; ;main.c: 341:     }
 }
 [e $U 483  ]
-"341
-[; ;main.c: 341:     else if(adcValue < 269)
+"342
+[; ;main.c: 342:     else if(adcValue < 269)
 [e :U 476 ]
 [e $ ! < _adcValue -> -> 269 `i `l 484  ]
-"342
-[; ;main.c: 342:     {
-{
 "343
-[; ;main.c: 343:         do { LATCbits.LATC2 = 1; } while(0);
+[; ;main.c: 343:     {
+{
+"344
+[; ;main.c: 344:         do { LATCbits.LATC2 = 1; } while(0);
 [e :U 487 ]
 {
 [e = . . _LATCbits 0 2 -> -> 1 `i `uc ]
 }
 [e :U 486 ]
-"344
-[; ;main.c: 344:     }
+"345
+[; ;main.c: 345:     }
 }
 [e $U 488  ]
-"345
-[; ;main.c: 345:     else if(adcValue < 323)
+"346
+[; ;main.c: 346:     else if(adcValue < 323)
 [e :U 484 ]
 [e $ ! < _adcValue -> -> 323 `i `l 489  ]
-"346
-[; ;main.c: 346:     {
-{
 "347
-[; ;main.c: 347:         do { LATCbits.LATC2 = 1; } while(0);
+[; ;main.c: 347:     {
+{
+"348
+[; ;main.c: 348:         do { LATCbits.LATC2 = 1; } while(0);
 [e :U 492 ]
 {
 [e = . . _LATCbits 0 2 -> -> 1 `i `uc ]
 }
 [e :U 491 ]
-"348
-[; ;main.c: 348:         do { LATCbits.LATC3 = 1; } while(0);
+"349
+[; ;main.c: 349:         do { LATCbits.LATC3 = 1; } while(0);
 [e :U 495 ]
 {
 [e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
 }
 [e :U 494 ]
-"349
-[; ;main.c: 349:     }
+"350
+[; ;main.c: 350:     }
 }
 [e $U 496  ]
-"350
-[; ;main.c: 350:     else if(adcValue < 377)
+"351
+[; ;main.c: 351:     else if(adcValue < 377)
 [e :U 489 ]
 [e $ ! < _adcValue -> -> 377 `i `l 497  ]
-"351
-[; ;main.c: 351:     {
-{
 "352
-[; ;main.c: 352:         do { LATCbits.LATC3 = 1; } while(0);
+[; ;main.c: 352:     {
+{
+"353
+[; ;main.c: 353:         do { LATCbits.LATC3 = 1; } while(0);
 [e :U 500 ]
 {
 [e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
 }
 [e :U 499 ]
-"353
-[; ;main.c: 353:     }
+"354
+[; ;main.c: 354:     }
 }
 [e $U 501  ]
-"354
-[; ;main.c: 354:     else if(adcValue < 431)
+"355
+[; ;main.c: 355:     else if(adcValue < 431)
 [e :U 497 ]
 [e $ ! < _adcValue -> -> 431 `i `l 502  ]
-"355
-[; ;main.c: 355:     {
-{
 "356
-[; ;main.c: 356:         do { LATCbits.LATC3 = 1; } while(0);
+[; ;main.c: 356:     {
+{
+"357
+[; ;main.c: 357:         do { LATCbits.LATC3 = 1; } while(0);
 [e :U 505 ]
 {
 [e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
 }
 [e :U 504 ]
-"357
-[; ;main.c: 357:         do { LATCbits.LATC4 = 1; } while(0);
+"358
+[; ;main.c: 358:         do { LATCbits.LATC4 = 1; } while(0);
 [e :U 508 ]
 {
 [e = . . _LATCbits 0 4 -> -> 1 `i `uc ]
 }
 [e :U 507 ]
-"358
-[; ;main.c: 358:     }
+"359
+[; ;main.c: 359:     }
 }
 [e $U 509  ]
-"359
-[; ;main.c: 359:     else if(adcValue < 485)
+"360
+[; ;main.c: 360:     else if(adcValue < 485)
 [e :U 502 ]
 [e $ ! < _adcValue -> -> 485 `i `l 510  ]
-"360
-[; ;main.c: 360:     {
-{
 "361
-[; ;main.c: 361:         do { LATCbits.LATC4 = 1; } while(0);
+[; ;main.c: 361:     {
+{
+"362
+[; ;main.c: 362:         do { LATCbits.LATC4 = 1; } while(0);
 [e :U 513 ]
 {
 [e = . . _LATCbits 0 4 -> -> 1 `i `uc ]
 }
 [e :U 512 ]
-"362
-[; ;main.c: 362:     }
+"363
+[; ;main.c: 363:     }
 }
 [e $U 514  ]
-"363
-[; ;main.c: 363:     else if(adcValue < 538)
+"364
+[; ;main.c: 364:     else if(adcValue < 538)
 [e :U 510 ]
 [e $ ! < _adcValue -> -> 538 `i `l 515  ]
-"364
-[; ;main.c: 364:     {
+"365
+[; ;main.c: 365:     {
 {
-"366
-[; ;main.c: 366:     }
+"367
+[; ;main.c: 367:     }
 }
 [e $U 516  ]
-"367
-[; ;main.c: 367:     else if(adcValue < 592)
+"368
+[; ;main.c: 368:     else if(adcValue < 592)
 [e :U 515 ]
 [e $ ! < _adcValue -> -> 592 `i `l 517  ]
-"368
-[; ;main.c: 368:     {
-{
 "369
-[; ;main.c: 369:         do { LATCbits.LATC6 = 1; } while(0);
+[; ;main.c: 369:     {
+{
+"370
+[; ;main.c: 370:         do { LATCbits.LATC6 = 1; } while(0);
 [e :U 520 ]
 {
 [e = . . _LATCbits 0 6 -> -> 1 `i `uc ]
 }
 [e :U 519 ]
-"370
-[; ;main.c: 370:     }
+"371
+[; ;main.c: 371:     }
 }
 [e $U 521  ]
-"371
-[; ;main.c: 371:     else if(adcValue < 646)
+"372
+[; ;main.c: 372:     else if(adcValue < 646)
 [e :U 517 ]
 [e $ ! < _adcValue -> -> 646 `i `l 522  ]
-"372
-[; ;main.c: 372:     {
-{
 "373
-[; ;main.c: 373:         do { LATCbits.LATC6 = 1; } while(0);
+[; ;main.c: 373:     {
+{
+"374
+[; ;main.c: 374:         do { LATCbits.LATC6 = 1; } while(0);
 [e :U 525 ]
 {
 [e = . . _LATCbits 0 6 -> -> 1 `i `uc ]
 }
 [e :U 524 ]
-"374
-[; ;main.c: 374:         do { LATCbits.LATC7 = 1; } while(0);
+"375
+[; ;main.c: 375:         do { LATCbits.LATC7 = 1; } while(0);
 [e :U 528 ]
 {
 [e = . . _LATCbits 0 7 -> -> 1 `i `uc ]
 }
 [e :U 527 ]
-"375
-[; ;main.c: 375:     }
+"376
+[; ;main.c: 376:     }
 }
 [e $U 529  ]
-"376
-[; ;main.c: 376:     else if(adcValue < 700)
+"377
+[; ;main.c: 377:     else if(adcValue < 700)
 [e :U 522 ]
 [e $ ! < _adcValue -> -> 700 `i `l 530  ]
-"377
-[; ;main.c: 377:     {
-{
 "378
-[; ;main.c: 378:         do { LATCbits.LATC7 = 1; } while(0);
+[; ;main.c: 378:     {
+{
+"379
+[; ;main.c: 379:         do { LATCbits.LATC7 = 1; } while(0);
 [e :U 533 ]
 {
 [e = . . _LATCbits 0 7 -> -> 1 `i `uc ]
 }
 [e :U 532 ]
-"379
-[; ;main.c: 379:     }
+"380
+[; ;main.c: 380:     }
 }
 [e $U 534  ]
-"380
-[; ;main.c: 380:     else if(adcValue < 754)
+"381
+[; ;main.c: 381:     else if(adcValue < 754)
 [e :U 530 ]
 [e $ ! < _adcValue -> -> 754 `i `l 535  ]
-"381
-[; ;main.c: 381:     {
-{
 "382
-[; ;main.c: 382:         do { LATCbits.LATC7 = 1; } while(0);
+[; ;main.c: 382:     {
+{
+"383
+[; ;main.c: 383:         do { LATCbits.LATC7 = 1; } while(0);
 [e :U 538 ]
 {
 [e = . . _LATCbits 0 7 -> -> 1 `i `uc ]
 }
 [e :U 537 ]
-"383
-[; ;main.c: 383:         do { LATBbits.LATB5 = 1; } while(0);
+"384
+[; ;main.c: 384:         do { LATBbits.LATB5 = 1; } while(0);
 [e :U 541 ]
 {
 [e = . . _LATBbits 0 2 -> -> 1 `i `uc ]
 }
 [e :U 540 ]
-"384
-[; ;main.c: 384:     }
+"385
+[; ;main.c: 385:     }
 }
 [e $U 542  ]
-"385
-[; ;main.c: 385:     else if(adcValue < 808)
+"386
+[; ;main.c: 386:     else if(adcValue < 808)
 [e :U 535 ]
 [e $ ! < _adcValue -> -> 808 `i `l 543  ]
-"386
-[; ;main.c: 386:     {
-{
 "387
-[; ;main.c: 387:         do { LATBbits.LATB5 = 1; } while(0);
+[; ;main.c: 387:     {
+{
+"388
+[; ;main.c: 388:         do { LATBbits.LATB5 = 1; } while(0);
 [e :U 546 ]
 {
 [e = . . _LATBbits 0 2 -> -> 1 `i `uc ]
 }
 [e :U 545 ]
-"388
-[; ;main.c: 388:     }
+"389
+[; ;main.c: 389:     }
 }
 [e $U 547  ]
-"389
-[; ;main.c: 389:     else if(adcValue < 861)
+"390
+[; ;main.c: 390:     else if(adcValue < 861)
 [e :U 543 ]
 [e $ ! < _adcValue -> -> 861 `i `l 548  ]
-"390
-[; ;main.c: 390:     {
-{
 "391
-[; ;main.c: 391:         do { LATBbits.LATB5 = 1; } while(0);
+[; ;main.c: 391:     {
+{
+"392
+[; ;main.c: 392:         do { LATBbits.LATB5 = 1; } while(0);
 [e :U 551 ]
 {
 [e = . . _LATBbits 0 2 -> -> 1 `i `uc ]
 }
 [e :U 550 ]
-"392
-[; ;main.c: 392:         do { LATBbits.LATB6 = 1; } while(0);
+"393
+[; ;main.c: 393:         do { LATBbits.LATB6 = 1; } while(0);
 [e :U 554 ]
 {
 [e = . . _LATBbits 0 3 -> -> 1 `i `uc ]
 }
 [e :U 553 ]
-"393
-[; ;main.c: 393:     }
+"394
+[; ;main.c: 394:     }
 }
 [e $U 555  ]
-"394
-[; ;main.c: 394:     else if(adcValue < 915)
+"395
+[; ;main.c: 395:     else if(adcValue < 915)
 [e :U 548 ]
 [e $ ! < _adcValue -> -> 915 `i `l 556  ]
-"395
-[; ;main.c: 395:     {
-{
 "396
-[; ;main.c: 396:         do { LATBbits.LATB6 = 1; } while(0);
+[; ;main.c: 396:     {
+{
+"397
+[; ;main.c: 397:         do { LATBbits.LATB6 = 1; } while(0);
 [e :U 559 ]
 {
 [e = . . _LATBbits 0 3 -> -> 1 `i `uc ]
 }
 [e :U 558 ]
-"397
-[; ;main.c: 397:     }
+"398
+[; ;main.c: 398:     }
 }
 [e $U 560  ]
-"398
-[; ;main.c: 398:     else if(adcValue < 969)
+"399
+[; ;main.c: 399:     else if(adcValue < 969)
 [e :U 556 ]
 [e $ ! < _adcValue -> -> 969 `i `l 561  ]
-"399
-[; ;main.c: 399:     {
-{
 "400
-[; ;main.c: 400:         do { LATBbits.LATB6 = 1; } while(0);
+[; ;main.c: 400:     {
+{
+"401
+[; ;main.c: 401:         do { LATBbits.LATB6 = 1; } while(0);
 [e :U 564 ]
 {
 [e = . . _LATBbits 0 3 -> -> 1 `i `uc ]
 }
 [e :U 563 ]
-"401
-[; ;main.c: 401:         do { LATBbits.LATB7 = 1; } while(0);
+"402
+[; ;main.c: 402:         do { LATBbits.LATB7 = 1; } while(0);
 [e :U 567 ]
 {
 [e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
 }
 [e :U 566 ]
-"402
-[; ;main.c: 402:     }
+"403
+[; ;main.c: 403:     }
 }
 [e $U 568  ]
-"403
-[; ;main.c: 403:     else
-[e :U 561 ]
 "404
-[; ;main.c: 404:     {
-{
+[; ;main.c: 404:     else
+[e :U 561 ]
 "405
-[; ;main.c: 405:         do { LATBbits.LATB7 = 1; } while(0);
+[; ;main.c: 405:     {
+{
+"406
+[; ;main.c: 406:         do { LATBbits.LATB7 = 1; } while(0);
 [e :U 571 ]
 {
 [e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
 }
 [e :U 570 ]
-"406
-[; ;main.c: 406:     }
+"407
+[; ;main.c: 407:     }
 }
 [e :U 568 ]
 [e :U 560 ]
@@ -1622,7 +1622,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 475 ]
 [e :U 470 ]
 [e :U 462 ]
-"408
-[; ;main.c: 408: }
+"409
+[; ;main.c: 409: }
 [e :UE 424 ]
 }

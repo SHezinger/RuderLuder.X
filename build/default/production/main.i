@@ -4168,11 +4168,12 @@ void WDT_Initialize(void);
 
 typedef enum states
 {
+    STATE_UNDEFINED,
     STATE_NORMAL,
     STATE_TEACH_LEFT,
     STATE_TEACH_RIGHT
 }state_t;
-# 61 "main.c"
+# 62 "main.c"
 static volatile _Bool doButtonAction = 0;
 static volatile uint16_t msTick = 0;
 static volatile uint16_t msPressed = 0;

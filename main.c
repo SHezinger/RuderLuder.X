@@ -45,6 +45,7 @@
 
 typedef enum states
 {
+    STATE_UNDEFINED,
     STATE_NORMAL,
     STATE_TEACH_LEFT,
     STATE_TEACH_RIGHT
