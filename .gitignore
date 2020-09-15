@@ -2,4 +2,4 @@
 dist/
 !dist/default/production/RuderLuder.X.production.hex
 build/*
-*.cmf
+*.X.production.cmf
