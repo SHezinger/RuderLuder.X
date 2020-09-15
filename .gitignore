@@ -1,5 +1,5 @@
 /nbproject/private/
-dist/*
+dist/
 !/dist/default/production/RuderLuder.X.production.hex
-build**
+build/
 *.X.production.cmf
