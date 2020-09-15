@@ -4309,8 +4309,6 @@ void main(void)
     TMR0_SetInterruptHandler(timer0CallBack);
     TMR2_StartTimer();
 
-    writeFlash();
-    readFlash();
 
     while(1)
     {

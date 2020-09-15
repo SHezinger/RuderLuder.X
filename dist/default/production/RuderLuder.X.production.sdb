@@ -17,7 +17,7 @@ STATE_NORMAL 1
 STATE_TEACH_LEFT 2
 STATE_TEACH_RIGHT 3
 ]
-"209
+"207
 [e E2388 . `uc
 channelRudder 3
 channelBrightness 10
@@ -46,7 +46,7 @@ channel_FVR 31
 [v _setState setState `(v  1 e 1 0 ]
 "190
 [v _main main `(v  1 e 1 0 ]
-"327
+"325
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 "67 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
@@ -297,9 +297,9 @@ channel_FVR 31
 "190 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"209
+"207
 [v main@channel channel `E2388  1 s 1 channel ]
-"322
+"320
 } 0
 "95
 [v _writeFlash writeFlash `(v  1 e 1 0 ]
@@ -376,11 +376,11 @@ channel_FVR 31
 [v ___lldiv@dividend dividend `ul  1 p 4 4 ]
 "30
 } 0
-"327 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"325 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 {
 [v setLedsForPositioning@adcValue adcValue `l  1 p 4 0 ]
-"428
+"426
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
