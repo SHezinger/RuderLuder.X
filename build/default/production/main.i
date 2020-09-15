@@ -4178,7 +4178,7 @@ static volatile _Bool doButtonAction = 0;
 static volatile uint16_t msTick = 0;
 static volatile uint16_t msPressed = 0;
 static _Bool doToggle;
-static state_t currentState = STATE_NORMAL;
+static state_t currentState = STATE_UNDEFINED;
 
 
 static int32_t adcValuePosition = 0;
@@ -4212,11 +4212,9 @@ void writeFlash()
 
 
 
+    FLASH_EraseBlock((uint16_t)( 0x800 -16));
+
     uint16_t wrBlockData[16];
-
-    upperLimit = 0x11223344;
-    lowerLimit = 0x11DDEEFF;
-
 
     wrBlockData[16 -1] = (uint16_t)(upperLimit);
     wrBlockData[16 -2] = (uint16_t)(upperLimit >> 16);
@@ -4274,7 +4272,13 @@ void setState(state_t newState)
 
 
             readFlash();
-# 170 "main.c"
+
+
+            upperLimit = (upperLimit > (1023)) ? (1023) : upperLimit;
+
+            lowerLimit = (lowerLimit < (0)) || (lowerLimit > upperLimit) ? (0) : lowerLimit;
+
+
             m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
             b = lowerLimit*m;
             break;
@@ -4339,8 +4343,12 @@ void main(void)
             if(msPressed > 3000)
             {
                 doButtonAction = 1;
+                do { LATCbits.LATC5 = 0; } while(0);
             }
-            do { LATCbits.LATC5 = 1; } while(0);
+            else
+            {
+                do { LATCbits.LATC5 = 1; } while(0);
+            }
         }
         else
         {

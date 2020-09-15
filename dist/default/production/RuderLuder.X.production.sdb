@@ -17,7 +17,7 @@ STATE_NORMAL 1
 STATE_TEACH_LEFT 2
 STATE_TEACH_RIGHT 3
 ]
-"207
+"204
 [e E2388 . `uc
 channelRudder 3
 channelBrightness 10
@@ -40,13 +40,13 @@ channel_FVR 31
 [v _readFlash readFlash `(v  1 e 1 0 ]
 "95
 [v _writeFlash writeFlash `(v  1 e 1 0 ]
-"119
+"117
 [v _timer0CallBack timer0CallBack `(v  1 e 1 0 ]
-"134
+"132
 [v _setState setState `(v  1 e 1 0 ]
-"190
+"187
 [v _main main `(v  1 e 1 0 ]
-"325
+"326
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 "67 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
@@ -103,7 +103,7 @@ channel_FVR 31
 ]
 [u S259 . 1 `S245 1 . 1 0 `S254 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES259  1 e 1 @11 ]
-[s S502 . 1 `uc 1 RA0 1 0 :1:0 
+[s S503 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -111,8 +111,8 @@ channel_FVR 31
 `uc 1 RA5 1 0 :1:5 
 ]
 "444
-[u S509 . 1 `S502 1 . 1 0 ]
-[v _PORTAbits PORTAbits `VES509  1 e 1 @12 ]
+[u S510 . 1 `S503 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES510  1 e 1 @12 ]
 [s S179 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 . 1 0 :4:2 
@@ -206,18 +206,18 @@ channel_FVR 31
 [v _LATA LATA `VEuc  1 e 1 @268 ]
 "1820
 [v _LATB LATB `VEuc  1 e 1 @269 ]
-[s S457 . 1 `uc 1 . 1 0 :4:0 
+[s S458 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LATB4 1 0 :1:4 
 `uc 1 LATB5 1 0 :1:5 
 `uc 1 LATB6 1 0 :1:6 
 `uc 1 LATB7 1 0 :1:7 
 ]
 "1834
-[u S463 . 1 `S457 1 . 1 0 ]
-[v _LATBbits LATBbits `VES463  1 e 1 @269 ]
+[u S464 . 1 `S458 1 . 1 0 ]
+[v _LATBbits LATBbits `VES464  1 e 1 @269 ]
 "1859
 [v _LATC LATC `VEuc  1 e 1 @270 ]
-[s S436 . 1 `uc 1 LATC0 1 0 :1:0 
+[s S437 . 1 `uc 1 LATC0 1 0 :1:0 
 `uc 1 LATC1 1 0 :1:1 
 `uc 1 LATC2 1 0 :1:2 
 `uc 1 LATC3 1 0 :1:3 
@@ -227,8 +227,8 @@ channel_FVR 31
 `uc 1 LATC7 1 0 :1:7 
 ]
 "1876
-[u S445 . 1 `S436 1 . 1 0 ]
-[v _LATCbits LATCbits `VES445  1 e 1 @270 ]
+[u S446 . 1 `S437 1 . 1 0 ]
+[v _LATCbits LATCbits `VES446  1 e 1 @270 ]
 "1921
 [v _BORCON BORCON `VEuc  1 e 1 @278 ]
 "2013
@@ -294,19 +294,19 @@ channel_FVR 31
 [v _timer0ReloadVal timer0ReloadVal `VEuc  1 e 1 0 ]
 "59
 [v _TMR0_InterruptHandler TMR0_InterruptHandler `*.37(v  1 e 2 0 ]
-"190 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"187 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"207
+"204
 [v main@channel channel `E2388  1 s 1 channel ]
-"320
+"321
 } 0
 "95
 [v _writeFlash writeFlash `(v  1 e 1 0 ]
 {
-"100
+"102
 [v writeFlash@wrBlockData wrBlockData `[16]us  1 a 32 0 ]
-"113
+"111
 } 0
 "94 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/memory.c
 [v _FLASH_WriteBlock FLASH_WriteBlock `(c  1 e 1 0 ]
@@ -331,14 +331,14 @@ channel_FVR 31
 [v FLASH_EraseBlock@startAddr startAddr `us  1 p 2 0 ]
 "173
 } 0
-"134 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"132 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _setState setState `(v  1 e 1 0 ]
 {
 [v setState@newState newState `E2406  1 a 1 wreg ]
 [v setState@newState newState `E2406  1 a 1 wreg ]
-"136
+"134
 [v setState@newState newState `E2406  1 a 1 4 ]
-"187
+"184
 } 0
 "82
 [v _readFlash readFlash `(v  1 e 1 0 ]
@@ -376,11 +376,11 @@ channel_FVR 31
 [v ___lldiv@dividend dividend `ul  1 p 4 4 ]
 "30
 } 0
-"325 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"326 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 {
 [v setLedsForPositioning@adcValue adcValue `l  1 p 4 0 ]
-"426
+"427
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
@@ -491,8 +491,8 @@ channel_FVR 31
 {
 "140
 } 0
-"119 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"117 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _timer0CallBack timer0CallBack `(v  1 e 1 0 ]
 {
-"128
+"126
 } 0

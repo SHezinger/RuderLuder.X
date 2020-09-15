@@ -13,7 +13,7 @@
   Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.78.1
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.5
         Device            :  PIC16F1507
         Driver Version    :  2.00
 */
@@ -63,7 +63,7 @@ static volatile bool doButtonAction = false;
 static volatile uint16_t msTick = 0;
 static volatile uint16_t msPressed = 0;
 static bool doToggle;
-static state_t currentState = STATE_NORMAL;
+static state_t currentState = STATE_UNDEFINED;
 
 
 static int32_t adcValuePosition = 0;
@@ -75,6 +75,41 @@ static uint32_t upperLimit = ADC_ABSOLUTE_UPPER_LIMIT;
 static const int32_t fixedPointFactor = 1000;
 static int32_t m = 1 * fixedPointFactor;
 static int24_t b = 0;
+
+
+
+
+void readFlash()
+{
+    //Read lower limit
+    lowerLimit = 0;
+    lowerLimit += (uint32_t)FLASH_ReadWord(END_FLASH-4) << 16;
+    lowerLimit |= (uint32_t)FLASH_ReadWord(END_FLASH-3);
+
+    //Read upper limit
+    upperLimit = 0;
+    upperLimit += (uint32_t)FLASH_ReadWord(END_FLASH-2) << 16;
+    upperLimit += (uint32_t)FLASH_ReadWord(END_FLASH-1) ;
+}
+
+void writeFlash()
+{            
+    //Write flash
+    #define FLASH_ROW_ADDRESS     ( END_FLASH-WRITE_FLASH_BLOCKSIZE)
+
+    FLASH_EraseBlock((uint16_t)FLASH_ROW_ADDRESS);
+
+    uint16_t wrBlockData[WRITE_FLASH_BLOCKSIZE];
+    
+    wrBlockData[WRITE_FLASH_BLOCKSIZE-1] = (uint16_t)(upperLimit);
+    wrBlockData[WRITE_FLASH_BLOCKSIZE-2] = (uint16_t)(upperLimit >> 16);
+    wrBlockData[WRITE_FLASH_BLOCKSIZE-3] = (uint16_t)(lowerLimit);
+    wrBlockData[WRITE_FLASH_BLOCKSIZE-4] = (uint16_t)(lowerLimit >> 16);
+
+    // write to Flash memory block
+    FLASH_WriteBlock((uint16_t)FLASH_ROW_ADDRESS, (uint16_t*)wrBlockData);
+}
+
 
 
 
@@ -121,20 +156,12 @@ void setState(state_t newState)
         case STATE_NORMAL:
         
             //Read calibration values from Flash
+            readFlash();
             
-            //Read lower limit
-            lowerLimit = 0;
-            lowerLimit += (int32_t)FLASH_ReadWord(END_FLASH-4) << 16;
-            lowerLimit += (int32_t)FLASH_ReadWord(END_FLASH-3);
-            
-            //Read upper limit
-            upperLimit = 0;
-            upperLimit += (int32_t)FLASH_ReadWord(END_FLASH-2) << 16;
-            upperLimit += (int32_t)FLASH_ReadWord(END_FLASH-1) ;
 
+            upperLimit = (upperLimit > ADC_ABSOLUTE_UPPER_LIMIT) ? ADC_ABSOLUTE_UPPER_LIMIT : upperLimit;
             
-//            lowerLimit = (lowerLimit < ADC_ABSOLUTE_LOWER_LIMIT) ? ADC_ABSOLUTE_LOWER_LIMIT : lowerLimit;
-//            upperLimit = (upperLimit > ADC_ABSOLUTE_UPPER_LIMIT) ? ADC_ABSOLUTE_UPPER_LIMIT : upperLimit;
+            lowerLimit = (lowerLimit < ADC_ABSOLUTE_LOWER_LIMIT) || (lowerLimit > upperLimit) ? ADC_ABSOLUTE_LOWER_LIMIT : lowerLimit;
 
             
             m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
@@ -170,6 +197,7 @@ void main(void)
     
     TMR0_SetInterruptHandler(timer0CallBack);
     TMR2_StartTimer();
+    
 
     while(1)
     {
@@ -200,8 +228,12 @@ void main(void)
             if(msPressed > 3000)
             {
                 doButtonAction = true;
+                outputLed6_SetLow();
             }
-            outputLed6_SetHigh();
+            else
+            {
+                outputLed6_SetHigh();
+            }
         }
         else
         {
@@ -237,21 +269,7 @@ void main(void)
                 {
                     upperLimit = adcValuePosition;
                     
-                    
-                    //Write flash
-                    #define FLASH_ROW_ADDRESS     ( END_FLASH-WRITE_FLASH_BLOCKSIZE-1)
-
-                    uint16_t wrBlockData[WRITE_FLASH_BLOCKSIZE];
-                    
-                    
-                    wrBlockData[WRITE_FLASH_BLOCKSIZE-1] = (uint16_t)(upperLimit);
-                    wrBlockData[WRITE_FLASH_BLOCKSIZE-2] = (uint16_t)(upperLimit >> 16);
-                    wrBlockData[WRITE_FLASH_BLOCKSIZE-3] = (uint16_t)(lowerLimit);
-                    wrBlockData[WRITE_FLASH_BLOCKSIZE-4] = (uint16_t)(lowerLimit >> 16);
-
-                    // write to Flash memory block
-                    FLASH_WriteBlock((uint16_t)FLASH_ROW_ADDRESS, (uint16_t*)wrBlockData);
-                    
+                    writeFlash();
                     setState(STATE_NORMAL);
                     break;
                 }
