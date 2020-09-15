@@ -4053,9 +4053,9 @@ void ADC_Initialize(void);
 # 166 "mcc_generated_files/adc.h"
 void ADC_SelectChannel(adc_channel_t channel);
 # 193 "mcc_generated_files/adc.h"
-void ADC_StartConversion();
+void ADC_StartConversion(void);
 # 225 "mcc_generated_files/adc.h"
-_Bool ADC_IsConversionDone();
+_Bool ADC_IsConversionDone(void);
 # 258 "mcc_generated_files/adc.h"
 adc_result_t ADC_GetConversionResult(void);
 # 288 "mcc_generated_files/adc.h"
@@ -4083,9 +4083,6 @@ void ADC_Initialize(void)
 
 
 
-    ADCON0 = 0x01;
-
-
     ADCON1 = 0xC0;
 
 
@@ -4097,8 +4094,38 @@ void ADC_Initialize(void)
 
     ADRESH = 0x00;
 
+
+    ADCON0 = 0x01;
+
 }
-# 96 "mcc_generated_files/adc.c"
+
+void ADC_SelectChannel(adc_channel_t channel)
+{
+
+    ADCON0bits.CHS = channel;
+
+    ADCON0bits.ADON = 1;
+}
+
+void ADC_StartConversion(void)
+{
+
+    ADCON0bits.GO_nDONE = 1;
+}
+
+
+_Bool ADC_IsConversionDone(void)
+{
+
+   return ((_Bool)(!ADCON0bits.GO_nDONE));
+}
+
+adc_result_t ADC_GetConversionResult(void)
+{
+
+    return ((adc_result_t)((ADRESH << 8) + ADRESL));
+}
+
 adc_result_t ADC_GetConversion(adc_channel_t channel)
 {
 
@@ -4120,4 +4147,9 @@ adc_result_t ADC_GetConversion(adc_channel_t channel)
 
 
     return ((adc_result_t)((ADRESH << 8) + ADRESL));
+}
+
+void ADC_TemperatureAcquisitionDelay(void)
+{
+    _delay((unsigned long)((200)*(4000000/4000000.0)));
 }

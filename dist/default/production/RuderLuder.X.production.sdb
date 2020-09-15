@@ -3,7 +3,7 @@
 [d edition pro ]
 [d chip 16F1507 ]
 [d frameptr 6 ]
-"96 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
+"88 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
 [e E2336 . `uc
 channelRudder 3
 channelBrightness 10
@@ -17,7 +17,7 @@ STATE_NORMAL 1
 STATE_TEACH_LEFT 2
 STATE_TEACH_RIGHT 3
 ]
-"176
+"209
 [e E2388 . `uc
 channelRudder 3
 channelBrightness 10
@@ -37,16 +37,20 @@ channel_FVR 31
 "4 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c99\common\Umul8_16.c
 [v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
 "82 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+[v _readFlash readFlash `(v  1 e 1 0 ]
+"95
+[v _writeFlash writeFlash `(v  1 e 1 0 ]
+"119
 [v _timer0CallBack timer0CallBack `(v  1 e 1 0 ]
-"97
+"134
 [v _setState setState `(v  1 e 1 0 ]
-"160
+"190
 [v _main main `(v  1 e 1 0 ]
-"308
+"327
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 "67 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
-"96
+"115
 [v _ADC_GetConversion ADC_GetConversion `(us  1 e 2 0 ]
 "52 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
@@ -70,19 +74,19 @@ channel_FVR 31
 [v _PWM3_LoadDutyValue PWM3_LoadDutyValue `(v  1 e 1 0 ]
 "64 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/tmr0.c
 [v _TMR0_Initialize TMR0_Initialize `(v  1 e 1 0 ]
-"92
+"108
 [v _TMR0_ISR TMR0_ISR `(v  1 e 1 0 ]
-"107
+"123
 [v _TMR0_CallBack TMR0_CallBack `(v  1 e 1 0 ]
-"117
+"133
 [v _TMR0_SetInterruptHandler TMR0_SetInterruptHandler `(v  1 e 1 0 ]
-"121
+"137
 [v _TMR0_DefaultInterruptHandler TMR0_DefaultInterruptHandler `(v  1 e 1 0 ]
 "62 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/tmr2.c
 [v _TMR2_Initialize TMR2_Initialize `(v  1 e 1 0 ]
 "79
 [v _TMR2_StartTimer TMR2_StartTimer `(v  1 e 1 0 ]
-[s S229 . 1 `uc 1 IOCIF 1 0 :1:0 
+[s S245 . 1 `uc 1 IOCIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 IOCIE 1 0 :1:3 
@@ -92,14 +96,14 @@ channel_FVR 31
 `uc 1 GIE 1 0 :1:7 
 ]
 "374 C:/Program Files (x86)/Microchip/MPLABX/v5.40/packs/Microchip/PIC12-16F1xxx_DFP/1.2.63/xc8\pic\include\proc\pic16f1507.h
-[s S238 . 1 `uc 1 . 1 0 :2:0 
+[s S254 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
 `uc 1 T0IE 1 0 :1:5 
 ]
-[u S243 . 1 `S229 1 . 1 0 `S238 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES243  1 e 1 @11 ]
-[s S480 . 1 `uc 1 RA0 1 0 :1:0 
+[u S259 . 1 `S245 1 . 1 0 `S254 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES259  1 e 1 @11 ]
+[s S502 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
 `uc 1 RA3 1 0 :1:3 
@@ -107,17 +111,17 @@ channel_FVR 31
 `uc 1 RA5 1 0 :1:5 
 ]
 "444
-[u S487 . 1 `S480 1 . 1 0 ]
-[v _PORTAbits PORTAbits `VES487  1 e 1 @12 ]
-[s S172 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[u S509 . 1 `S502 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES509  1 e 1 @12 ]
+[s S179 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 . 1 0 :4:2 
 `uc 1 ADIF 1 0 :1:6 
 `uc 1 TMR1GIF 1 0 :1:7 
 ]
 "594
-[u S178 . 1 `S172 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES178  1 e 1 @17 ]
+[u S185 . 1 `S179 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES185  1 e 1 @17 ]
 "666
 [v _TMR0 TMR0 `VEuc  1 e 1 @21 ]
 "875
@@ -126,12 +130,12 @@ channel_FVR 31
 [v _PR2 PR2 `VEuc  1 e 1 @27 ]
 "915
 [v _T2CON T2CON `VEuc  1 e 1 @28 ]
-[s S188 . 1 `uc 1 T2CKPS 1 0 :2:0 
+[s S195 . 1 `uc 1 T2CKPS 1 0 :2:0 
 `uc 1 TMR2ON 1 0 :1:2 
 `uc 1 T2OUTPS 1 0 :4:3 
 ]
 "936
-[s S192 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+[s S199 . 1 `uc 1 T2CKPS0 1 0 :1:0 
 `uc 1 T2CKPS1 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 TOUTPS0 1 0 :1:3 
@@ -139,8 +143,8 @@ channel_FVR 31
 `uc 1 TOUTPS2 1 0 :1:5 
 `uc 1 TOUTPS3 1 0 :1:6 
 ]
-[u S200 . 1 `S188 1 . 1 0 `S192 1 . 1 0 ]
-[v _T2CONbits T2CONbits `VES200  1 e 1 @28 ]
+[u S207 . 1 `S195 1 . 1 0 `S199 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES207  1 e 1 @28 ]
 "986
 [v _TRISA TRISA `VEuc  1 e 1 @140 ]
 "1036
@@ -149,7 +153,7 @@ channel_FVR 31
 [v _TRISC TRISC `VEuc  1 e 1 @142 ]
 "1223
 [v _OPTION_REG OPTION_REG `VEuc  1 e 1 @149 ]
-[s S124 . 1 `uc 1 PS 1 0 :3:0 
+[s S130 . 1 `uc 1 PS 1 0 :3:0 
 `uc 1 PSA 1 0 :1:3 
 `uc 1 TMR0SE 1 0 :1:4 
 `uc 1 TMR0CS 1 0 :1:5 
@@ -157,15 +161,15 @@ channel_FVR 31
 `uc 1 nWPUEN 1 0 :1:7 
 ]
 "1246
-[s S131 . 1 `uc 1 PS0 1 0 :1:0 
+[s S137 . 1 `uc 1 PS0 1 0 :1:0 
 `uc 1 PS1 1 0 :1:1 
 `uc 1 PS2 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
 ]
-[u S138 . 1 `S124 1 . 1 0 `S131 1 . 1 0 ]
-[v _OPTION_REGbits OPTION_REGbits `VES138  1 e 1 @149 ]
+[u S144 . 1 `S130 1 . 1 0 `S137 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES144  1 e 1 @149 ]
 "1363
 [v _WDTCON WDTCON `VEuc  1 e 1 @151 ]
 "1422
@@ -202,18 +206,18 @@ channel_FVR 31
 [v _LATA LATA `VEuc  1 e 1 @268 ]
 "1820
 [v _LATB LATB `VEuc  1 e 1 @269 ]
-[s S434 . 1 `uc 1 . 1 0 :4:0 
+[s S457 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 LATB4 1 0 :1:4 
 `uc 1 LATB5 1 0 :1:5 
 `uc 1 LATB6 1 0 :1:6 
 `uc 1 LATB7 1 0 :1:7 
 ]
 "1834
-[u S440 . 1 `S434 1 . 1 0 ]
-[v _LATBbits LATBbits `VES440  1 e 1 @269 ]
+[u S463 . 1 `S457 1 . 1 0 ]
+[v _LATBbits LATBbits `VES463  1 e 1 @269 ]
 "1859
 [v _LATC LATC `VEuc  1 e 1 @270 ]
-[s S413 . 1 `uc 1 LATC0 1 0 :1:0 
+[s S436 . 1 `uc 1 LATC0 1 0 :1:0 
 `uc 1 LATC1 1 0 :1:1 
 `uc 1 LATC2 1 0 :1:2 
 `uc 1 LATC3 1 0 :1:3 
@@ -223,8 +227,8 @@ channel_FVR 31
 `uc 1 LATC7 1 0 :1:7 
 ]
 "1876
-[u S422 . 1 `S413 1 . 1 0 ]
-[v _LATCbits LATCbits `VES422  1 e 1 @270 ]
+[u S445 . 1 `S436 1 . 1 0 ]
+[v _LATCbits LATCbits `VES445  1 e 1 @270 ]
 "1921
 [v _BORCON BORCON `VEuc  1 e 1 @278 ]
 "2013
@@ -243,7 +247,7 @@ channel_FVR 31
 [v _PMDATL PMDATL `VEuc  1 e 1 @403 ]
 "2254
 [v _PMDATH PMDATH `VEuc  1 e 1 @404 ]
-[s S344 . 1 `uc 1 RD 1 0 :1:0 
+[s S365 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -252,8 +256,8 @@ channel_FVR 31
 `uc 1 CFGS 1 0 :1:6 
 ]
 "2290
-[u S352 . 1 `S344 1 . 1 0 ]
-[v _PMCON1bits PMCON1bits `VES352  1 e 1 @405 ]
+[u S373 . 1 `S365 1 . 1 0 ]
+[v _PMCON1bits PMCON1bits `VES373  1 e 1 @405 ]
 "2330
 [v _PMCON2 PMCON2 `VEuc  1 e 1 @406 ]
 "2384
@@ -290,23 +294,65 @@ channel_FVR 31
 [v _timer0ReloadVal timer0ReloadVal `VEuc  1 e 1 0 ]
 "59
 [v _TMR0_InterruptHandler TMR0_InterruptHandler `*.37(v  1 e 2 0 ]
-"160 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"190 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"244
-[v main@wrBlockData wrBlockData `[16]us  1 a 32 22 ]
-"176
+"209
 [v main@channel channel `E2388  1 s 1 channel ]
-"303
+"322
 } 0
+"95
+[v _writeFlash writeFlash `(v  1 e 1 0 ]
+{
+"100
+[v writeFlash@wrBlockData wrBlockData `[16]us  1 a 32 0 ]
+"113
+} 0
+"94 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/memory.c
+[v _FLASH_WriteBlock FLASH_WriteBlock `(c  1 e 1 0 ]
+{
+"96
+[v FLASH_WriteBlock@blockStartAddr blockStartAddr `us  1 a 2 9 ]
+"98
+[v FLASH_WriteBlock@i i `uc  1 a 1 12 ]
 "97
+[v FLASH_WriteBlock@GIEBitValue GIEBitValue `uc  1 a 1 11 ]
+"94
+[v FLASH_WriteBlock@writeAddr writeAddr `us  1 p 2 3 ]
+[v FLASH_WriteBlock@flashWordArray flashWordArray `*.4us  1 p 1 5 ]
+"146
+} 0
+"148
+[v _FLASH_EraseBlock FLASH_EraseBlock `(v  1 e 1 0 ]
+{
+"150
+[v FLASH_EraseBlock@GIEBitValue GIEBitValue `uc  1 a 1 2 ]
+"148
+[v FLASH_EraseBlock@startAddr startAddr `us  1 p 2 0 ]
+"173
+} 0
+"134 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _setState setState `(v  1 e 1 0 ]
 {
 [v setState@newState newState `E2406  1 a 1 wreg ]
 [v setState@newState newState `E2406  1 a 1 wreg ]
-"99
+"136
 [v setState@newState newState `E2406  1 a 1 4 ]
-"157
+"187
+} 0
+"82
+[v _readFlash readFlash `(v  1 e 1 0 ]
+{
+"93
+} 0
+"58 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/memory.c
+[v _FLASH_ReadWord FLASH_ReadWord `(us  1 e 2 0 ]
+{
+"60
+[v FLASH_ReadWord@GIEBitValue GIEBitValue `uc  1 a 1 2 ]
+"58
+[v FLASH_ReadWord@flashAddr flashAddr `us  1 p 2 0 ]
+"73
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c99\common\Umul24.c
 [v ___tmul __tmul `(um  1 e 3 0 ]
@@ -330,20 +376,11 @@ channel_FVR 31
 [v ___lldiv@dividend dividend `ul  1 p 4 4 ]
 "30
 } 0
-"58 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/memory.c
-[v _FLASH_ReadWord FLASH_ReadWord `(us  1 e 2 0 ]
-{
-"60
-[v FLASH_ReadWord@GIEBitValue GIEBitValue `uc  1 a 1 2 ]
-"58
-[v FLASH_ReadWord@flashAddr flashAddr `us  1 p 2 0 ]
-"73
-} 0
-"308 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"327 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 {
 [v setLedsForPositioning@adcValue adcValue `l  1 p 4 0 ]
-"409
+"428
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
@@ -393,11 +430,11 @@ channel_FVR 31
 {
 "85
 } 0
-"117
+"133
 [v _TMR0_SetInterruptHandler TMR0_SetInterruptHandler `(v  1 e 1 0 ]
 {
 [v TMR0_SetInterruptHandler@InterruptHandler InterruptHandler `*.37(v  1 p 2 0 ]
-"119
+"135
 } 0
 "58 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/pwm3.c
 [v _PWM3_Initialize PWM3_Initialize `(v  1 e 1 0 ]
@@ -425,60 +462,37 @@ channel_FVR 31
 [v PWM3_LoadDutyValue@dutyValue dutyValue `us  1 p 2 4 ]
 "79
 } 0
-"94 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/memory.c
-[v _FLASH_WriteBlock FLASH_WriteBlock `(c  1 e 1 0 ]
-{
-"96
-[v FLASH_WriteBlock@blockStartAddr blockStartAddr `us  1 a 2 9 ]
-"98
-[v FLASH_WriteBlock@i i `uc  1 a 1 12 ]
-"97
-[v FLASH_WriteBlock@GIEBitValue GIEBitValue `uc  1 a 1 11 ]
-"94
-[v FLASH_WriteBlock@writeAddr writeAddr `us  1 p 2 3 ]
-[v FLASH_WriteBlock@flashWordArray flashWordArray `*.4us  1 p 1 5 ]
-"146
-} 0
-"148
-[v _FLASH_EraseBlock FLASH_EraseBlock `(v  1 e 1 0 ]
-{
-"150
-[v FLASH_EraseBlock@GIEBitValue GIEBitValue `uc  1 a 1 2 ]
-"148
-[v FLASH_EraseBlock@startAddr startAddr `us  1 p 2 0 ]
-"173
-} 0
-"96 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
+"115 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
 [v _ADC_GetConversion ADC_GetConversion `(us  1 e 2 0 ]
 {
 [v ADC_GetConversion@channel channel `E2336  1 a 1 wreg ]
 [v ADC_GetConversion@channel channel `E2336  1 a 1 wreg ]
-"99
+"118
 [v ADC_GetConversion@channel channel `E2336  1 a 1 3 ]
-"117
+"136
 } 0
 "52 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
 {
 "63
 } 0
-"92 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/tmr0.c
+"108 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/tmr0.c
 [v _TMR0_ISR TMR0_ISR `(v  1 e 1 0 ]
 {
-"105
+"121
 } 0
-"107
+"123
 [v _TMR0_CallBack TMR0_CallBack `(v  1 e 1 0 ]
 {
-"115
+"131
 } 0
-"121
+"137
 [v _TMR0_DefaultInterruptHandler TMR0_DefaultInterruptHandler `(v  1 e 1 0 ]
 {
-"124
+"140
 } 0
-"82 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"119 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _timer0CallBack timer0CallBack `(v  1 e 1 0 ]
 {
-"91
+"128
 } 0

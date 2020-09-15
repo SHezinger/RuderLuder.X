@@ -4148,9 +4148,9 @@ void ADC_Initialize(void);
 # 166 "./mcc_generated_files/adc.h"
 void ADC_SelectChannel(adc_channel_t channel);
 # 193 "./mcc_generated_files/adc.h"
-void ADC_StartConversion();
+void ADC_StartConversion(void);
 # 225 "./mcc_generated_files/adc.h"
-_Bool ADC_IsConversionDone();
+_Bool ADC_IsConversionDone(void);
 # 258 "./mcc_generated_files/adc.h"
 adc_result_t ADC_GetConversionResult(void);
 # 288 "./mcc_generated_files/adc.h"
@@ -4190,6 +4190,43 @@ static uint32_t upperLimit = (1023);
 static const int32_t fixedPointFactor = 1000;
 static int32_t m = 1 * fixedPointFactor;
 static int24_t b = 0;
+
+
+
+
+void readFlash()
+{
+
+    lowerLimit = 0;
+    lowerLimit += (uint32_t)FLASH_ReadWord(0x800 -4) << 16;
+    lowerLimit |= (uint32_t)FLASH_ReadWord(0x800 -3);
+
+
+    upperLimit = 0;
+    upperLimit += (uint32_t)FLASH_ReadWord(0x800 -2) << 16;
+    upperLimit += (uint32_t)FLASH_ReadWord(0x800 -1) ;
+}
+
+void writeFlash()
+{
+
+
+
+    uint16_t wrBlockData[16];
+
+    upperLimit = 0x11223344;
+    lowerLimit = 0x11DDEEFF;
+
+
+    wrBlockData[16 -1] = (uint16_t)(upperLimit);
+    wrBlockData[16 -2] = (uint16_t)(upperLimit >> 16);
+    wrBlockData[16 -3] = (uint16_t)(lowerLimit);
+    wrBlockData[16 -4] = (uint16_t)(lowerLimit >> 16);
+
+
+    FLASH_WriteBlock((uint16_t)( 0x800 -16), (uint16_t*)wrBlockData);
+}
+
 
 
 
@@ -4236,22 +4273,8 @@ void setState(state_t newState)
         case STATE_NORMAL:
 
 
-
-
-            lowerLimit = 0;
-            lowerLimit += (int32_t)FLASH_ReadWord(0x800 -4) << 16;
-            lowerLimit += (int32_t)FLASH_ReadWord(0x800 -3);
-
-
-            upperLimit = 0;
-            upperLimit += (int32_t)FLASH_ReadWord(0x800 -2) << 16;
-            upperLimit += (int32_t)FLASH_ReadWord(0x800 -1) ;
-
-
-
-
-
-
+            readFlash();
+# 170 "main.c"
             m = (1023*fixedPointFactor)/(upperLimit - lowerLimit);
             b = lowerLimit*m;
             break;
@@ -4285,6 +4308,9 @@ void main(void)
 
     TMR0_SetInterruptHandler(timer0CallBack);
     TMR2_StartTimer();
+
+    writeFlash();
+    readFlash();
 
     while(1)
     {
@@ -4352,21 +4378,7 @@ void main(void)
                 {
                     upperLimit = adcValuePosition;
 
-
-
-
-
-                    uint16_t wrBlockData[16];
-
-
-                    wrBlockData[16 -1] = (uint16_t)(upperLimit);
-                    wrBlockData[16 -2] = (uint16_t)(upperLimit >> 16);
-                    wrBlockData[16 -3] = (uint16_t)(lowerLimit);
-                    wrBlockData[16 -4] = (uint16_t)(lowerLimit >> 16);
-
-
-                    FLASH_WriteBlock((uint16_t)( 0x800 -16 -1), (uint16_t*)wrBlockData);
-
+                    writeFlash();
                     setState(STATE_NORMAL);
                     break;
                 }

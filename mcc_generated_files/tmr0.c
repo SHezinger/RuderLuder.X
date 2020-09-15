@@ -13,12 +13,12 @@
   @Description
     This source file provides APIs for TMR0.
     Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.78.1
+        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.5
         Device            :  PIC16F1507
         Driver Version    :  2.01
     The generated drivers are tested against the following:
-        Compiler          :  XC8 2.10 and above
-        MPLAB 	          :  MPLAB X 5.30
+        Compiler          :  XC8 2.20 and above
+        MPLAB 	          :  MPLAB X 5.40
 */
 
 /*
@@ -84,10 +84,26 @@ void TMR0_Initialize(void)
     TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
 }
 
+uint8_t TMR0_ReadTimer(void)
+{
+    uint8_t readVal;
 
+    readVal = TMR0;
 
+    return readVal;
+}
 
+void TMR0_WriteTimer(uint8_t timerVal)
+{
+    // Write to the Timer0 register
+    TMR0 = timerVal;
+}
 
+void TMR0_Reload(void)
+{
+    // Write to the Timer0 register
+    TMR0 = timer0ReloadVal;
+}
 
 void TMR0_ISR(void)
 {

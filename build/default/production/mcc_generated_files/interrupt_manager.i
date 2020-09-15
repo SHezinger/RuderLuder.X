@@ -4149,9 +4149,9 @@ void ADC_Initialize(void);
 # 166 "mcc_generated_files/adc.h"
 void ADC_SelectChannel(adc_channel_t channel);
 # 193 "mcc_generated_files/adc.h"
-void ADC_StartConversion();
+void ADC_StartConversion(void);
 # 225 "mcc_generated_files/adc.h"
-_Bool ADC_IsConversionDone();
+_Bool ADC_IsConversionDone(void);
 # 258 "mcc_generated_files/adc.h"
 adc_result_t ADC_GetConversionResult(void);
 # 288 "mcc_generated_files/adc.h"

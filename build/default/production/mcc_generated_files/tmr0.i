@@ -4082,10 +4082,26 @@ void TMR0_Initialize(void)
     TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
 }
 
+uint8_t TMR0_ReadTimer(void)
+{
+    uint8_t readVal;
 
+    readVal = TMR0;
 
+    return readVal;
+}
 
+void TMR0_WriteTimer(uint8_t timerVal)
+{
 
+    TMR0 = timerVal;
+}
+
+void TMR0_Reload(void)
+{
+
+    TMR0 = timer0ReloadVal;
+}
 
 void TMR0_ISR(void)
 {

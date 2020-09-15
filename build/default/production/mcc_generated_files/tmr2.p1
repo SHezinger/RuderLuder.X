@@ -463,3 +463,113 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mcc_generated_files/tmr2.c: 83: }
 [e :UE 314 ]
 }
+"85
+[; ;mcc_generated_files/tmr2.c: 85: void TMR2_StopTimer(void)
+[v _TMR2_StopTimer `(v ~T0 @X0 1 ef ]
+"86
+[; ;mcc_generated_files/tmr2.c: 86: {
+{
+[e :U _TMR2_StopTimer ]
+[f ]
+"88
+[; ;mcc_generated_files/tmr2.c: 88:     T2CONbits.TMR2ON = 0;
+[e = . . _T2CONbits 0 1 -> -> 0 `i `uc ]
+"89
+[; ;mcc_generated_files/tmr2.c: 89: }
+[e :UE 315 ]
+}
+"91
+[; ;mcc_generated_files/tmr2.c: 91: uint8_t TMR2_ReadTimer(void)
+[v _TMR2_ReadTimer `(uc ~T0 @X0 1 ef ]
+"92
+[; ;mcc_generated_files/tmr2.c: 92: {
+{
+[e :U _TMR2_ReadTimer ]
+[f ]
+"93
+[; ;mcc_generated_files/tmr2.c: 93:     uint8_t readVal;
+[v _readVal `uc ~T0 @X0 1 a ]
+"95
+[; ;mcc_generated_files/tmr2.c: 95:     readVal = TMR2;
+[e = _readVal _TMR2 ]
+"97
+[; ;mcc_generated_files/tmr2.c: 97:     return readVal;
+[e ) _readVal ]
+[e $UE 316  ]
+"98
+[; ;mcc_generated_files/tmr2.c: 98: }
+[e :UE 316 ]
+}
+"100
+[; ;mcc_generated_files/tmr2.c: 100: void TMR2_WriteTimer(uint8_t timerVal)
+[v _TMR2_WriteTimer `(v ~T0 @X0 1 ef1`uc ]
+"101
+[; ;mcc_generated_files/tmr2.c: 101: {
+{
+[e :U _TMR2_WriteTimer ]
+"100
+[; ;mcc_generated_files/tmr2.c: 100: void TMR2_WriteTimer(uint8_t timerVal)
+[v _timerVal `uc ~T0 @X0 1 r1 ]
+"101
+[; ;mcc_generated_files/tmr2.c: 101: {
+[f ]
+"103
+[; ;mcc_generated_files/tmr2.c: 103:     TMR2 = timerVal;
+[e = _TMR2 _timerVal ]
+"104
+[; ;mcc_generated_files/tmr2.c: 104: }
+[e :UE 317 ]
+}
+"106
+[; ;mcc_generated_files/tmr2.c: 106: void TMR2_LoadPeriodRegister(uint8_t periodVal)
+[v _TMR2_LoadPeriodRegister `(v ~T0 @X0 1 ef1`uc ]
+"107
+[; ;mcc_generated_files/tmr2.c: 107: {
+{
+[e :U _TMR2_LoadPeriodRegister ]
+"106
+[; ;mcc_generated_files/tmr2.c: 106: void TMR2_LoadPeriodRegister(uint8_t periodVal)
+[v _periodVal `uc ~T0 @X0 1 r1 ]
+"107
+[; ;mcc_generated_files/tmr2.c: 107: {
+[f ]
+"108
+[; ;mcc_generated_files/tmr2.c: 108:    PR2 = periodVal;
+[e = _PR2 _periodVal ]
+"109
+[; ;mcc_generated_files/tmr2.c: 109: }
+[e :UE 318 ]
+}
+"111
+[; ;mcc_generated_files/tmr2.c: 111: _Bool TMR2_HasOverflowOccured(void)
+[v _TMR2_HasOverflowOccured `(a ~T0 @X0 1 ef ]
+"112
+[; ;mcc_generated_files/tmr2.c: 112: {
+{
+[e :U _TMR2_HasOverflowOccured ]
+[f ]
+"114
+[; ;mcc_generated_files/tmr2.c: 114:     _Bool status = PIR1bits.TMR2IF;
+[v _status `a ~T0 @X0 1 a ]
+[e = _status -> . . _PIR1bits 0 1 `a ]
+"115
+[; ;mcc_generated_files/tmr2.c: 115:     if(status)
+[e $ ! != -> _status `i -> 0 `i 320  ]
+"116
+[; ;mcc_generated_files/tmr2.c: 116:     {
+{
+"118
+[; ;mcc_generated_files/tmr2.c: 118:         PIR1bits.TMR2IF = 0;
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+"119
+[; ;mcc_generated_files/tmr2.c: 119:     }
+}
+[e :U 320 ]
+"120
+[; ;mcc_generated_files/tmr2.c: 120:     return status;
+[e ) _status ]
+[e $UE 319  ]
+"121
+[; ;mcc_generated_files/tmr2.c: 121: }
+[e :UE 319 ]
+}

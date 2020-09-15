@@ -4067,3 +4067,41 @@ void TMR2_StartTimer(void)
 
     T2CONbits.TMR2ON = 1;
 }
+
+void TMR2_StopTimer(void)
+{
+
+    T2CONbits.TMR2ON = 0;
+}
+
+uint8_t TMR2_ReadTimer(void)
+{
+    uint8_t readVal;
+
+    readVal = TMR2;
+
+    return readVal;
+}
+
+void TMR2_WriteTimer(uint8_t timerVal)
+{
+
+    TMR2 = timerVal;
+}
+
+void TMR2_LoadPeriodRegister(uint8_t periodVal)
+{
+   PR2 = periodVal;
+}
+
+_Bool TMR2_HasOverflowOccured(void)
+{
+
+    _Bool status = PIR1bits.TMR2IF;
+    if(status)
+    {
+
+        PIR1bits.TMR2IF = 0;
+    }
+    return status;
+}
