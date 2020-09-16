@@ -46,7 +46,7 @@ channel_FVR 31
 [v _setState setState `(v  1 e 1 0 ]
 "187
 [v _main main `(v  1 e 1 0 ]
-"327
+"340
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 "67 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
@@ -297,9 +297,11 @@ channel_FVR 31
 "187 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
+"219
+[v main@dimming dimming `s  1 a 2 40 ]
 "204
 [v main@channel channel `E2388  1 s 1 channel ]
-"322
+"335
 } 0
 "95
 [v _writeFlash writeFlash `(v  1 e 1 0 ]
@@ -376,11 +378,11 @@ channel_FVR 31
 [v ___lldiv@dividend dividend `ul  1 p 4 4 ]
 "30
 } 0
-"327 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
+"340 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\main.c
 [v _setLedsForPositioning setLedsForPositioning `(v  1 e 1 0 ]
 {
 [v setLedsForPositioning@adcValue adcValue `l  1 p 4 0 ]
-"428
+"441
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.20\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
@@ -459,7 +461,7 @@ channel_FVR 31
 "72 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/pwm3.c
 [v _PWM3_LoadDutyValue PWM3_LoadDutyValue `(v  1 e 1 0 ]
 {
-[v PWM3_LoadDutyValue@dutyValue dutyValue `us  1 p 2 4 ]
+[v PWM3_LoadDutyValue@dutyValue dutyValue `us  1 p 2 0 ]
 "79
 } 0
 "115 C:\Users\SHezinger\Desktop\Software\RuderLuder.X\mcc_generated_files/adc.c

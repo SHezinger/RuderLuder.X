@@ -216,8 +216,21 @@ void main(void)
         else
         {    
             //Set brightness
-            PWM3_LoadDutyValue(ADC_GetConversion(channel) *2 - 200);
-            PWM3_LoadDutyValue(0);
+            int16_t dimming = (int16_t)ADC_GetConversion(channel);
+            
+            dimming = (dimming << 1) +24 ;
+             
+            
+            if(dimming > 1000)
+            {
+                dimming = 1000;
+            }
+            else if(dimming < ADC_ABSOLUTE_LOWER_LIMIT)
+            {
+                dimming = ADC_ABSOLUTE_LOWER_LIMIT;
+            }
+            
+            PWM3_LoadDutyValue(dimming);
         }
         
         
