@@ -216,7 +216,8 @@ void main(void)
         else
         {    
             //Set brightness
-            PWM3_LoadDutyValue(ADC_GetConversion(channel));
+            PWM3_LoadDutyValue(ADC_GetConversion(channel) *2 - 200);
+            PWM3_LoadDutyValue(0);
         }
         
         
@@ -238,7 +239,7 @@ void main(void)
         else
         {
             msPressed = 0;
-            outputLed6_SetLow();
+           // outputLed6_SetLow();
         }
         
         

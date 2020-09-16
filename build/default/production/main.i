@@ -4331,7 +4331,8 @@ void main(void)
         else
         {
 
-            PWM3_LoadDutyValue(ADC_GetConversion(channel));
+            PWM3_LoadDutyValue(ADC_GetConversion(channel) *2 - 200);
+            PWM3_LoadDutyValue(0);
         }
 
 
@@ -4353,7 +4354,7 @@ void main(void)
         else
         {
             msPressed = 0;
-            do { LATCbits.LATC5 = 0; } while(0);
+
         }
 
 
