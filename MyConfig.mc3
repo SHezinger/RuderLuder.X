@@ -1,24 +1,24 @@
 <config configVersion="1.1" device="PIC16F1507" coreVersion="5.0.1">
    <usedClasses class="java.util.HashMap">
       <entry>
-         <string>System Module</string>
-         <string>class com.microchip.mcc.mcu8.systemManager.SystemManager</string>
+         <string>TMR0</string>
+         <string>class com.microchip.mcc.mcu8.modules.tmr0.TMR0</string>
       </entry>
       <entry>
          <string>ADC</string>
          <string>class com.microchip.mcc.mcu8.modules.adc.ADC</string>
       </entry>
       <entry>
-         <string>TMR0</string>
-         <string>class com.microchip.mcc.mcu8.modules.tmr0.TMR0</string>
-      </entry>
-      <entry>
-         <string>MEMORY</string>
-         <string>class com.microchip.mcc.mcu8.modules.memory.MEMORY</string>
+         <string>System Module</string>
+         <string>class com.microchip.mcc.mcu8.systemManager.SystemManager</string>
       </entry>
       <entry>
          <string>INTERNAL OSCILLATOR</string>
          <string>class com.microchip.mcc.mcu8.systemManager.osc.Osc</string>
+      </entry>
+      <entry>
+         <string>MEMORY</string>
+         <string>class com.microchip.mcc.mcu8.modules.memory.MEMORY</string>
       </entry>
       <entry>
          <string>WDT</string>
@@ -2067,7 +2067,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="System Module" registerAlias="CONFIG1" settingAlias="CP"/>
-         <value>OFF</value>
+         <value>ON</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PWM3" name="pwmFreq"/>
@@ -2359,7 +2359,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="System Module" registerAlias="CONFIG1"/>
-         <value>3808</value>
+         <value>3680</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="TMR2" name="timerstart"/>
@@ -3156,16 +3156,16 @@
    </tokenMap>
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
-         <file>mcc_generated_files\interrupt_manager.h</file>
-         <hash>25aa7e786fa03a6f152bbdba5ae75346dc95e88cf5e1d68f5f6981274dd5cb19</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\mcc.h</file>
          <hash>45471c6a4ea7163d8432c600ca72b5597a21d5bdf02c22ce377820f2b0d8602b</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\device_config.h</file>
          <hash>3ce10e79a600e8c78dfc2bc6c05310b918e1f11dd449cce64046e35b1b00db0a</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\interrupt_manager.h</file>
+         <hash>25aa7e786fa03a6f152bbdba5ae75346dc95e88cf5e1d68f5f6981274dd5cb19</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\memory.c</file>
@@ -3181,7 +3181,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\device_config.c</file>
-         <hash>6765e63c1eb73d4eb8eee1cfdec4cb3ea91fc7ae111d8e5e86d8361ea3f7ea63</hash>
+         <hash>1a947de93c7c2a80afa3d775be0d3f85a65f723f39c510074dff9b9371841a0f</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\tmr2.h</file>
@@ -3216,12 +3216,12 @@
          <hash>f1f9ecbd929a7a14b138f05416a9e040e3230e500976e8437001a07157ba9ad8</hash>
       </entry>
       <entry>
-         <file>mcc_generated_files\interrupt_manager.c</file>
-         <hash>28d7cc729467e6209bc4a1aad9592aa621a3a198888b824852ad0cc645270ec4</hash>
-      </entry>
-      <entry>
          <file>mcc_generated_files\mcc.c</file>
          <hash>0c643eb8171aa6b92a6e761f0f61035d71e122b0fdf9a4300a825e93720b746b</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\interrupt_manager.c</file>
+         <hash>28d7cc729467e6209bc4a1aad9592aa621a3a198888b824852ad0cc645270ec4</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\memory.h</file>

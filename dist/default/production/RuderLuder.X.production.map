@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files\Microchip\xc8\v2.20\pic\dat\en_msgs.txt -cn \
   -h+dist/default/production\RuderLuder.X.production.sym \
   --cmf=dist/default/production\RuderLuder.X.production.cmf -z -Q16F1507 \
-  -oC:\Users\SHEZIN~1\AppData\Local\Temp\saq0.2 --defsym=__MPLAB_BUILD=1 \
+  -oC:\Users\SHEZIN~1\AppData\Local\Temp\sd1c.2 --defsym=__MPLAB_BUILD=1 \
   -Mdist/default/production/RuderLuder.X.production.map -E1 \
   -ver=XC8 Compiler --acfsm=1493 -ASTACK=0204Ah-0206Fh -pstack=STACK \
   -ACODE=00h-07EFh -ASTRCODE=00h-07EFh -ASTRING=00h-0FFhx7,0700h-07EFh \
@@ -26,7 +26,7 @@ Linker command line:
   -ACONFIG=08007h-08008h -DCONFIG=2 -AIDLOC=08000h-08003h -DIDLOC=2 \
   -preset_vec=00h,intentry=04h,init,end_init -ppowerup=CODE -pcinit=CODE \
   -pfunctab=ENTRY -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 -DENTRY=2 -k \
-  C:\Users\SHEZIN~1\AppData\Local\Temp\saq0.o \
+  C:\Users\SHEZIN~1\AppData\Local\Temp\sd1c.o \
   dist/default/production\RuderLuder.X.production.o 
 
 Object code version is 3.11
@@ -36,7 +36,7 @@ Machine type is 16F1507
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\SHEZIN~1\AppData\Local\Temp\saq0.o
+C:\Users\SHEZIN~1\AppData\Local\Temp\sd1c.o
                 end_init                              C        C        1        8       0
                 reset_vec                             0        0        2        0       0
                 config                             8007     8007        2        0       4

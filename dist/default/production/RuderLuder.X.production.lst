@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.20 build 20200408173844 
-                                                                                               Wed Sep 16 14:05:11 2020
+                                                                                               Thu Sep 17 16:20:23 2020
 
 Microchip MPLAB XC8 C Compiler v2.20 (Free license) build 20200408173844 Og9 
      1                           	processor	16F1507
@@ -5199,14 +5199,14 @@ Microchip MPLAB XC8 C Compiler v2.20 (Free license) build 20200408173844 Og9
   5152                           ;	MCLR Pin Function Select
   5153                           ;	MCLRE = ON, MCLR/VPP pin function is MCLR
   5154                           ;	Flash Program Memory Code Protection
-  5155                           ;	CP = OFF, Program memory code protection is disabled
+  5155                           ;	CP = ON, Program memory code protection is enabled
   5156                           ;	Brown-out Reset Enable
   5157                           ;	BOREN = ON, Brown-out Reset enabled
   5158                           ;	Clock Out Enable
   5159                           ;	CLKOUTEN = OFF, CLKOUT function is disabled. I/O or oscillator function on the CLKOUT 
       +                          pin
   5160  8007                     	org	32775
-  5161  8007  3FE4               	dw	16356
+  5161  8007  3F64               	dw	16228
   5162                           
   5163                           ;Config register CONFIG2 @ 0x8008
   5164                           ;	Flash Memory Self-Write Protection
@@ -5521,7 +5521,7 @@ SFR31                0      0       0      32        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.20 build 20200408173844 
-Symbol Table                                                                                   Wed Sep 16 14:05:11 2020
+Symbol Table                                                                                   Thu Sep 17 16:20:23 2020
 
                                        _b 0052                                         _m 005E  
                                       l34 05CD                           _timer0ReloadVal 0069  
