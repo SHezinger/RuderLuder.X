@@ -350,93 +350,168 @@ void setLedsForPositioning(int32_t adcValue)
     outputLed9_SetLow();
     outputLed10_SetLow();
     outputLed11_SetLow();
-
-
-
-    if(adcValue < 54)
+    
+    if(adcValue < 93)
     {  
         outputLed1_SetHigh();
-    }
-    else if(adcValue < 108)
-    {
-        outputLed1_SetHigh();
         outputLed2_SetHigh();
-    }
-    else if(adcValue < 162)
-    {
-        outputLed2_SetHigh();
-    }
-    else if(adcValue < 215)
-    {
-        outputLed2_SetHigh();
-        outputLed3_SetHigh();                       
-    }
-    else if(adcValue < 269)
-    {
-        outputLed3_SetHigh();                       
-    }
-    else if(adcValue < 323)
-    {
-        outputLed3_SetHigh();                       
+        outputLed3_SetHigh();
         outputLed4_SetHigh();
+        outputLed5_SetHigh();
+        outputLed6_SetHigh();
     }
-    else if(adcValue < 377)
+    else if(adcValue < 186)
+    {
+        outputLed2_SetHigh();
+        outputLed3_SetHigh();
+        outputLed4_SetHigh();
+        outputLed5_SetHigh();
+        outputLed6_SetHigh();
+    }
+    else if(adcValue < 279)
+    {
+        outputLed3_SetHigh();
+        outputLed4_SetHigh();
+        outputLed5_SetHigh();
+        outputLed6_SetHigh();
+    }
+    else if(adcValue < 372)
+    {
+        outputLed4_SetHigh();
+        outputLed5_SetHigh();
+        outputLed6_SetHigh();                      
+    }
+    else if(adcValue < 465)
+    {
+        outputLed5_SetHigh();
+        outputLed6_SetHigh();                      
+    }
+    else if(adcValue < 558)     //Center
+    {
+        outputLed6_SetHigh();
+    }
+    else if(adcValue < 651)
     {                    
-        outputLed4_SetHigh();
+        outputLed6_SetHigh();
+        outputLed7_SetHigh();
     }
-    else if(adcValue < 431)
+    else if(adcValue < 744)
     {                   
-        outputLed4_SetHigh();
-        outputLed5_SetHigh(); 
-    }
-    else if(adcValue < 485)
-    {
-        outputLed5_SetHigh(); 
-    }
-    else if(adcValue < 538)         //Center
-    {
-
-    }
-    else if(adcValue < 592)         
-    {
-        outputLed7_SetHigh();
-    }
-    else if(adcValue < 646)         
-    {
+        outputLed6_SetHigh();
         outputLed7_SetHigh();
         outputLed8_SetHigh();
     }
-    else if(adcValue < 700)         
+    else if(adcValue < 837)
     {
-        outputLed8_SetHigh();
-    }
-    else if(adcValue < 754)         
-    {
+        outputLed6_SetHigh();
+        outputLed7_SetHigh();
         outputLed8_SetHigh();
         outputLed9_SetHigh();
     }
-    else if(adcValue < 808)         
+    else if(adcValue < 930)         
     {
+        outputLed6_SetHigh();
+        outputLed7_SetHigh();
+        outputLed8_SetHigh();
         outputLed9_SetHigh();
-    }
-    else if(adcValue < 861)         
-    {
-        outputLed9_SetHigh();
         outputLed10_SetHigh();
-    }
-    else if(adcValue < 915)         
-    {
-        outputLed10_SetHigh();
-    }
-    else if(adcValue < 969)         
-    {
-        outputLed10_SetHigh();
-        outputLed11_SetHigh();
     }
     else   
     {
+        outputLed6_SetHigh();
+        outputLed7_SetHigh();
+        outputLed8_SetHigh();
+        outputLed9_SetHigh();
+        outputLed10_SetHigh();
         outputLed11_SetHigh();
     }
+
+
+
+//    if(adcValue < 54)
+//    {  
+//        outputLed1_SetHigh();
+//    }
+//    else if(adcValue < 108)
+//    {
+//        outputLed1_SetHigh();
+//        outputLed2_SetHigh();
+//    }
+//    else if(adcValue < 162)
+//    {
+//        outputLed2_SetHigh();
+//    }
+//    else if(adcValue < 215)
+//    {
+//        outputLed2_SetHigh();
+//        outputLed3_SetHigh();                       
+//    }
+//    else if(adcValue < 269)
+//    {
+//        outputLed3_SetHigh();                       
+//    }
+//    else if(adcValue < 323)
+//    {
+//        outputLed3_SetHigh();                       
+//        outputLed4_SetHigh();
+//    }
+//    else if(adcValue < 377)
+//    {                    
+//        outputLed4_SetHigh();
+//    }
+//    else if(adcValue < 431)
+//    {                   
+//        outputLed4_SetHigh();
+//        outputLed5_SetHigh(); 
+//    }
+//    else if(adcValue < 485)
+//    {
+//        outputLed5_SetHigh(); 
+//    }
+//    else if(adcValue < 538)         //Center
+//    {
+//
+//    }
+//    else if(adcValue < 592)         
+//    {
+//        outputLed7_SetHigh();
+//    }
+//    else if(adcValue < 646)         
+//    {
+//        outputLed7_SetHigh();
+//        outputLed8_SetHigh();
+//    }
+//    else if(adcValue < 700)         
+//    {
+//        outputLed8_SetHigh();
+//    }
+//    else if(adcValue < 754)         
+//    {
+//        outputLed8_SetHigh();
+//        outputLed9_SetHigh();
+//    }
+//    else if(adcValue < 808)         
+//    {
+//        outputLed9_SetHigh();
+//    }
+//    else if(adcValue < 861)         
+//    {
+//        outputLed9_SetHigh();
+//        outputLed10_SetHigh();
+//    }
+//    else if(adcValue < 915)         
+//    {
+//        outputLed10_SetHigh();
+//    }
+//    else if(adcValue < 969)         
+//    {
+//        outputLed10_SetHigh();
+//        outputLed11_SetHigh();
+//    }
+//    else   
+//    {
+//        outputLed11_SetHigh();
+//    }
     
 }
 

@@ -4466,91 +4466,79 @@ void setLedsForPositioning(int32_t adcValue)
     do { LATBbits.LATB6 = 0; } while(0);
     do { LATBbits.LATB7 = 0; } while(0);
 
-
-
-    if(adcValue < 54)
-    {
-        do { LATCbits.LATC0 = 1; } while(0);
-    }
-    else if(adcValue < 108)
+    if(adcValue < 93)
     {
         do { LATCbits.LATC0 = 1; } while(0);
         do { LATCbits.LATC1 = 1; } while(0);
+        do { LATCbits.LATC2 = 1; } while(0);
+        do { LATCbits.LATC3 = 1; } while(0);
+        do { LATCbits.LATC4 = 1; } while(0);
+        do { LATCbits.LATC5 = 1; } while(0);
     }
-    else if(adcValue < 162)
-    {
-        do { LATCbits.LATC1 = 1; } while(0);
-    }
-    else if(adcValue < 215)
+    else if(adcValue < 186)
     {
         do { LATCbits.LATC1 = 1; } while(0);
         do { LATCbits.LATC2 = 1; } while(0);
+        do { LATCbits.LATC3 = 1; } while(0);
+        do { LATCbits.LATC4 = 1; } while(0);
+        do { LATCbits.LATC5 = 1; } while(0);
     }
-    else if(adcValue < 269)
-    {
-        do { LATCbits.LATC2 = 1; } while(0);
-    }
-    else if(adcValue < 323)
+    else if(adcValue < 279)
     {
         do { LATCbits.LATC2 = 1; } while(0);
         do { LATCbits.LATC3 = 1; } while(0);
+        do { LATCbits.LATC4 = 1; } while(0);
+        do { LATCbits.LATC5 = 1; } while(0);
     }
-    else if(adcValue < 377)
-    {
-        do { LATCbits.LATC3 = 1; } while(0);
-    }
-    else if(adcValue < 431)
+    else if(adcValue < 372)
     {
         do { LATCbits.LATC3 = 1; } while(0);
         do { LATCbits.LATC4 = 1; } while(0);
+        do { LATCbits.LATC5 = 1; } while(0);
     }
-    else if(adcValue < 485)
+    else if(adcValue < 465)
     {
         do { LATCbits.LATC4 = 1; } while(0);
+        do { LATCbits.LATC5 = 1; } while(0);
     }
-    else if(adcValue < 538)
+    else if(adcValue < 558)
     {
-
+        do { LATCbits.LATC5 = 1; } while(0);
     }
-    else if(adcValue < 592)
+    else if(adcValue < 651)
     {
+        do { LATCbits.LATC5 = 1; } while(0);
         do { LATCbits.LATC6 = 1; } while(0);
     }
-    else if(adcValue < 646)
+    else if(adcValue < 744)
     {
+        do { LATCbits.LATC5 = 1; } while(0);
         do { LATCbits.LATC6 = 1; } while(0);
         do { LATCbits.LATC7 = 1; } while(0);
     }
-    else if(adcValue < 700)
+    else if(adcValue < 837)
     {
-        do { LATCbits.LATC7 = 1; } while(0);
-    }
-    else if(adcValue < 754)
-    {
+        do { LATCbits.LATC5 = 1; } while(0);
+        do { LATCbits.LATC6 = 1; } while(0);
         do { LATCbits.LATC7 = 1; } while(0);
         do { LATBbits.LATB5 = 1; } while(0);
     }
-    else if(adcValue < 808)
+    else if(adcValue < 930)
     {
+        do { LATCbits.LATC5 = 1; } while(0);
+        do { LATCbits.LATC6 = 1; } while(0);
+        do { LATCbits.LATC7 = 1; } while(0);
         do { LATBbits.LATB5 = 1; } while(0);
-    }
-    else if(adcValue < 861)
-    {
-        do { LATBbits.LATB5 = 1; } while(0);
         do { LATBbits.LATB6 = 1; } while(0);
-    }
-    else if(adcValue < 915)
-    {
-        do { LATBbits.LATB6 = 1; } while(0);
-    }
-    else if(adcValue < 969)
-    {
-        do { LATBbits.LATB6 = 1; } while(0);
-        do { LATBbits.LATB7 = 1; } while(0);
     }
     else
     {
+        do { LATCbits.LATC5 = 1; } while(0);
+        do { LATCbits.LATC6 = 1; } while(0);
+        do { LATCbits.LATC7 = 1; } while(0);
+        do { LATBbits.LATB5 = 1; } while(0);
+        do { LATBbits.LATB6 = 1; } while(0);
         do { LATBbits.LATB7 = 1; } while(0);
     }
-
+# 516 "main.c"
 }
